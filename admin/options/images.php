@@ -110,9 +110,10 @@ switch ($task) {
 }
 
 /**
-* Compiles a list of records
-* @param database $option A database connector object
-*/
+ * Compiles a list of records
+ * @param database $option A database connector object
+ * @throws Exception
+ */
 function showImages( $option ) {
 	global $mosConfig_list_limit;
 	$mainframe = JFactory::getApplication();
@@ -172,9 +173,11 @@ function showImages( $option ) {
 }
 
 /**
-* Compiles information to add or edit
-* @param integer The unique id of the record to edit (0 if new)
-*/
+ * Compiles information to add or edit
+ * @param string $option
+ * @param int $id The unique id of the record to edit (0 if new)
+ * @throws Exception
+ */
 function editImage( $option, $id ) {
     global $rsgOption;
 	$my = JFactory::getUser();
@@ -263,8 +266,10 @@ foreach( $fields AS $field => $obj ){
 
 /**
 * Saves the record on an edit form submit
-* @param database A database connector object
-*/
+ * @param string $option
+ * @param bool $redirect
+ * @throws Exception
+ */
 function saveImage( $option, $redirect = true ) {
 	global  $rsgOption;
 	$mainframe = JFactory::getApplication();
@@ -355,10 +360,11 @@ function saveImage( $option, $redirect = true ) {
 }
 
 /**
-* Deletes one or more records
-* Deletes the sister images in pathes original, display, thumb and watermark  too
-* @param array An array of unique category id numbers
-* @param string The current url option
+ * Deletes one or more records
+ * Deletes the sister images in pathes original, display, thumb and watermark  too
+ * @param array $cid An array of unique category id numbers
+ * @param string $option The current url option
+ * @throws Exception
 */
 function removeImages( $cid, $option ) {
 	global  $rsgOption, $rsgConfig;
@@ -439,10 +445,11 @@ function removeImages( $cid, $option ) {
 }
 
 /**
-* Moves one or more items (images) to another gallery, ordering each item as the last one.
-* @param array An array of unique category id numbers
-* @param string The current url option
-*/
+ * Moves one or more items (images) to another gallery, ordering each item as the last one.
+ * @param array $cid An array of unique category id numbers
+ * @param string $option The current url option
+ * @throws Exception
+ */
 function moveImages( $cid, $option ) {
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
@@ -477,11 +484,12 @@ function moveImages( $cid, $option ) {
 }
 
 /**
-* Publishes or Unpublishes one or more records
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The current url option
-*/
+ * Publishes or Unpublishes one or more records
+ * @param array $cid An array of unique category id numbers
+ * @param int $publish 0 if unpublishing, 1 if publishing
+ * @param string $option The current url option
+ * @throws Exception
+ */
 function publishImages( $cid=null, $publish=1,  $option ) {
 	global  $rsgOption;
 	$mainframe = JFactory::getApplication();
@@ -514,9 +522,12 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 	$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=$rsgOption" );
 }
 /**
-* Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * Moves the order of a record
+ * @param int $uid
+ * @param $inc The increment to reorder by
+ * @param $option
+ * @throws Exception
+ */
 function orderImages( $uid, $inc, $option ) {
 	global  $rsgOption;
 	$mainframe = JFactory::getApplication();
@@ -530,9 +541,10 @@ function orderImages( $uid, $inc, $option ) {
 }
 
 /**
-* Cancels an edit operation
-* @param string The current url option
-*/
+ * Cancels an edit operation
+ * @param string $option The current url option
+ * @throws Exception
+ */
 function cancelImage( $option ) {
 	global $rsgOption;
 	$mainframe = JFactory::getApplication();
@@ -550,6 +562,7 @@ function cancelImage( $option ) {
 
 /**
  * Uploads single images
+ * @param string $option
  */
 function uploadImage( $option ) {
 	$database = JFactory::getDBO();
@@ -566,6 +579,10 @@ function uploadImage( $option ) {
 	html_rsg2_images::uploadImage( $lists, $option );
 }
 
+/**
+ * @param $option
+ * @throws Exception
+ */
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption;
 	$mainframe = JFactory::getApplication();
@@ -627,8 +644,9 @@ function saveUploadedImage( $option ) {
 
 /**
  * Resets hits to zero
- * @param array image id's
+ * @param array $cid image id's
  * @todo Warn user with alert before actually deleting
+ * @throws Exception
  */
 function resetHits ( &$cid ) {
 	$mainframe = JFactory::getApplication();
@@ -650,6 +668,10 @@ function resetHits ( &$cid ) {
 	$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images" );
 }
 
+/**
+ * @param $cid
+ * @throws Exception
+ */
 function saveOrder( &$cid ) {
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
@@ -700,10 +722,11 @@ function saveOrder( &$cid ) {
 } // saveOrder
 
 /**
-* Copies one or more items (images) to the selected gallery, ordering each item as the last one.
-* @param array An array of unique category id numbers
-* @param string The current url option
-*/
+ * Copies one or more items (images) to the selected gallery, ordering each item as the last one.
+ * @param array $cid An array of unique category id numbers
+ * @param string $option The current url option
+ * @throws Exception
+ */
 function copyImage( $cid, $option ) {
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
@@ -774,6 +797,10 @@ function copyImage( $cid, $option ) {
 	}
 }
 
+/**
+ * @param string $option
+ * @throws Exception
+ */
 function batchupload($option) {
 	global $rsgConfig;
 	$database  = JFactory::getDBO();
@@ -853,6 +880,9 @@ function batchupload($option) {
 	}
 }//End function
 
+/**
+ * @throws Exception
+ */
 function save_batchupload() {
     global  $rsgConfig;
 	$mainframe = JFactory::getApplication();

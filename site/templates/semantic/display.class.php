@@ -14,18 +14,23 @@ defined( '_JEXEC' ) or die();
  */
 class rsgDisplay_semantic extends rsgDisplay{
 
+	/**
+	 *
+	 */
 	function inline(){
 		$this->display( 'inline.php' );
 	}
 
 	/**
 	* Show main gallery page
-	*/
+	 * @throws Exception
+	 */
 	function showMainGalleries() {
 		global $rsgConfig;
 		$app = JFactory::getApplication();
 		
-		$gallery =  rsgInstance::getGallery();
+		// $gallery =  rsgInstance::getGallery(); deprecated
+		$gallery = rsgGalleryManager::get();
 		$this->gallery = $gallery;
 		
 		//Get values for page navigation from URL
@@ -61,6 +66,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	***************************/
 	/**
 	 * Shows the gallery details block when set in the backend
+	 * @param $kid
 	 */
 	function _showGalleryDetails( $kid ) {
 		global $rsgConfig;
@@ -200,6 +206,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 
 	/**
 	 * Shows thumbnails for gallery
+	 * @throws Exception
 	 */
 	function showThumbs() {
 		global $rsgConfig;
@@ -256,11 +263,13 @@ class rsgDisplay_semantic extends rsgDisplay{
     
     /**
      * Shows main item
-     */
+	 */
 	function showItem(){
 		global $rsgConfig;
 		
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 
     	// increase hit counter
 		if (is_object($item)){	//Can this be achieved in a better way? When an item is unpublished (there is no $item object) a user gets a "Call to a member function hit() on a non-object" error without this check. With Joomla SEF we get a Notice "Could not find an image with image id ." (without the id number) and without Joomla SEF we get a blank page?!
@@ -291,6 +300,7 @@ class rsgDisplay_semantic extends rsgDisplay{
  
 	/**
 	 * Show page navigation for Display image
+	 * @throws Exception
 	 */
 	function showDisplayPageNav() {//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
@@ -313,7 +323,9 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// set the limitstart so the pagination knows what page to start from
 			$itemIndex = $gallery->indexOfItem($itemId);
 			$router->setVar("limitstart", $itemIndex);
-			JRequest::setVar('limitstart', $itemIndex);
+			// Todo: 150130
+			// JRequest::setVar('limitstart', $itemIndex);
+			$input->set ('limitstart', $itemIndex);
 		}
 
 		$pageNav = $gallery->getPagination();	
@@ -384,8 +396,10 @@ class rsgDisplay_semantic extends rsgDisplay{
      */
 	function _showDescription( ) {
 		global $rsgConfig;
-		$item = rsgInstance::getItem();
-		
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
+
 		if( $rsgConfig->get('displayHits')):
 		?>
 		<p class="rsg2_hits"><?php echo JText::_('COM_RSGALLERY2_HITS'); ?> <span><?php echo $item->hits; ?></span></p>
@@ -402,7 +416,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 	
 	/**
 	* list sub galleries in a gallery
-	* @param rsgGallery parent gallery
+	* @param rsgGallery $parent gallery
 	*/
 	function _subGalleryList( $parent ){
 		global $rsgConfig;

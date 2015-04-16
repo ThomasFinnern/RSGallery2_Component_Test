@@ -39,7 +39,10 @@ class InstallerModelTemplate extends InstallerModel
 		// Set state variables from the request
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
-	
+
+	/**
+	 * @return object|stdClass
+	 */
 	function getItem()
 	{
 		jimport('joomla.filesystem.path');
@@ -89,6 +92,7 @@ class InstallerModelTemplate extends InstallerModel
 	/**
 	 * Updates the template parameter file
 	 * @access protected
+	 * @throws Exception
 	 */
 	function update(){
 		

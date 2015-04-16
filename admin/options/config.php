@@ -65,6 +65,9 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 	}	//end of task switch
 }
 
+/**
+ *
+ */
 function config_dumpVars(){
     global $rsgConfig;
 
@@ -75,6 +78,9 @@ function config_dumpVars(){
     echo '</pre>';
 }
 
+/**
+ * @param bool $save
+ */
 function config_rawEdit( $save=false ){
     if( $save ){
         // save
@@ -85,6 +91,7 @@ function config_rawEdit( $save=false ){
 
 /**
  * @todo if thumbname size has changed, advise user to regenerate thumbs
+ * @throws Exception
  */
 function saveConfig(){
     global $rsgConfig;
@@ -105,6 +112,9 @@ function saveConfig(){
     
 }
 
+/**
+ *
+ */
 function showConfig(){
     global $rsgConfig;
 
@@ -141,6 +151,11 @@ function showConfig(){
 
     html_rsg2_config::showconfig( $lists );
 }
+
+/**
+ * @param string $option
+ * @throws Exception
+ */
 function cancelConfig( $option ) {
 	$mainframe =& JFactory::getApplication();
 	$mainframe->redirect("index.php?option=$option");

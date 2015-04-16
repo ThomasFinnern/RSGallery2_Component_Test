@@ -14,11 +14,12 @@ class Rsgallery2Controller extends JControllerLegacy
 {
     // protected $default_view = 'rsg2s';
     
-    /**
-     * display task
-     *
-     * @return void
-     */
+	/**
+	 * display task
+	 * @param bool $cachable
+	 * @param bool $urlparams
+	 * @return $this
+	 */
 	public function display($cachable = false, $urlparams = false)
 	{
 

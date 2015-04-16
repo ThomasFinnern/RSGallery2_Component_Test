@@ -31,9 +31,9 @@ class JFormFieldGallerynoroot extends JFormFieldList
 	/**
 	 * Method to get a list of options for a list input.
 	 *
-	 * @return      array           An array of JHtml options.
+	 * @return  string array           An array of JHtml options.
 	 */
-	protected function getOptions() 
+	protected function getOptions()
 	{	
 		$db = JFactory::getDBO();
 		//Get galleries for optionlist from database

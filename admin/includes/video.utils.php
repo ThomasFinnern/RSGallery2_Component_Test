@@ -18,6 +18,9 @@ require_once( $rsgClasses_path . 'file.utils.php' );
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class videoUtils extends fileUtils{
+	/**
+	 * @return string array
+	 */
     static function allowedFileTypes(){
 		global $rsgConfig;
 		
@@ -33,8 +36,8 @@ class videoUtils extends fileUtils{
     
     /**
       * thumb and display are resized into jpeg of first frame of video
-      * @param string name of original image
-      * @return filename of image
+      * @param string $name name of original image
+      * @return string filename of image
       */
     static function getImgNameThumb($name){
         return $name . '.jpg';
@@ -42,8 +45,8 @@ class videoUtils extends fileUtils{
     
     /**
       * thumb and display are resized into jpeg of first frame of video
-      * @param string name of original image
-      * @return filename of image
+      * @param string $name name of original image
+      * @return string filename of image
       */
     static function getImgNameDisplay($name){
 		global $rsgConfig;
@@ -60,13 +63,13 @@ class videoUtils extends fileUtils{
     
     /**
      * Takes an image file, moves the file and adds database entry
-     * @param the verified REAL name of the local file including path
-     * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
-     * @param title of image, if empty will be created from $name
-     * @param description of image, if empty will remain empty
+     * @param string $tmpName the verified REAL name of the local file including path
+     * @param string $name name of file according to user/browser or just the name excluding path
+     * @param string $cat ? int ? desired category ?
+     * @param string $title title of image, if empty will be created from $name
+     * @param string $desc description of image, if empty will remain empty
      * @todo deleteImage (video)
-     * @return returns true if successfull otherwise returns an ImageUploadError
+     * @return bool|imageUploadError|string|true returns true if successfull otherwise returns an ImageUploadError
      */
     static function importImage($tmpName, $name, $cat, $title='', $desc='') {
         global $rsgConfig;
@@ -169,22 +172,22 @@ class videoUtils extends fileUtils{
 class genericVideoLib{
     /**
      * video conversion to flv function
-     * @param string full path of source video
-     * @param string full path of target video (FLV)
-     * @return true if successfull, notice and false if error
-     * @todo not final yet
+     * @param string $source full path of source video
+     * @param string $target full path of target video (FLV)
+     * @return bool true if successfull, notice and false if error
+     * @todo not final yet (No code)
      */
-    static function convertVideo($source, $target){	
+    static function convertVideo($source, $target){
 		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		return false;
     }
 
 	/**
      * preview image capture function
-     * @param string full path of source video
-     * @param string full path of target image (PNG)
-     * @return true if successfull, notice and false if error
-     * @todo not final yet
+     * @param string $source full path of source video
+     * @param string $target full path of target image (PNG)
+     * @return bool true if successfull, notice and false if error
+     * @todo not final yet (No code)
      */
     static function capturePreviewImage($source, $target){
 		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
@@ -192,7 +195,7 @@ class genericVideoLib{
     }    
     /**
       * detects if image library is available
-      * @return false if not detected, user friendly string of library name and version if detected
+      * @return true false if not detected, user friendly string of library name and version if detected
       */
     static function detect(){
         return false;
@@ -205,9 +208,9 @@ class genericVideoLib{
 class Ffmpeg extends genericVideoLib{
     /**
      * video conversion to flv function
-     * @param string full path of source video
-     * @param string full path of target video (FLV)
-     * @return true if successfull, notice and false if error
+     * @param string $source full path of source video
+     * @param string $target full path of target video (FLV)
+     * @return bool true if successfull, notice and false if error
      * @todo not final yet
      */
     static function convertVideo($source, $target){
@@ -239,9 +242,9 @@ class Ffmpeg extends genericVideoLib{
     
     /**
      * preview image capture function
-     * @param string full path of source video
-     * @param string full path of target image (PNG)
-     * @return true if successfull, notice and false if error
+     * @param string  $source full path of source video
+     * @param string $target full path of target image (PNG)
+     * @return bool true if successfull, notice and false if error
      * @todo not final yet
      */
     static function capturePreviewImage($source, $target){
@@ -273,8 +276,11 @@ class Ffmpeg extends genericVideoLib{
 
     /**
       * detects if image library is available
-      * @return false if not detected, user friendly string of library name and version if detected
-      */
+	 * @param string $shell_cmd
+	 * @param string $output
+	 * @param string $status
+	 * @return bool false if not detected, user friendly string of library name and version if detected
+	 */
     static function detect($shell_cmd = '', $output = '', $status = ''){
 
 		global $rsgConfig;

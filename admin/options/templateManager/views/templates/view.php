@@ -22,6 +22,9 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewTemplates extends InstallerViewDefault
 {
+	/**
+	 * @param null $tpl
+	 */
 	function display($tpl=null)
 	{
 		/*
@@ -44,6 +47,9 @@ class InstallerViewTemplates extends InstallerViewDefault
 		parent::display($tpl);
 	}
 
+	/**
+	 * @param int $index
+	 */
 	function loadItem($index=0)
 	{
 		$item =& $this->items[$index];
@@ -59,6 +65,10 @@ class InstallerViewTemplates extends InstallerViewDefault
 		}
 		$item->author_information = @$item->authorEmail .'<br />'. @$item->authorUrl;
 
-		$this->assignRef('item', $item);
+		// $this->assignRef('item', $item);
+		//   function assignRef($key, &$val)
+		//      if (is_string($key) && substr($key, 0, 1) != '_')
+		//      	$this->$key = &$val;
+		$this->item = $item;
 	}
 }

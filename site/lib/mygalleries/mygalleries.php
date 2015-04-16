@@ -101,7 +101,7 @@ function showMyGalleries() {
 	jimport('joomla.html.pagination');	
 	//Set limits for pagenav (remembering the pages with getUserSTateFromRequest), total comes later
 	$limit 		= $mainframe->getUserStateFromRequest('global.list.limit',
-'limit', $mainframe->getCfg('list_limit'), 'int'); 	
+						'limit', $mainframe->get('list_limit'), 'int');
 	$limitstart = $mainframe->getUserStateFromRequest( 'limitstart', 'limitstart', 0, 'int' );
 
 	//This query gets all the images (ordering: galleries ordering then files ordering)
@@ -243,8 +243,8 @@ function saveItem() {
 	$row->title 	= $input->get( 'title', '', 'STRING');
 		
 	//$row->descr 	= JRequest::getVar( 'descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW);
-	//$row->descr = $input->post->get('descr', '', RAW);
-	$row->descr 	= str_replace( '<br>', '<br />', $row->descr );
+	$row->descr = $input->post->get('descr', '', 'RAW');
+	$row->descr = str_replace( '<br>', '<br />', $row->descr );
 	//$row->gallery_id= JRequest::getInt( 'gallery_id'  , '');
 	$row->gallery_id= $input->get( 'gallery_id', 0, 'INT');		
 
@@ -313,7 +313,7 @@ function saveUploadedItem() {
 		//$title = JRequest::getString( 'title'  , '');
 		$title = $input->get( 'title', '', 'STRING');
 		//$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		$descr = $input->post->get('desc', '', RAW); 
+		$descr = $input->post->get('desc', '', 'RAW');
 
 		//$uploader = JRequest::getVar( 'uploader'  , ''); //No longer used in 3.1.0
 		
@@ -477,10 +477,28 @@ function saveCat($gid) {
 			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
+
 		//Description: html is allowed
+		/* ToDo: May be used to write unwanted code into database
+		Check if raw data may be replaced by Jinput with filter
+		see below
+
+		$input_options = JFilterInput::getInstance(
+			array(
+				'img','p','a','u','i','b','strong','span','div','ul','li','ol','h1','h2','h3','h4','h5',
+				'table','tr','td','th','tbody','theader','tfooter','br'
+			),
+			array(
+				'src','width','height','alt','style','href','rel','target','align','valign','border','cellpading',
+				'cellspacing','title','id','class'
+			)
+		);
+
+		$postData = new JInput($_POST, array('filter' => $input_options));
+		 */
 		//$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
 		$input =JFactory::getApplication()->input;
-		$row->description = $input->post->get('description', $default, RAW); 
+		$row->description = $input->post->get('description', '', 'RAW');
 
 		//Code cleaner for xhtml transitional compliance 
 		$row->description = str_replace( '<br>', '<br />', $row->description );

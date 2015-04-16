@@ -28,6 +28,7 @@ class InstallerModelEditHtml extends InstallerModel
 	/**
 	 * Overridden constructor
 	 * @access	protected
+	 * @throws Exception
 	 */
 	function __construct()
 	{
@@ -39,7 +40,10 @@ class InstallerModelEditHtml extends InstallerModel
 		// Set state variables from the request
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
-	
+
+	/**
+	 * @return stdClass
+	 */
 	function getItem()
 	{
 		jimport('joomla.filesystem.file');
@@ -61,16 +65,18 @@ class InstallerModelEditHtml extends InstallerModel
 		
 		$item = new stdClass();
 		$this->item = $item;
-        // ToDo: Fix undefined variable $filename
 		$item->filename = $this->filename;
 		$item->content = $content;
 		$item->path = $file;
-        // ToDo: Fix undefined variable template
 		$item->template = $this->template;
 		
 		return $item;
 	}
-	
+
+	/**
+	 * @return bool
+	 * @throws Exception
+	 */
 	function save(){
 		
 		$app = & JFactory::getApplication();

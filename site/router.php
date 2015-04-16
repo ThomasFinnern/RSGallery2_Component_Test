@@ -23,10 +23,16 @@
 	define('DS',DIRECTORY_SEPARATOR);
 }
 
- 
+/**
+ * @param $query
+ * @return array
+ * @throws Exception
+ */
+
 function Rsgallery2BuildRoute(&$query) {
 	//Get config values
 	global $config;
+	
 	Rsgallery2InitConfig();
 
 	$segments	= array();
@@ -112,7 +118,7 @@ function Rsgallery2BuildRoute(&$query) {
 		static $items;
 
 
-		//Find gid from menu --> $menuGid (can be an independant function)
+		//Find gid from menu --> $menuGid (can be an independent function)
 		$app		= JFactory::getApplication();
 		$menu		= $app->getMenu();
 		if (empty($query['Itemid'])) {
@@ -167,10 +173,16 @@ function Rsgallery2BuildRoute(&$query) {
 	return $segments;
 }
 
+/**
+ * @param $segments
+ * @return array
+ * @throws Exception
+ */
 function Rsgallery2ParseRoute($segments) {
 	//Note: segments show up like: '6:testimage' instead of expected '5-testimage' (don't know why)
 	//Get config values
 	global $config;
+	
 	Rsgallery2InitConfig();
 
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
@@ -279,13 +291,14 @@ function Rsgallery2ParseRoute($segments) {
 /**
  * Get the alias of a gallery based on its id (gid)
  * 
- *  @param $gid int Numerial value of the gallery
+ *  @param int $gid Numerical value of the gallery
  *	@return string String Alias of the gallery
  * 
  **/
 function Rsgallery2GetGalleryName($gid){
 	//Get config values
 	global $config;
+	
 	Rsgallery2InitConfig();
 	
 	// Fetch the gallery alias from the database if advanced sef is active,
@@ -312,20 +325,21 @@ function Rsgallery2GetGalleryName($gid){
 /**
  * Converts a category SEF alias to its id
  * 
- *  @param $categoyName mixed SEF alias or id of the category
+ *  @param string $categoryName mixed SEF alias or id of the category
  *	@return int id of the category
  * 
  **/
-function Rsgallery2GetCategoryId($categoyName){
+function Rsgallery2GetCategoryId($categoryName){
 	//Get config values
 	global $config;
+	
 	Rsgallery2InitConfig();
 	
 	// fetch the gallery id from the database if advanced sef is active
 	if($config->get("advancedSef") == true) {
 		//not used
 	} else {
-		$id = $categoyName;
+		$id = $categoryName;
 	}
 	return $id;
 }
@@ -333,13 +347,14 @@ function Rsgallery2GetCategoryId($categoyName){
 /**
  * Converts a item SEF alias to its id
  * 
- *  @param $categoyName mixed SEF alias or id of the category
+ *  @param string $itemName $categoryName mixed SEF alias or id of the category
  *	@return int id of the category
  * 
  **/
 function Rsgallery2GetItemId($itemName){
-	//Get config values
+	// Get config values
 	global $config;
+	
 	Rsgallery2InitConfig();
 	
 	// fetch the gallery id from the database if advanced sef is active
@@ -355,13 +370,14 @@ function Rsgallery2GetItemId($itemName){
 /**
  * Get an item alias based on its id
  * 
- *  @param $id int Numerial id of the item
+ *  @param int $id Numeral id of the item
  *	@return string Alias of the item
  * 
  **/
 function Rsgallery2GetItemName($id){
-	//Get config values
+	// Get config values
 	global $config;
+	
 	Rsgallery2InitConfig();
 	
 	// Getch the item alias from the database if advanced sef is active,
@@ -388,13 +404,14 @@ function Rsgallery2GetItemName($id){
 /**
  * Get the gallery id (gid) based on the id of an item
  * 
- *  @param $id int Numerial id of the item
+ *  @param int $id  Numeral id of the item
  *	@return int Id of the gallery (gid)
  * 
  **/
 function Rsgallery2GetGalleryIdFromItemId($id){
 	//Get config values
 	global $config;
+
 	Rsgallery2InitConfig();
 	
 	// Getch the gallery id (gid) from the database based on the id of an item
@@ -427,11 +444,11 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 /**
  * Get the id of an item based on the given gallery id and limitstart
  * 
- *  @param $gid int Numerial id of the gallery (gid)
- *  @param $limitstart int Numerial 
+ *  @param int $gid Numeral id of the gallery (gid)
+ *  @param int $limitstart Numeral
  *	@return int Id of the item (id)
- * 
- **/
+ * @throws Exception
+ */
 function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 	//Get config values
 	global $config;
@@ -467,7 +484,7 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 
 /**
  * Gets the configuration settings for RSGallery
- **/
+ */
 function Rsgallery2InitConfig() {
 	global $config;
 	

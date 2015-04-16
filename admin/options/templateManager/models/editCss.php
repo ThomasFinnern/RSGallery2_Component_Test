@@ -39,7 +39,10 @@ class InstallerModelEditCss extends InstallerModel
 		// Set state variables from the request
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
-	
+
+	/**
+	 * @return stdClass
+	 */
 	function getItem()
 	{
 		jimport('joomla.filesystem.file');
@@ -68,7 +71,11 @@ class InstallerModelEditCss extends InstallerModel
 		
 		return $item;
 	}
-	
+
+	/**
+	 * @return bool
+	 * @throws Exception
+	 */
 	function save(){
 		
 		$app = & JFactory::getApplication();

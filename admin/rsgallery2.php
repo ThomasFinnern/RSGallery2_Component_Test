@@ -210,10 +210,11 @@ if( $rsgOption == '' ){
 }
 
 /**
-* @param string $filename The name of the php (temporary) uploaded file
-* @param string $userfile_name The name of the file to put in the temp directory
-* @param string $msg The message to return
-*/
+ * @param string $filename The name of the php (temporary) uploaded file
+ * @param string $userfile_name The name of the file to put in the temp directory
+ * @param string $msg The message to return
+ * @return bool
+ */
 function uploadFile( $filename, $userfile_name, &$msg ) {
 	
 	$baseDir = JPATH_SITE . '/media' ;
@@ -239,6 +240,9 @@ function uploadFile( $filename, $userfile_name, &$msg ) {
 	return false;
 }
 
+/**
+ *
+ */
 function viewChangelog(){
     echo '<pre>';
     readfile( JPATH_RSGALLERY2_ADMIN.'/changelog.php' );
@@ -248,6 +252,7 @@ function viewChangelog(){
 /**
  * deletes all pictures, thumbs and their database entries. It leaves category information in DB intact.
  * this is a quick n dirty function for development, it shouldn't be available for regular users.
+ * @return object
  */
 function purgeEverything(){
     global $rsgConfig;
@@ -293,6 +298,7 @@ function purgeEverything(){
  * drops all RSG2 tables, deletes image directory structure
  * use before uninstalling to REALLY uninstall
  * @todo This is a quick hack.  make it work on all OS and with non default directories.
+ * @return object
  */
 function reallyUninstall(){
     
@@ -317,8 +323,8 @@ function reallyUninstall(){
 
 /**
  * runs a sql query, displays admin message on success or error on error
- * @param String sql query
- * @param String message to display on success
+ * @param string $query sql query
+ * @param string $successMsg message to display on success
  * @return boolean value indicating success
  */
 function processAdminSqlQueryVerbosely( $query, $successMsg ){
@@ -336,6 +342,9 @@ function processAdminSqlQueryVerbosely( $query, $successMsg ){
     }
 }
 
+/**
+ * @param string $option
+ */
 function cancelGallery($option) {
     global $mainframe;
 

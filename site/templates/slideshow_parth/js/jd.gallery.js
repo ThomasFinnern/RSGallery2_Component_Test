@@ -50,7 +50,7 @@ Element.implement({
 		}
 		catch (err) 
 		{
-			alert ("001:" + err.message); 
+			alert ("parth001:" + err.message); 
 			return {x: 0, y: 0};
 		}
 	}
@@ -176,7 +176,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("005:" + err.message); 
+			alert ("parth005:" + err.message); 
 		}
 	},
 	populateData: function() {
@@ -196,7 +196,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("010:" + err.message); 
+			alert ("parth010:" + err.message); 
 		}
 	},
 	populateGallery: function(element, startNumber) {
@@ -244,7 +244,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("015:" + err.message); 
+			alert ("parth015:" + err.message); 
 			return {x: 0, y: 0};
 		}
 		
@@ -298,7 +298,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("020:" + err.message); 
+			alert ("parth020:" + err.message); 
 		}
 	},
 	destroySlideShow: function(element) {
@@ -309,7 +309,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("025:" + err.message); 
+			alert ("parth025:" + err.message); 
 		}
 	},
 	startSlideShow: function() {
@@ -333,7 +333,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("030:" + err.message); 
+			alert ("parth030:" + err.message); 
 		}
 	},
 	nextItem: function() {
@@ -347,7 +347,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("035:" + err.message); 
+			alert ("parth035:" + err.message); 
 		}
 	},
 	prevItem: function() {
@@ -361,7 +361,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("040:" + err.message); 
+			alert ("parth040:" + err.message); 
 		}
 	},
 	goTo: function(num) {
@@ -396,7 +396,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("045:" + err.message); 
+			alert ("parth045:" + err.message); 
 		}
 	},
 	changeItem: function(num) {
@@ -426,7 +426,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("050:" + err.message); 
+			alert ("parth050:" + err.message); 
 		}
 	},
 	clearTimer: function() {
@@ -436,7 +436,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("055:" + err.message); 
+			alert ("parth055:" + err.message); 
 		}
 	},
 	prepareTimer: function() {
@@ -446,7 +446,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("060:" + err.message); 
+			alert ("parth060:" + err.message); 
 		}
 	},
 	doSlideShow: function(position) {
@@ -474,7 +474,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("065:" + err.message); 
+			alert ("parth065:" + err.message); 
 		}
 	},
 	createCarousel: function() {
@@ -531,7 +531,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("070:" + err.message); 
+			alert ("parth070:" + err.message); 
 		}
 	},
 	fillCarousel: function() {
@@ -543,7 +543,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("075:" + err.message); 
+			alert ("parth075:" + err.message); 
 		}
 	},
 	initCarousel: function () {
@@ -555,7 +555,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("080:" + err.message); 
+			alert ("parth080:" + err.message); 
 			return {x: 0, y: 0};
 		}
 	},
@@ -569,7 +569,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("085:" + err.message); 
+			alert ("parth085:" + err.message); 
 		}
 	},
 	toggleCarousel: function() {
@@ -581,7 +581,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("090:" + err.message); 
+			alert ("parth090:" + err.message); 
 		}
 	},
 	showCarousel: function () {
@@ -599,7 +599,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("095:" + err.message); 
+			alert ("parth095:" + err.message); 
 		}
 	},
 	hideCarousel: function () {
@@ -618,7 +618,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("100:" + err.message); 
+			alert ("parth100:" + err.message); 
 		}
 	},
 	constructThumbnails: function () {
@@ -660,7 +660,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("105:" + err.message); 
+			alert ("parth105:" + err.message); 
 		}
 	},
 	log: function(value) {
@@ -670,7 +670,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("110:" + err.message); 
+			alert ("parth110:" + err.message); 
 		}
 	},
 	preloadThumbnails: function() {
@@ -690,7 +690,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("110:" + err.message); 
+			alert ("parth110:" + err.message); 
 		}
 	},
 	clearThumbnailsHighlights: function() {
@@ -703,7 +703,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("115:" + err.message); 
+			alert ("parth115:" + err.message); 
 		}
 	},
 	changeThumbnailsSize: function(width, height)	{
@@ -719,7 +719,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("120:" + err.message); 
+			alert ("parth120:" + err.message); 
 		}
 	},
 	centerCarouselOn: function(num) {
@@ -737,7 +737,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("125:" + err.message); 
+			alert ("parth125:" + err.message); 
 		}
 	},
 	initInfoSlideshow: function() {
@@ -752,7 +752,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("130:" + err.message); 
+			alert ("parth130:" + err.message); 
 		}
 	},
 	changeInfoSlideShow: function()
@@ -763,7 +763,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("135:" + err.message); 
+			alert ("parth135:" + err.message); 
 		}
 	},
 	showInfoSlideShow: function() {
@@ -783,7 +783,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("140:" + err.message); 
+			alert ("parth140:" + err.message); 
 			return {x: 0, y: 0};
 		}
 	},
@@ -798,7 +798,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("145:" + err.message); 
+			alert ("parth145:" + err.message); 
 		}
 		return this.slideInfoZone;
 	},
@@ -813,7 +813,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("150:" + err.message); 
+			alert ("parth150:" + err.message); 
 		}
 	},
 	clearLink: function() {
@@ -824,7 +824,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("155:" + err.message); 
+			alert ("parth155:" + err.message); 
 		}
 	},
 	makeReMooz: function() {
@@ -868,7 +868,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("160:" + err.message); 
+			alert ("parth160:" + err.message); 
 		}
 	},
 	/* To change the gallery data, those two functions : */
@@ -882,7 +882,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("163:" + err.message); 
+			alert ("parth163:" + err.message); 
 		}
 	},
 	changeData: function(data) {
@@ -901,7 +901,7 @@ var gallery = {
 		}
 		catch (err) 
 		{
-			alert ("165:" + err.message); 
+			alert ("parth165:" + err.message); 
 		}
 	},
 	/* Plugins: HistoryManager */
@@ -931,7 +931,7 @@ var gallery = {
 		}
 		catch (err)
 		{
-			alert ("165:" + err.message);
+			alert ("parth165:" + err.message);
 		}
 	}
 };
@@ -951,7 +951,7 @@ gallery.Transitions = new Hash ({
 		}
 		catch (err) 
 		{
-			alert ("170:" + err.message); 
+			alert ("parth170:" + err.message); 
 		}
 	},
 	crossfade: function(oldFx, newFx, oldPos, newPos){
@@ -963,7 +963,7 @@ gallery.Transitions = new Hash ({
 		}
 		catch (err) 
 		{
-			alert ("175:" + err.message); 
+			alert ("parth175:" + err.message); 
 		}
 	},
 	fadebg: function(oldFx, newFx, oldPos, newPos){
@@ -974,7 +974,7 @@ gallery.Transitions = new Hash ({
 		}
 		catch (err) 
 		{
-			alert ("180:" + err.message); 
+			alert ("parth180:" + err.message); 
 		}
 	}
 });
@@ -1002,7 +1002,7 @@ var Preloader = new Class({
 	}
 	catch (err) 
 	{
-		alert ("185:" + err.message); 
+		alert ("parth185:" + err.message); 
 	}
  },
   
@@ -1026,7 +1026,7 @@ var Preloader = new Class({
 	}
 	catch (err) 
 	{
-		alert ("190:" + err.message); 
+		alert ("parth190:" + err.message); 
 	}
   },
   
@@ -1038,7 +1038,7 @@ var Preloader = new Class({
 	}
 	catch (err) 
 	{
-		alert ("200:" + err.message); 
+		alert ("parth200:" + err.message); 
 		return {x: 0, y: 0};
 	}
   },
@@ -1051,7 +1051,7 @@ var Preloader = new Class({
 	}
 	catch (err) 
 	{
-		alert ("205:" + err.message); 
+		alert ("parth205:" + err.message); 
 	}
   },
   
@@ -1061,7 +1061,7 @@ var Preloader = new Class({
 	}
 	catch (err) 
 	{
-		alert ("210:" + err.message); 
+		alert ("parth210:" + err.message); 
 	}
   }  
 });
@@ -1073,7 +1073,7 @@ var Preloader = new Class({
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 function formatString() {
-/* Mootols 1.4.5
+/* Mootools 1.4.5
 Function: $arguments: This method has been deprecated and will have no equivalent in MooTools 1.3.
 If you really need this function you can implement it like so:
 Example:
@@ -1095,7 +1095,7 @@ var $arguments = function(i){
 	}
 	catch (err) 
 	{
-		alert ("215:" + err.message); 
+		alert ("parth215:" + err.message); 
 	}
 	return oStr; 
 }

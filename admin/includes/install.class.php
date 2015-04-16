@@ -228,8 +228,10 @@ class rsgInstall {
     */
     static function split_sqlX($sql) {
         $sql = trim($sql);
-        $sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
-    
+        //$sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
+        // ereg_replace deprecated
+        $sql = preg_replace("/\n#[^\n]*\n/", "\n", $sql);
+
         $buffer = array();
         $ret = array();
         $in_string = false;
@@ -1274,8 +1276,10 @@ class GenericMigrator{
      */
     static function split_sql($sql) {
         $sql = trim($sql);
-        $sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
-    
+        //$sql = ereg_replace("\n#[^\n]*\n", "\n", $sql);
+        // ereg_replace deprecated
+        $sql = preg_replace("/\n#[^\n]*\n/", "\n", $sql);
+
         $buffer = array();
         $ret = array();
         $in_string = false;
@@ -1526,26 +1530,30 @@ class migrate_com_akogallery extends GenericMigrator{
             return 'Image Directory does not exist.';
         }
 
-        // ToDo Deprecated set_magic_quotes_runtime
-        set_magic_quotes_runtime(1);
-        
+        // set_magic_quotes_runtime is deprecated since PHP 5.3.0
+        // minimum version for J!3 is PHP 3.10
+        // example how to check it
+        //if(get_magic_quotes_runtime()) // Checks if lower then PHP 5.3
+        //    set_magic_quotes_runtime(1);
+        // -> all further functions are
+        // Deprecated: set_magic_quotes_runtime(1);
         $oldnewcats = $this->migrateCategories();
         if( $oldnewcats === false ){
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             return 'Error migrating Categories';
         }
 
         if( !$this->migrateImages( $imgDir, $oldnewcats )){
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             return 'Error migrating images';
         }
 
         if( !$this->migrateComments() ){
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             return 'Error migrating Comments';
         }
 
-        set_magic_quotes_runtime(0);
+        // Deprecated: set_magic_quotes_runtime(0);
             
         return 'Successful migration';
     }
@@ -1637,7 +1645,7 @@ class migrate_com_akogallery extends GenericMigrator{
         $finalResult = true;
         
         foreach ( $AKOFile as $file ) {
-            set_magic_quotes_runtime(0);
+            // Deprecated: set_magic_quotes_runtime(0);
             $filePath   = $imgDir . "/" . $file->imgfilename;
             $imgTitle   = $file->imgtitle;
             $catId      = $oldnewcats[ $file->catid ];

@@ -40,7 +40,7 @@ gallery.Transitions.extend({
 		}
 		catch (err)
 		{
-			alert ("380:" + err.message); 
+			alert ("parth380:" + err.message); 
 		}
 	},
 	continuoushorizontal: function(oldFx, newFx, oldPos, newPos){
@@ -71,7 +71,7 @@ gallery.Transitions.extend({
 		}
 		catch (err) 
 		{
-			alert ("390:" + err.message); 
+			alert ("parth390:" + err.message); 
 		}
 	},
 	continuousvertical: function(oldFx, newFx, oldPos, newPos){
@@ -102,7 +102,7 @@ gallery.Transitions.extend({
 		}
 		catch (err) 
 		{
-			alert ("395:" + err.message); 
+			alert ("parth395:" + err.message); 
 		}
 	}
 });

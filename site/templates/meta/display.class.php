@@ -22,7 +22,8 @@ class rsgDisplay extends JObject{
 	function __construct(){
 		global $rsgConfig;
 		
-		$this->gallery = rsgInstance::getGallery();
+		//$this->gallery = rsgInstance::getGallery(); deprecated
+		$this->gallery = rsgGalleryManager::get();
 
 		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
 		//Does the page show the slideshow? Then get slideshow name, else get template name.
@@ -54,6 +55,7 @@ class rsgDisplay extends JObject{
 	
 	/**
 	 * Switch for the main page, when not handled by rsgOption
+	 * @throws Exception
 	 */
 	function mainPage(){
 		global $rsgConfig;
@@ -121,7 +123,8 @@ class rsgDisplay extends JObject{
 	}
 
 	/**
-	 * 
+	 * @param string $file
+	 * @throws Exception
 	 */
 	function display( $file = null ){
 		global $rsgConfig;
@@ -141,6 +144,7 @@ class rsgDisplay extends JObject{
 
 	/**
 	 * Shows the top bar for the RSGallery2 screen
+	 * @throws Exception
 	 */
 	function showRsgHeader() {
 		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
@@ -178,7 +182,8 @@ class rsgDisplay extends JObject{
 	
     /**
      * Shows the proper Joomla path
-     */
+     * @throws Exception
+	 */
 	function showRSPathWay() {
 		$mainframe = JFactory::getApplication();
 		$pathway = $mainframe->getPathway();
@@ -204,11 +209,15 @@ class rsgDisplay extends JObject{
 			}			
 			
 		//Get the gallery id (gid) of the currently gallery shown
-		$gallery = rsgInstance::getGallery();
+		//gallery = rsgInstance::getGallery(); deprecated
+		$gallery = rsgGalleryManager::get();
+
 		$currentGallery = $gallery->id;
 
 		//Get the current item shown
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 
 		//If the current gallery id (gid) is the one in the menu, no parent 
 		// galleries are needed, if not, get the parent galleries up until 
@@ -247,8 +256,9 @@ class rsgDisplay extends JObject{
 
 	/**
 	 * Insert meta data and page title into head
+	 * @throws Exception
 	 */
-	function metadata(){
+ 	function metadata(){
 		$app = JFactory::getApplication();
 		$document = JFactory::getDocument();
 
@@ -302,10 +312,12 @@ class rsgDisplay extends JObject{
 			// $this rsgDisplay_semantic object holds rsgGallery2 object with current gallery info
 			$title = $this->gallery->name;
 			$title .= ' - ';
+			$gallery = rsgGalleryManager::get();
 			// Add image title
-			$title .= rsgInstance::getItem()->title;
+			// $title .= rsgInstance::getItem()->title;
+			$title .= $gallery->title;
 			// Get image description
-			$description = rsgInstance::getItem()->descr;
+			$description = $gallery->descr;
 		}
 
 		// Clean up description
@@ -318,6 +330,9 @@ class rsgDisplay extends JObject{
 		return;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getGalleryLimitBox(){
 		$pagelinks = $this->pageNav->getLimitBox("index.php?option=com_rsgallery2");
 		// add form for LimitBox
@@ -327,11 +342,19 @@ class rsgDisplay extends JObject{
 
 		return $pagelinks; 
 	}
+
+	/**
+	 * @return mixed
+	 */
 	function getGalleryPageLinks(){
 		$pagelinks = $this->pageNav->getPagesLinks("index.php?option=com_rsgallery2");
 		return $pagelinks;
 		
 	}
+
+	/**
+	 * @return mixed
+	 */
 	function getGalleryPagesCounter(){
 		return $this->pageNav->getPagesCounter();
 	}
@@ -342,7 +365,9 @@ class rsgDisplay extends JObject{
 	
     /**
      * shows the image
-     */
+	 * @param string $name
+	 * @param string $descr
+	 */
     function _showImageBox($name, $descr) {
         global $rsgConfig ;
 
@@ -403,10 +428,10 @@ class rsgDisplay extends JObject{
     
     /**
      * Shows either random or latest images, depending on parameter
-     * @param String Type of images. Options are 'latest' or 'random'
-     * @param Int Number of images to show. Defaults to 3
-     * @param String Style, options are 'vert' or 'hor'.(Vertical or horizontal)
-     * @return HTML representation of image block.
+     * @param String $type Type of images. Options are 'latest' or 'random'
+     * @param Int $number Number of images to show. Defaults to 3
+     * @param String $style Style, options are 'vert' or 'hor'.(Vertical or horizontal)
+     *  string HTML representation of image block.
      */
     function showImages($type="latest", $number = 3, $style = "hor") {
     	global $rsgConfig;
@@ -524,10 +549,10 @@ class rsgDisplay extends JObject{
     
 	/**
 	 * Write downloadlink for image
-	 * @param int image ID
-	 * @param string Text below button
-	 * @param string Button or HTML link (button/link)
-	 * @return HTML for downloadlink
+	 * @param int $id image ID
+	 * @param bool $showtext
+	 * @param string $type ? Text below button
+	 * return HTML for downloadlink
 	 */
 	function _writeDownloadLink($id, $showtext = true, $type = 'button') {
 		global $rsgConfig;
@@ -566,8 +591,11 @@ class rsgDisplay extends JObject{
 		
 		$exif = new phpExifReader($filename);
 		$exif->showFormattedEXIF();
- 	}    
-    
+ 	}
+
+	/**
+	 *
+	 */
     function showSearchBox() {
 		global $rsgConfig;
 		
@@ -577,7 +605,10 @@ class rsgDisplay extends JObject{
 			html_rsg2_search::showSearchBox();
 		}
     }
-    
+
+	/**
+	 * @throws Exception
+	 */
     function showSearchBoxXX() {
     	global $mainframe;
     	$mainframe = JFactory::getApplication();		

@@ -27,6 +27,9 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewInstall extends InstallerViewDefault
 {
+	/**
+	 * @param null $tpl
+	 */
 	function display($tpl=null)
 	{
 		/*

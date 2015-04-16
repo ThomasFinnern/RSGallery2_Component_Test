@@ -23,8 +23,8 @@ class rsg2_maintenance {
     
     /**
      * Samples a random thumb from the specified gallery and compares dimensions against Config settings
-     * @param Integer Gallery ID
-     * @return Boolean True if size has changed, false if not.
+     * @param Int $gid Gallery ID
+     * @return bool True if size has changed, false if not.
      */
     static function thumbSizeChanged( $gid ) {
     	global $rsgConfig;
@@ -44,8 +44,8 @@ class rsg2_maintenance {
     }
     /**
      * Samples a random display image from the specified gallery and compares dimensions against Config settings
-     * @param Integer Gallery ID
-     * @return Boolean True if size has changed, false if not.
+     * @param int $gid Gallery ID
+     * @return bool True if size has changed, false if not.
      */
     static function displaySizeChanged( $gid ) {
     	global $rsgConfig;
@@ -66,7 +66,10 @@ class rsg2_maintenance {
 }
 
 class rsg2_consolidate extends rsg2_maintenance {
-	
+
+	/**
+	 *
+	 */
 	static function consolidateDB() {
 	    global  $rsgConfig;
 		$database = JFactory::getDBO();
@@ -84,9 +87,9 @@ class rsg2_consolidate extends rsg2_maintenance {
     }
     
     /**
-	 * Fills an array with the filenames, found in the specified directory
-	 * @param string Directory from Joomla root
-	 * @return array Array with filenames
+	 * Fills an array with the file names, found in the specified directory
+	 * @param string $dir Directory from Joomla root
+	 * @return array Array with file names
 	 */
 	static function getFilenameArray($dir){
 	    global $rsgConfig;
@@ -128,7 +131,7 @@ class rsg2_consolidate extends rsg2_maintenance {
 	
 	/**
 	 * Changes all values of an array to lowercase
-	 * @param array mixed case mixed or upper case values
+	 * @param array $array mixed case mixed or upper case values
 	 * @return array lower case values
 	 */
 	static function arrayToLower($array) {

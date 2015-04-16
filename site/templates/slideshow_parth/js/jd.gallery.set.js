@@ -45,7 +45,7 @@ var gallerySet = new Class({
 		}
 		catch (err) 
 		{
-			alert ("300:" + err.message);
+			alert ("parth300:" + err.message);
 		}
 	},
 	populateData: function() {
@@ -71,7 +71,7 @@ var gallerySet = new Class({
 		}
 		catch  (err)
 		{
-			alert ("305:" + err.message);
+			alert ("parth305:" + err.message);
 		}
 	},
 	changeGallery: function(number)
@@ -89,7 +89,7 @@ var gallerySet = new Class({
 		}
 		catch (err) 
 		{
-			alert ("310:" + err.message);
+			alert ("parth310:" + err.message);
 		}
 	},
 	createGallerySelectorTab: function() {
@@ -105,7 +105,7 @@ var gallerySet = new Class({
 		}
 		catch (err)
 		{
-			alert ("315:" + err.message);
+			alert ("parth315:" + err.message);
 		}
 	},
 	createGallerySelector: function() {
@@ -143,7 +143,7 @@ var gallerySet = new Class({
 		}
 		catch (err) 
 		{
-			alert ("320:" + err.message);
+			alert ("parth320:" + err.message);
 		}
 	},
 	createGalleryButtons: function () {
@@ -181,7 +181,7 @@ var gallerySet = new Class({
 		}
 		catch (err) 
 		{
-			alert ("330:" + err.message);
+			alert ("parth330:" + err.message);
 		}
 	},
 	toggleGallerySelector: function(state) {
@@ -193,7 +193,7 @@ var gallerySet = new Class({
 		}
 		catch (err) 
 		{
-			alert ("335:" + err.message);
+			alert ("parth335:" + err.message);
 		}
 	},
 	initHistory: function() {
@@ -226,7 +226,7 @@ var gallerySet = new Class({
 		}
 		catch (err) 
 		{
-			alert ("340:" + err.message);
+			alert ("parth340:" + err.message);
 		}
 	}
 });

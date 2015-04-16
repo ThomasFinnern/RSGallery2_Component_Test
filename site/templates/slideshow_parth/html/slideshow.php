@@ -25,11 +25,6 @@ $document->addScript($js3);
 //--- Override default CSS styles ---
 // Add styles
 
-
-
-
-
-
 	/* Slideshow width and height */
 $style = '#myGallery, #myGallerySet, #flickrGallery {' . "\n"
 	. '   width: ' . ($this->params->get('slideshowWidth') ? $this->params->get('slideshowWidth') : $this->maxSlideshowWidth) . 'px;' . "\n"

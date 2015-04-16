@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die();
 /**
     performs a var_dump on a gallery tree recursively
     dies afterward to provide clean diagnostic output
-    @param int id of gallery
+    @param int $parent parent id of gallery
 **/
 function dumpGallery( $parent = 0 ){
     global $rsgConfig;
@@ -43,7 +43,7 @@ function dumpGallery( $parent = 0 ){
 
 /**
     prints gallery id, name and id, name of all items, recursively
-    @param int id of gallery
+    @param int $parent id of gallery
 **/
 function listEverything( $parent = 0 ){
     global $rsgConfig;

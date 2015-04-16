@@ -21,13 +21,22 @@ defined('_JEXEC') or die();
  */
 class TemplatesHelper
 {
+	/**
+	 * @param $template
+	 * @param int $clientId
+	 * @return int
+	 */
 	static function isTemplateDefault($template, $clientId)
 	{
 		global $rsgConfig;
 		
 		return $template == $rsgConfig->template ? 1 : 0;
 	}
-	
+
+	/**
+	 * @param string $templateBaseDir
+	 * @return string array
+	 */
 	static function parseXMLTemplateFiles($templateBaseDir)
 	{
 		// Read the template folder to find templates
@@ -48,7 +57,12 @@ class TemplatesHelper
 		
 		return $rows;
 	}
-	
+
+	/**
+	 * @param string $templateBaseDir
+	 * @param string $templateDir
+	 * @return bool|StdClass
+	 */
 	static function parseXMLTemplateFile($templateBaseDir, $templateDir)
 	{
 		// Check of the xml file exists

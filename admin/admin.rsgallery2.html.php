@@ -21,15 +21,15 @@ class HTML_RSGALLERY{
 
     
     /**
-     * use to prints a message between HTML_RSGallery::RSGalleryHeader(); and a normal feature.
+     * use to print a message between HTML_RSGallery::RSGalleryHeader(); and a normal feature.
      * use for things like deleting an image, where a success message should be displayed and viewImages() called aferwards.
      * two css classes are used: rsg-admin-msg, rsg-admin-msg-important
      * this function replaces newlines with <br> for convienence.
      *  
      * @todo implement css classes in css file
      *  
-     * @param string message to print
-     * @param boolean optionally display the message as important, possibly changing the text to red or bold, etc.  as a general rule, expected results should be normal, unexpected results should be marked important.
+     * @param string $msg message to print
+     * @param bool $important optionally display the message as important, possibly changing the text to red or bold, etc.  as a general rule, expected results should be normal, unexpected results should be marked important.
      */
     static function printAdminMsg($msg, $important=false) {
         // replace newlines with html line breaks.
@@ -43,9 +43,9 @@ class HTML_RSGALLERY{
     
     /**
       * Used by showCP to generate buttons
-      * @param string URL for button link
-      * @param string Image name for button image
-      * @param string Text to show in button
+      * @param string $link URL for button link
+      * @param string $image Image name for button image
+      * @param string $text Text to show in button
       */
     static function quickiconButton( $link, $image, $text ) {
 		?>
@@ -64,9 +64,9 @@ class HTML_RSGALLERY{
     
     /**
       * Used by showCP to generate buttons
-      * @param string URL for button link
-      * @param string Image name for button image
-      * @param string Text to show in button
+     * @param string $link URL for button link
+     * @param string $image Image name for button image
+     * @param string $text Text to show in button
       */
     static function quickiconDebugButton( $link, $image, $text ) {
 		?>
@@ -90,7 +90,8 @@ class HTML_RSGALLERY{
      * @todo Move CSS to stylesheet
      */
     static function showCP(){
-        global  $rows, $rows2, $rsgConfig, $rsgVersion;
+        //global  $rows, $rows2, $rsgConfig, $rsgVersion;
+        global  $rsgConfig, $rsgVersion;
 
         // Get the current JUser object
 		$user = JFactory::getUser();
@@ -146,7 +147,9 @@ class HTML_RSGALLERY{
                                 <td><strong><?php echo JText::_('COM_RSGALLERY2_USER'); ?></strong></td>
                                 <td><strong><?php echo JText::_('COM_RSGALLERY2_ID'); ?></strong></td>
                             </tr>
-                            <?php echo galleryUtils::latestCats();?>
+                            <?php // echo galleryUtils::latestCats();
+                                galleryUtils::latestCats();
+                            ?>
                             <tr>
                                 <th colspan="3">&nbsp;</th>
                             </tr>
@@ -412,14 +415,13 @@ class HTML_RSGALLERY{
         <?php
     }
 
-
-	/**
-	* @param string
-	* @param string
-	* @param string
-	*/
+    /**
+     * @param string $message
+     * @param string $title
+     * @param string $url
+     */
 	function showInstallMessage( $message, $title, $url ) {
-		global $PHP_SELF;
+		// global $PHP_SELF;
 		?>
 		<table class="adminheading">
 		<tr>
@@ -454,11 +456,14 @@ class HTML_RSGALLERY{
 		<script>
 		function submitbutton(pressbutton){
             if (pressbutton != 'cancel'){
-                submitform( pressbutton );
-                return;
+                // Deprecated
+                // submitform() - use Joomla.submitform() instead
+                // submitbutton() - use Joomla.submitbutton() instead
+                Joomla.submitform( pressbutton );
+                // return;
             } else {
                 window.history.go(-1);
-                return;
+                // return;
             }
         }
 		</script>
@@ -467,18 +472,18 @@ class HTML_RSGALLERY{
         	<tr>
         		<td width="40%">&nbsp;</td>
         		<td align="center">
-			        <table width=""100%">
+			        <table width="100%">
 			        	<tr>
 			        		<td><h3><?php echo JText::_('COM_RSGALLERY2_CREATE_A_CATEGORY_FIRST');?></h3></td>
 			        	<tr>
 			        		<td>
-			        		<div id='cpanel'>
-			        			<?php
-			        			$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-			        			HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
-			        			?>
+                                <div id='cpanel'>
+                                    <?php
+                                    $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
+                                    HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+                                    ?>
+                                </div>
 			        		</td>
-			        		</div>
 			        	</tr>
 			        </table>
 			    </td>
@@ -491,6 +496,8 @@ class HTML_RSGALLERY{
 
     /**
      * Inserts the HTML placed at the top of all RSGallery Admin pages.
+     * @param string $type
+     * @param string $text
      */
     static function RSGalleryHeader($type='', $text=''){
         ?>
@@ -515,25 +522,26 @@ class HTML_RSGALLERY{
         <?php
         }
 
+    /**
+     *
+     */
     static function showUploadStep1(){
         ?>
         <script type="text/javascript">
         function submitbutton( pressbutton ) {
-        var form = document.form;
-        if ( pressbutton == 'controlPanel' ) {
-        	location = "index.php?option=com_rsgallery2";
-        	return;
-        }
-        
-        if ( pressbutton == 'upload' ) {
-        	// do field validation
-        	if (form.catid.value == "0")
-            	alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
-            else
-            	form.submit();
-        }
-        	
-  
+            var form = document.form;
+            if ( pressbutton == 'controlPanel' ) {
+                location = "index.php?option=com_rsgallery2";
+                return;
+            }
+
+            if ( pressbutton == 'upload' ) {
+                // do field validation
+                if (form.catid.value == "0")
+                    alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_SELECT_A_GALLERY'); ?>" );
+                else
+                    form.submit();
+            }
         }
         </script>
         
@@ -634,8 +642,8 @@ class HTML_RSGALLERY{
         ?>
         <script language="javascript" type="text/javascript">
         function submitbutton(pressbutton) {
-        var form = document.form3;
-            form.submit();
+           var form = document.form3;
+                form.submit();
         }
         </script>
         <form name="form3" action="index.php?option=com_rsgallery2&task=upload" method="post" enctype="multipart/form-data">

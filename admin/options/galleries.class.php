@@ -38,13 +38,14 @@ class rsgGalleriesItem extends JTable {
 	var $access = null;
 
     /**
-    * @param database A database connector object
+    * @param $db database A database connector object
     */
     function rsgGalleriesItem( &$db ) {
 		parent::__construct('#__rsgallery2_galleries', 'id', $db );
     }
     /** 
      * overloaded check function 
+     * @return bool
      */
     function check() {
 		$db = JFactory::getDBO();
@@ -105,8 +106,10 @@ class rsgGalleriesItem extends JTable {
 	/**
 	 * Get the parent asset id for the gallery
 	 *
-	 * @return      int
-	 */
+     * @param JTable $table
+     * @param null $id
+     * @return int|null
+     */
 	protected function _getAssetParentId(JTable $table = null, $id = null) {
 		// Initialise variables
 		$assetId = null;
@@ -145,8 +148,8 @@ class rsgGalleriesItem extends JTable {
 /**
  * build the select list for parent item
  * ripped from joomla.php: mosAdminMenus::Parent()
- * @param row current gallery
- * @return HTML Selectlist
+ * @param $row current gallery
+ * @return string HTML Selectlist
  */
 function galleryParentSelectList( &$row ) {
     $database = JFactory::getDBO();
@@ -210,7 +213,7 @@ function galleryParentSelectList( &$row ) {
 /* ACL functions from here */
 /**
  * Returns an array with the gallery ID's from the children of the parent
- * @param int Gallery ID from the parent ID to check
+ * @param int $gallery_id Gallery ID from the parent ID to check
  * @return array Array with Gallery ID's from children
  */
 function subList( $gallery_id ) {

@@ -10,7 +10,7 @@
 // ensure this file is being included by a parent file
 defined( '_JEXEC' ) or die();
 
-// RSG2 is a metacomponent.  joomla calls components options, RSG2 calls it's components rsgOptions
+// RSG2 is a meta component.  joomla calls components options, RSG2 calls it's components rsgOptions
 if( isset( $_REQUEST['rsgOption'] ))
     $rsgOption = $_REQUEST['rsgOption'];
 else
@@ -133,74 +133,75 @@ if ($app->isAdmin()){
 	}// end switch( $rsgOption )
 
 	// only use the legacy task switch if rsgOption is not used.
-	if( $rsgOption == '' )
-	switch ($task){
-		case "new":
-			menuRSGallery::image_new();
-			break;
+	if( $rsgOption == '' ) {
+		switch ($task) {
+			case "new":
+				menuRSGallery::image_new();
+				break;
 
-		case "edit_image":
-			menuRSGallery::image_edit();
-			break;
-				
-		case "upload":
-			menuRSGallery::image_upload();
-			break;
+			case "edit_image":
+				menuRSGallery::image_edit();
+				break;
 
-		case "delete_image":
-		case "move_image":
-		case "save_image":
-		case "view_images":
-		case "images_orderup":
-		case "images_orderdown":
-			menuRSGallery::images_show();
-			break;
+			case "upload":
+				menuRSGallery::image_upload();
+				break;
 
-		case 'applyConfig':
-		case "showConfig":
-			menuRSGallery::config_show();
-			break;
+			case "delete_image":
+			case "move_image":
+			case "save_image":
+			case "view_images":
+			case "images_orderup":
+			case "images_orderdown":
+				menuRSGallery::images_show();
+				break;
 
-		case 'config_rawEdit_apply':
-		case 'config_rawEdit':
-			menuRSGallery::config_rawEdit();
-			break;
-		case 'config_dumpVars':
-			menuRSGallery::config_dumpVars();
-			break;
+			case 'applyConfig':
+			case "showConfig":
+				menuRSGallery::config_show();
+				break;
 
-		case 'edit_css':
-			menuRSGallery::edit_css();
-			break;
-		case 'edit_main':
-			menuRSGallery::edit_main();
-			break;
-		case 'edit_thumbs':
-			menuRSGallery::edit_main();
-			break;
-		case 'edit_display':
-			menuRSGallery::edit_main();
-			break;
-	// this is where you should add more toolbars:
+			case 'config_rawEdit_apply':
+			case 'config_rawEdit':
+				menuRSGallery::config_rawEdit();
+				break;
+			case 'config_dumpVars':
+				menuRSGallery::config_dumpVars();
+				break;
 
-	// do these need a toolbar?:
-		case 'regen_thumbs':
-		case 'import_captions':
-		case 'consolidate_db_go':
-		case 'consolidate_db':
-		case 'install':
-			break;
+			case 'edit_css':
+				menuRSGallery::edit_css();
+				break;
+			case 'edit_main':
+				menuRSGallery::edit_main();
+				break;
+			case 'edit_thumbs':
+				menuRSGallery::edit_main();
+				break;
+			case 'edit_display':
+				menuRSGallery::edit_main();
+				break;
+			// this is where you should add more toolbars:
 
-	// the following options either bring you to the control panel or only need a help button
-		default:
-		case 'controlPanel':
-		case 'config_rawEdit_save':
-		case 'migration':
-		case 'purgeEverything':
-		case 'saveConfig':
-		case 'viewChangelog':
-			menuRSGallery::simple();
-			break;
-	}
+			// do these need a toolbar?:
+			case 'regen_thumbs':
+			case 'import_captions':
+			case 'consolidate_db_go':
+			case 'consolidate_db':
+			case 'install':
+				break;
+
+			// the following options either bring you to the control panel or only need a help button
+			default:
+			case 'controlPanel':
+			case 'config_rawEdit_save':
+			case 'migration':
+			case 'purgeEverything':
+			case 'saveConfig':
+			case 'viewChangelog':
+				menuRSGallery::simple();
+				break;
+		} // switch task
+	} // only use the legacy task switch if rsgOption is not used.
 }	// Only show RSG2 submenu in the backend - end
 ?>

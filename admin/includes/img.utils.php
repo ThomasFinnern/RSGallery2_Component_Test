@@ -18,7 +18,10 @@ require_once( $rsgClasses_path . 'file.utils.php' );
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class imgUtils extends fileUtils{
-    
+
+    /**
+     * @return string array
+     */
     static function allowedFileTypes(){
         return array("jpg",'jpeg',"gif","png");
     }
@@ -26,8 +29,8 @@ class imgUtils extends fileUtils{
     /**
       * thumb and display are resized into jpeg regardless of what the original image was
       * @todo update these functions when the user is given an option as to what image type thumb and display are
-      * @param string name of original image
-      * @return filename of image
+      * @param $name string name of original image
+      * @return string filename of image
       */
     static function getImgNameThumb($name){
         return $name . '.jpg';
@@ -36,16 +39,17 @@ class imgUtils extends fileUtils{
     /**
       * thumb and display are resized into jpeg regardless of what the original image was
       * @todo update these functions when the user is given an option as to what image type thumb and display are
-      * @param string name of original image
-      * @return filename of image
+      * @param string $name name of original image
+      * @return string filename of image
       */
     static function getImgNameDisplay($name){
         return $name . '.jpg';
     }
 
     /**
-      * @param string full path of source image
-      * @param string name destination file (path is retrieved from rsgConfig)
+      * @param string string full path of source image
+      * @param string $name name destination file (path is retrieved from rsgConfig)
+      * @param int $width
       * @return true if successfull, false if error
       */
     static function makeDisplayImage($source, $name='', $width){
@@ -60,8 +64,8 @@ class imgUtils extends fileUtils{
         return imgUtils::resizeImage( $source, $target, $width );
     }   
     /**
-      * @param string full path of source image
-      * @param string name destination file (path is retrieved from rsgConfig)
+      * @param string $source full path of source image
+      * @param string $name name destination file (path is retrieved from rsgConfig)
       * @return true if successfull, false if error
       */
     static function makeThumbImage($source, $name=''){
@@ -83,10 +87,10 @@ class imgUtils extends fileUtils{
     
     /**
       * generic image resize function
-      * @param string full path of source image
-      * @param string full path of target image
-      * @param int width of target
-      * @return true if successfull, false if error
+      * @param string $source full path of source image
+      * @param string $target full path of target image
+      * @param int $targetWidth width of target
+      * @return $targetWidth, true if successfull, false if error
       * @todo only writes in JPEG, this should be given as a user option
       */
     static function resizeImage($source, $target, $targetWidth){
@@ -110,12 +114,13 @@ class imgUtils extends fileUtils{
 
     /**
      * Takes an image file, moves the file and adds database entry
-     * @param the verified REAL name of the local file including path
-     * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
-     * @param title of image, if empty will be created from $imgName
-     * @param description of image, if empty will remain empty
-     * @return returns true if successfull otherwise returns an ImageUploadError
+     * @param string $imgTmpName the verified REAL name of the local file including path
+     * @param string $imgName name of file according to user/browser or just the name excluding path
+     * @param string $imgCat desired category
+     * @param string $imgTitle title of image, if empty will be created from $imgName
+     * @param string $imgDesc description of image, if empty will remain empty
+     * @return bool|imageUploadError, returns true if successfull otherwise returns an ImageUploadError
+     * @throws Exception
      */
     static function importImage($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
         global $rsgConfig;
@@ -259,8 +264,8 @@ class imgUtils extends fileUtils{
 
     /**
       * deletes all elements of image on disk and in database
-      * @param string name of image
-      * @return true if success or notice and false if error
+      * @param string $name name of image
+      * @return bool true if success or notice and false if error
       */
     static function deleteImage($name){
         global  $rsgConfig;
@@ -320,9 +325,9 @@ class imgUtils extends fileUtils{
     }
     
     /**
-      * @param string name of the image
-      * @param boolean return a local path instead of URL
-      * @return complete URL of the image
+      * @param string $name name of the image
+      * @param bool $local return a local path instead of URL
+      * @return string complete URL of the image
       */
     static function getImgOriginal($name, $local=false){
         global  $rsgConfig, $mainframe ;
@@ -339,9 +344,9 @@ class imgUtils extends fileUtils{
     }
     
     /**
-      * @param string name of the image
-      * @param boolean return a local path instead of URL
-      * @return complete URL of the image
+      * @param string $name name of the image
+      * @param bool $local return a local path instead of URL
+      * @return string complete URL of the image
       */
     static function getImgDisplay($name, $local=false){
 		global  $rsgConfig,$mainframe;
@@ -358,9 +363,9 @@ class imgUtils extends fileUtils{
     }
     
     /**
-      * @param string name of the image
-      * @param boolean return a local path instead of URL
-      * @return complete URL of the image
+      * @param string $name name of the image
+      * @param bool $local return a local path instead of URL
+      * @return string complete URL of the image
       */
     static function getImgThumb($name, $local=false){
         global  $rsgConfig, $mainframe;
@@ -375,11 +380,13 @@ class imgUtils extends fileUtils{
         }
     }
     
-        /**
-        @depreciated use rsgImage->showEXIF();
-        @todo this class is for logic only!!!  take this html generation somewhere else.
-          reminder: exif should be read from original image only.
-    **/
+    /**
+      * @depreciated use rsgImage->showEXIF();
+      * @todo this class is for logic only!!!  take this html generation somewhere else.
+      *    reminder: exif should be read from original image only.
+      * @param $imagefile
+      * @return bool
+    */
     static function showEXIF($imagefile){
         if(!function_exists('exif_read_data')) return false;
 
@@ -419,8 +426,9 @@ class imgUtils extends fileUtils{
     
     /**
      * Shows a selectbox  with the filenames in the selected gallery
-     * @param int Gallery ID
-     * @param int Currently selected thumbnail
+     * @param int $id Gallery ID
+     * @param int $current_id Currently selected thumbnail
+     * @param string $selectname
      * @return HTML representation of a selectbox
      * @todo Also offer the possiblity to select thumbs from subgalleries
      */
@@ -469,11 +477,11 @@ class imgUtils extends fileUtils{
 class genericImageLib{
     /**
       * resize source to targetWidth and output result to target
-      * @param string full path of source image
-      * @param string full path of target image
-      * @param int width of target
-      * @return true if successfull, false if error
-      */ 
+      * @param string $source full path of source image
+      * @param string $target full path of target image
+      * @param int $targetWidth width of target
+      * @return bool true if successfull, false if error
+      */
     static function resizeImage($source, $target, $targetWidth){
 		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'));
 		return false;
@@ -494,10 +502,10 @@ class genericImageLib{
 class Netpbm extends genericImageLib{
     /**
      * image resize function
-     * @param string full path of source image
-     * @param string full path of target image
-     * @param int width of target
-     * @return true if successfull, PEAR_Error if error
+     * @param string $source full path of source image
+     * @param string $target full path of target image
+     * @param int $targetWidth width of target
+     * @return bool true if successfull, PEAR_Error if error
      * @todo only writes in JPEG, this should be given as a user option
      */
     static function resizeImage($source, $target, $targetWidth){
@@ -516,7 +524,10 @@ class Netpbm extends genericImageLib{
 
     /**
       * detects if image library is available
-      * @return false if not detected, user friendly string of library name and version if detected
+      * @param string $shell_cmd
+      * @param string $output
+      * @param string $status
+      * @return bool false if not detected, user friendly string of library name and version if detected
       */
     static function detect($shell_cmd = '', $output = '', $status = ''){
         @exec($shell_cmd. 'jpegtopnm -version 2>&1',  $output, $status);
@@ -536,10 +547,10 @@ class Netpbm extends genericImageLib{
 class ImageMagick extends genericImageLib{
     /**
      * image resize function
-     * @param string full path of source image
-     * @param string full path of target image
-     * @param int width of target
-     * @return true if successfull, false if error
+     * @param string $source full path of source image
+     * @param string $target full path of target image
+     * @param int $targetWidth width of target
+     * @return bool true if successfull, false if error
      * @todo only writes in JPEG, this should be given as a user option
      */
     static function resizeImage($source, $target, $targetWidth){
@@ -561,7 +572,9 @@ class ImageMagick extends genericImageLib{
 
     /**
      * detects if image library is available
-     * @return false if not detected, user friendly string of library name and version if detected
+     * @param string $output
+     * @param string $status
+     * @return bool false if not detected, user friendly string of library name and version if detected
      */
     static function detect( $output = '', $status = '' ){
         global $rsgConfig;
@@ -588,10 +601,10 @@ class GD2 extends genericImageLib{
     
     /**
      * image resize function
-     * @param string full path of source image
-     * @param string full path of target image
-     * @param int width of target
-     * @return true if successfull, false if error
+     * @param string $source full path of source image
+     * @param string $target full path of target image
+     * @param int $targetWidth width of target
+     * @return bool true if successfull, false if error
      * @todo only writes in JPEG, this should be given as a user option
      * @todo use constants found in http://www.php.net/gd rather than numbers
      */
@@ -663,10 +676,10 @@ class GD2 extends genericImageLib{
     
     /**
       * Creates a square thumbnail by first resizing and then cutting out the thumb
-      * @param string Full path of source image
-      * @param string Full path of target image
-      * @param int width of target
-      * @return true if successfull, false if error
+      * @param string $source Full path of source image
+      * @param string $target Full path of target image
+      * @param int $width width of target
+      * @return bool true if successfull, false if error
       */
     static function createSquareThumb( $source, $target, $width ) {
         global $rsgConfig;
@@ -745,7 +758,7 @@ class GD2 extends genericImageLib{
     
     /**
       * detects if image library is available
-      * @return false if not detected, user friendly string of library name and version if detected
+      * @return bool|string false if not detected, user friendly string of library name and version if detected
       */
     static function detect(){
         $GDfuncList = get_extension_funcs('gd');
@@ -789,6 +802,7 @@ class waterMarker extends GD2 {
 	var $imageTargetPath = '';		//full path to where to store the watermarked image to
     /**
      * this function draws the watermark over the image
+     * @param string $imagetype
      */
     function mark($imagetype = 'display'){
 		global $rsgConfig;
@@ -925,19 +939,16 @@ class waterMarker extends GD2 {
      
     /**
      * Function that takes an image and returns the url to watermarked image
-     * @param string Name of the image in question
-	 * @param string ImageType is either 'display' or 'original' and will precide the output filename
-     * @param string Font used for watermark
-     * @param string Text size in pixels
-     * @param int Vertical spacing between text
-     * @param int Horizontal spacing between text
-     * @param boolean Shadow text yes or no
-     * @return url to watermarked image
+     * @param string $imagename Name of the image in question
+	 * @param string $imagetype ImageType is either 'display' or 'original' and will precide the output filename
+     * @param string $font Font used for watermark
+     * @param boolean $shadow Shadow text yes or no
+     * @return string url to watermarked image
      */
     static function showMarkedImage($imagename, $imagetype = 'display', $font="arial.ttf", $shadow = true){
-    global $rsgConfig, $mainframe;
+        global $rsgConfig, $mainframe;
 
-    // ToDO: Don't know why image type can be 'display' fro creating watermarked file ? Just display on screen ??
+        // ToDo: Don't know why image type can't be 'display' for creating watermarked file ? Just display on screen ??
 		
         $watermarkfilename = waterMarker::createWatermarkedFileName ($imagename, $imagetype);
 	    $watermarkpathfilename = waterMarker::PathFileName ($watermarkfilename);
@@ -966,26 +977,27 @@ class waterMarker extends GD2 {
 	/**
 	 * Function creates file name of watermarked image using MD5 on name
 	 * Three functions exists for the access of the filename to do the MD5 just once
-	 * @param string Name of the image in question
-	 * @param string Image type is either 'display' or 'original' and will precide the output filename
-	 * @return MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
-	 */
-	
+	 * @param string $imagename Name of the image in question
+	 * @param string $imagetypeImage type is either 'display' or 'original' and will precide the output filename
+	 * @return string MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
+     * @throws Exception
+     */
     static function createWatermarkedFileName ($imagename, $imagetype) {
 
 		$pepper = 'RSG2Watermarked';
 		$app = JFactory::getApplication();
-		$salt = $app->getCfg('secret');
+
+		$salt = $app->get('secret');
 		$filename = $imagetype.md5($pepper.$imagename.$salt).'.jpg';
 		
 		return $filename;
 	}
 		
 	/**
-	 * Function adds the path to the given watermarked Md5 file name 
-	 * @return url to watermarked image
+	 * Function adds the path to the given watermarked Md5 file name
+     * @param $watermarkedfilename
+	 * @return string url to watermarked image
 	 */
-	
 	static function PathFileName ($watermarkedfilename) {
 		$pathfilename = JPATH_WATERMARKED . DS . $watermarkedfilename;
 	
@@ -994,10 +1006,10 @@ class waterMarker extends GD2 {
 	
 	/** 
 	 * Function creates path and file name of watermarked image
-	 * @param string Name of the image in question
-	 * @return url to watermarked image
+	 * @param string $imagename Name of the image in question
+     * @param $imagetype
+	 * @return string url to watermarked image
 	 */
-	
 	static function createWatermarkedPathFileName ($imagename, $imagetype) {
 		$pathfilename = waterMarker::PathFileName(waterMarker::createWatermarkedFileName ($imagename, $imagetype));
 		

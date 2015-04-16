@@ -104,18 +104,57 @@ Legend:
 		Check deprecated functions with phpstorm (admit + site)
 ! ToDo: 2015.01.18 ****
 		Check all slideshows for working
-! Redesign upload forms 		
+! ToDo: 2015.01.18 ***
+		Redesign upload forms 		
 		- one form for all , head register and start button on foot 
-		see jomls standard loader 
-		
+		see joomla standard loading extensions 
+! ToDo: 2015.01.18 ***
+		Make images and galleries form more sortabele (date 
+! ToDo: 2015.01.18 ***
+		mirjam had a change for a user. Privileges for foreign users galleries
+		Search change in forum and take it
+! ToDo: 2015.01.18 ***
+		Add PHP doc to every function   (goal phpstorm no yellow :-(  )
+! ToDo: 2015.01.18 ***
+		Find all "addCustomTag" replace with ???
+! ToDo: 2015.01.30 ***
+		functions with X behind  split_sqlX ? remove or fix deprecated
+! ToDo: 2015.01.30 ***
+		file install.class.php. a lot of functions are marked red
+! ToDo: 2015.01.30 ***		
+		function _buildDataObject() -> pagination 
+		get function is deprecated, revisit function and improved
+! ToDo: 2015.01.30 ***		
+		$database->getErrorMsg() is deprecated. Has a lot of occurences
+! ToDo: 2015.01.30 ******
+		JRequest in instance.class.php multiple times
+! ToDo: 13.02.2015 *******
+		mygalleries: Buttons do not work. Probable reason:
+		There a more than one form inside the created HTML Page.
+		Maybe submit needs a unique id 
 		
 ---------------- Recent ----------------
+
+* --------------- 4.0.4 -- SVN 1141 -- 2015-02-13 -------------
+13.02.2015 finnern
++ Improved mygalleries. No error and debug messages
+* PHP doc improved
+
+* --------------- 4.0.3 -- SVN 1131 -- 2015-01-11 -------------
+30.01.2015 finnern
++ Added phpdoc to some functions
++ removed / changed some deprecated functions
+!!! Attention some debug messages still active 
+    in templates/slideshow_phatfusion
 
 * --------------- 4.0.3 -- SVN 1127 -- 2015-01-11 -------------
 
 11.01.2015 finnern
 + Slideshow parth is working
-
++ Begun with adding PHP doc but may be wrong in some descriptions
++ Changed ... die('Restricted access'); to ... or die();
+	Joomla wants not to give an intruder any information 
++ Adjusted slidshow parth to mootools 1.4.5 (Removed 1.11 files in folder)	
 
 * --------------- 4.0.2 -- SVN 1127 -- 2015-01-11 -------------
 
@@ -150,7 +189,7 @@ Legend:
 
 31.10.2014 finnern
 ^ Admin: Changes required from checking plugins
-^ Site: Folder template exchanged with verwsion from tip revision
+^ Site: Folder template exchanged with version from tip revision
   ==>  State: Galleries are shown in frontend, slideshow does 
        not fall down but also does not show anything
 ^ Site: Debug text only when debug in rsgallery2 config is selected
@@ -170,8 +209,9 @@ Legend:
 
 * --------------- 4.0.0 -- SVN 1120 -- 2014-10-12 -------------
 12.10.2014 finnern
-+ Added old J! 2.5 Jparameter file into project as it is used but not supported by J! 3.x
-  Could not fix replacing it with other code
++ Added old J! 2.5 Jparameter file into project as it is used 
+  but not supported by J! 3.x. Could not fix replacing it 
+  with other code
 - Minor fixes for compatibility with J! 3.x
 
 * --------------- 4.0.0 -- SVN 1119 -- 2014-10-04 -------------

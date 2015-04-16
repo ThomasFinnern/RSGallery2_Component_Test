@@ -17,7 +17,9 @@ class rsgVoting {
     
     static function showVoting( $option = "com_rsgallery2") {
     	global $rsgConfig;
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 		$gid = $item->gallery_id;
 		
     	if (JFactory::getUser()->authorise('rsgallery2.vote','com_rsgallery2.gallery.'.$gid)) {
@@ -56,7 +58,9 @@ class rsgVoting {
 	}
 	
 	static function showScore() {
-		$item = rsgInstance::getItem();
+		// $item = rsgInstance::getItem(); deprecated
+		$gallery = rsgGalleryManager::get();
+		$item = $gallery->getItem();;
 		$id = $item->id;
 		require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS .'tmpl' . DS . 'result.php');
 	}

@@ -22,6 +22,9 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewTemplate extends InstallerViewDefault
 {
+	/**
+	 * @param null $tpl
+	 */
 	function display($tpl=null)
 	{
 		/*
@@ -42,7 +45,10 @@ class InstallerViewTemplate extends InstallerViewDefault
 		parent::display($tpl);
 		
 	}
-	
+
+	/**
+	 * @return string
+	 */
 	function isParamWriteable(){
 		
 		$templatefile = JPATH_RSGALLERY2_SITE .DS. 'templates' .DS. $this->item->template .DS. 'params.ini';

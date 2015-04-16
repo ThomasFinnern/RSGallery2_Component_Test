@@ -1,5 +1,9 @@
 <script type="text/javascript">
 // Set the "inside" HTML of an element.
+/**
+ * @param element
+ * @param toValue
+ */
 function setInnerHTML(element, toValue)
 {
 	// IE has this built in...
@@ -16,6 +20,11 @@ function setInnerHTML(element, toValue)
 }
 
 // Set the "outer" HTML of an element.
+/**
+ *
+ * @param element
+ * @param toValue
+ */
 function setOuterHTML(element, toValue)
 {
 	if (typeof(element.outerHTML) != 'undefined')
@@ -29,6 +38,11 @@ function setOuterHTML(element, toValue)
 }
 
 // Get the inner HTML of an element.
+/**
+ *
+ * @param element
+ * @returns {*}
+ */
 function getInnerHTML(element)
 {
 	if (typeof(element.innerHTML) != 'undefined')
@@ -43,6 +57,11 @@ function getInnerHTML(element)
 	}
 }
 
+/**
+ *
+ * @param node
+ * @returns {*}
+ */
 function getOuterHTML(node)
 {
 	if (typeof(node.outerHTML) != 'undefined')
@@ -96,6 +115,10 @@ function getOuterHTML(node)
 	return str;
 }
 
+/**
+ *
+ * @type {number}
+ */
 var allowed_attachments = 10 - 1;
 function addAttachment() {
     if (allowed_attachments <= 0)

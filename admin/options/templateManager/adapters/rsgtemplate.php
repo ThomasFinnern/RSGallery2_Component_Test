@@ -41,7 +41,7 @@ class JInstaller_rsgTemplate extends JObject
 	 * Custom install method
 	 *
 	 * @access	public
-	 * @return	boolean	True on success
+	 * @return	bool	True on success
 	 * @since	1.5
 	 */
 	function install()
@@ -144,9 +144,9 @@ class JInstaller_rsgTemplate extends JObject
 	 * Custom uninstall method
 	 *
 	 * @access	public
-	 * @param	int		$path		The template name
-	 * @param	int		$clientId	The id of the client
-	 * @return	boolean	True on success
+	 * @param	string $name		The template name
+	 * @param	int	$clientId		The id of the client
+	 * @return	bool	True on success
 	 * @since	1.5
 	 */
 	function uninstall( $name, $clientId )

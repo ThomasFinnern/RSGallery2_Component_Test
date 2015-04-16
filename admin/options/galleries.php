@@ -77,6 +77,7 @@ switch( $task ){
 
 /**
  * show galleries
+ * @throws Exception
  */
 function show(){
     global $mosConfig_list_limit;	//Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
@@ -162,7 +163,8 @@ function show(){
 
 /**
  * Compiles information to add or edit
- * @param integer The unique id of the record to edit (0 if new)
+ * @param string $option
+ * @param int $id The unique id of the record to edit (0 if new)
  */
 function edit( $option, $id ) {
 	global $rsgOptions_path;
@@ -230,7 +232,8 @@ function edit( $option, $id ) {
 
 /**
  * Saves the record on an edit form submit
- * @param database A database connector object
+ * @param string $option
+ * @throws Exception
  */
 function save( $option ) {
     global $rsgOption, $rsgConfig;
@@ -328,8 +331,8 @@ function save( $option ) {
 
 /**
  * Deletes one or more records
- * @param array An array of unique category id numbers
- * @param string The current url option
+ * @param array $cid An array of unique category id numbers
+ * @param string $option The current url option
  */
 function removeWarn( $cid, $option ) {
     if (!is_array( $cid ) || count( $cid ) < 1) {
@@ -343,10 +346,11 @@ function removeWarn( $cid, $option ) {
 }
 
 /**
-* Deletes one or more records
-* @param array An array of unique category id numbers
-* @param string The current url option
-*/
+ * Deletes one or more records
+ * @param int $cid array An array of unique category id numbers
+ * @param string $optionThe current url option
+ * @throws Exception
+ */
 function removeReal( $cid, $option ) {
 	global $rsgOption, $rsgConfig;
 	$mainframe =& JFactory::getApplication();
@@ -357,11 +361,12 @@ function removeReal( $cid, $option ) {
 }
 
 /**
-* Publishes or Unpublishes one or more records
-* @param array An array of unique category id numbers
-* @param integer 0 if unpublishing, 1 if publishing
-* @param string The current url option
-*/
+ * Publishes or Unpublishes one or more records
+ * @param int array $cid An array of unique category id numbers
+ * @param int $publish 0 if unpublishing, 1 if publishing
+ * @param string $option The current url option
+ * @throws Exception
+ */
 function publish( $cid=null, $publish=1,  $option ) {
 	global $rsgOption;
 	$mainframe =& JFactory::getApplication();
@@ -398,8 +403,11 @@ function publish( $cid=null, $publish=1,  $option ) {
 }
 /**
 * Moves the order of a record
-* @param integer The increment to reorder by
-*/
+ * @param $uid
+ * @param int $inc The increment to reorder by
+ * @param string $option
+ * @throws Exception
+ */
 function order( $uid, $inc, $option ) {
 	global $rsgOption;
 	$mainframe =& JFactory::getApplication();
@@ -414,8 +422,8 @@ function order( $uid, $inc, $option ) {
 
 /**
 * Cancels an edit operation
-* @param string The current url option
-*/
+* @param string $option The current url option
+ */
 function cancel( $option ) {
 	global $rsgOption;
 	$mainframe =& JFactory::getApplication();
@@ -431,6 +439,10 @@ function cancel( $option ) {
     $mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
+/**
+ * @param $cid
+ * @throws Exception
+ */
 function saveOrder( &$cid ) {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();

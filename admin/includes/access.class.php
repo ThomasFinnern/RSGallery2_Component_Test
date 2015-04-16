@@ -78,7 +78,7 @@ class rsgAccess extends JObject{
 */
 	/**
 	 * Returns an array with all permissions for a specific gallery
-	 * @param int Gallery ID
+	 * @param int $gallery_id Gallery ID
 	 * @return array actions as key, permissions as value
 	 */
 /*	function checkGalleryAll($gallery_id) {
@@ -319,7 +319,7 @@ class rsgAccess extends JObject{
 	}*/
 	/**
 	 * Checks if a set of permissions is available for this specific gallery
-	 * @param integer Gallery id
+	 * @param integer $gallery_id Gallery id
 	 * @return boolean True or false
 	 */
 /*	function arePermissionsSet($gallery_id) {

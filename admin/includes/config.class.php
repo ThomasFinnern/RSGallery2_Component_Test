@@ -139,7 +139,7 @@ class rsgConfig {
 
     /**
      * constructor
-     * @param bool true loads config from db, false will retain defaults
+     * @param bool $loadFromDB true loads config from db, false will retain defaults
      * @todo: fix why we can't get the version from $rsgVersion!
      */
     function rsgConfig( $loadFromDB = true ){
@@ -147,7 +147,7 @@ class rsgConfig {
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
         //$this->version = '3.2.0';
-        $this->version = '4.0.3';
+        $this->version = '4.0.4';
 
         if( $loadFromDB )
             $this->_loadConfig();
@@ -169,9 +169,10 @@ class rsgConfig {
 	}
 
 	/**
-	 *	binds a named array/hash to this object
-	 *	@param array $hash named array
-	 *	@return null|string	null is operation was satisfactory, otherwise returns an error
+	 * binds a named array/hash to this object
+	 * @param array $array $hash named array
+	 * @param string $ignore
+	 * @return bool|null|string	null is operation was satisfactory, otherwise returns an error
 	 */
 	function _bind( $array, $ignore='' ) {
 		if (!is_array( $array )) {
@@ -288,24 +289,25 @@ class rsgConfig {
 	}
 
 	/**
-	 * @param string name of variable
-	 * @return the requested variable
+	 * @param string $varname name of variable
+	 * @return mixed the requested variable
 	 */
 	function get($varname){
 		return $this->$varname;
 	}
     
     /**
-     * @param string name of variable
+     * @param string $varname name of variable
      * @param var new value
+	 * @param $value
      */
     function set( $varname, $value ){
         $this->$varname = $value;
     }
     
     /**
-     * @param string name of variable
-     * @return the default value of requested variable
+     * @param string $varnamename of variable
+     * @return mixed the default value of requested variable
      */
     static function getDefault( $varname ){
         $defaultConfig = new rsgConfig( false );

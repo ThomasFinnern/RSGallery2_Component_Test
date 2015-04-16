@@ -93,9 +93,9 @@ class galleryUtils {
     
     /**
      * Shows a dropdownlist with all categories, owned by the logged in user
-     * @param int Category ID to show the current category selected. Defaults to 0.
-     * @param int User ID of the owner of the gallery
-     * @param string Name of select form element
+     * @param int $s_id Category ID to show the current category selected. Defaults to 0.
+     * @param int $uid User ID of the owner of the gallery
+     * @param string $selectname Name of select form element
      * @return string HTML representation of dropdown box
      * @todo Make all categories visible if user is Super Administrator
 	 * Seems to be no longer used in v3(RC1)
@@ -134,12 +134,11 @@ class galleryUtils {
     
 	/**
 	 * Show gallery select list according to the permissions of the logged in user
-	 * @param string Action type
-	 * @param string Name of the select box, defaults to 'catid'
-	 * @param integer ID of selected gallery
-	 * @param string Additional select tag attributes
-	 * @param bool show Top Gallery to select, default no
-	 * @return HTML to show selectbox
+	 * @param string $action  Action type
+	 * @param string $select_name Name of the select box, defaults to 'catid'
+	 * @param integer $gallery_id ID of selected gallery
+	 * @param string $js Additional select tag attributes
+	 * @param bool $showTopGallery  show Top Gallery to select, default no
 	 */
 	static function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
 		$user = JFactory::getUser();
@@ -165,11 +164,10 @@ class galleryUtils {
 	
 	/**
 	 * Show gallery select list according to the permissions of the logged in user
-	 * @param string Name of the select box, defaults to 'catid'
-	 * @param integer ID of selected gallery
-	 * @param string Additional select tag attributes
-	 * @param bool show Top Gallery to select, default no
-	 * @return HTML to show selectbox
+	 * @param string $select_name Name of the select box, defaults to 'catid'
+	 * @param integer $gallery_id ID of selected gallery
+	 * @param string $js Additional select tag attributes
+	 * @param bool $showTopGallery show Top Gallery to select, default no
 	 */
 	static function showUserGalSelectListCreateAllowed($select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
 		$user = JFactory::getUser();
@@ -195,11 +193,10 @@ class galleryUtils {
 
 	/**
 	 * Add galleries to the gallery select list according to the permissions of the logged in user
-	 * @param level in gallery tree
-	 * @param integer ID of current node in gallery tree
-	 * @param integer ID of selected gallery
-	 * @param list of permitted galleries
-	 * @return HTML to add
+	 * @param integer $level Level in gallery tree
+	 * @param integer $galid ID of current node in gallery tree
+	 * @param int [] $galleriesAllowed ID of selected gallery
+	 * @return string HTML to add
 	 */
 	static function addToGalSelectList($level, $galid, $gallery_id, $galleriesAllowed) {
 		// provided by Klaas on Dec.13.2007
@@ -236,9 +233,9 @@ class galleryUtils {
 	
     /** //MK// [todo] only for allowed parents...
      * build the select list to choose a parent gallery for a specific user
-     * @param int current gallery id
-     * @param string selectbox name
-     * @param boolean Dropdown(false) or Liststyle(true)
+     * @param int $galleryid current gallery id , defaults to null
+     * @param string $listName selectbox name, defaults to 'galleryid'
+     * @param boolean $style Dropdown(false) or Liststyle(true), defaults to true
      * @return string HTML representation for selectlist
 	 * Seems to be unused in v3.1.0
      */
@@ -295,13 +292,14 @@ class galleryUtils {
     /**
      * build the select list to choose a gallery
      * based on options/galleries.class.php:galleryParentSelectList()
-     * @param int current gallery id
-     * @param string selectbox name
-     * @param boolean Dropdown(false) or Liststyle(true)
-     * @param string javascript entries ( e.g: 'onChange="form.submit();"' )
+	 * @param int $galleryid current gallery id , defaults to null
+	 * @param string $listName selectbox name, defaults to 'galleryid'
+	 * @param boolean $style Dropdown(false) or Liststyle(true), defaults to true
+     * @param string $javascript javascript entries ( e.g: 'onChange="form.submit();"' )
+	 * @param int $showUnauthorised
      * @return string HTML representation for selectlist
      */
-    static function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL , $showUnauthorised = 1) 
+    static function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL , $showUnauthorised = 1)
 	{
 		$database = JFactory::getDBO();
 		if ($style == true)
@@ -360,14 +358,13 @@ class galleryUtils {
 
     /**
      * Retrieves the thumbnail image. presented in the category overview
-     * @param int Category id
-     * @param int image height
-     * @param int image width
-     * @param string Class name to format thumb view in css files
+     * @param int $catid Category id
+     * @param int $height image height
+     * @param int $width image width
+     * @param string $class Class name to format thumb view in css files
      * @return string html tag, showing the thumbnail
      * @todo being depreciated in favor of $rsgGallery->thumb() and $rsgDisplay functions
      */
-     
     static function getThumb($catid, $height = 0, $width = 0,$class = "") {
 		$database = JFactory::getDBO();
 	    
@@ -404,8 +401,8 @@ class galleryUtils {
     
     /**
      * Returns number of published items within a specific gallery and perhaps its children
-     * @param int Gallery id
-	 * @param bool Get the number if items in the child-galleries or not
+     * @param int $id Gallery id
+	 * @param bool $withKids Get the number if items in the child-galleries or not
      * @return int Number of items in gallery and possibly subgalleries
      */
     static function getFileCount($id, $withKids=true) {
@@ -423,7 +420,7 @@ class galleryUtils {
         
     /**
      * Retrieves category name, based on the category id
-     * @param integer The ID of the currently selected category
+     * @param int $id The ID of the currently selected category
      * @return string Category Name
      */
     static function getCatnameFromId($id) {
@@ -436,7 +433,7 @@ class galleryUtils {
      
     /**
      * Retrieves category ID, based on the filename id
-     * @param integer The ID of the currently selected file
+     * @param int $id The ID of the currently selected file
      * @return string Category ID
      */
     static function getCatIdFromFileId($id) {
@@ -449,7 +446,7 @@ class galleryUtils {
         
      /**
       * Retrieves filename, based on the filename id
-      * @param integer The ID of the currently selected file
+      * @param int $id The ID of the currently selected file
       * @return string Filename
       */    
     static function getFileNameFromId($id) {
@@ -462,7 +459,7 @@ class galleryUtils {
     
     /**
       * Retrieves title, based on the filename id
-      * @param integer The ID of the currently selected file
+      * @param int $id The ID of the currently selected file
       * @return string title
       */    
     static function getTitleFromId($id) {
@@ -475,7 +472,7 @@ class galleryUtils {
     
     /**
      * Returns parent ID from chosen gallery
-     * @param int Gallery ID
+     * @param int $gallery_id Gallery ID
      * @return int Parent ID
      */
     static function getParentId($gallery_id) {
@@ -484,16 +481,22 @@ class galleryUtils {
      	$database->setQuery($sql);
      	$parent = $database->loadResult();
      	return $parent;
-     }  
-      
-    /**
-     * Creates new thumbnails with new settings
-     * @param Category ID
-     */
+     }
+
+	/**
+	 * Creates new thumbnails with new settings
+	 * @param int $catid Category ID
+	 */
     static function regenerateThumbs ($catid = NULL) {
 		global $rsgConfig;
 		$i = 0;
-		$files  = mosReadDirectory( JPATH_ROOT.$rsgConfig->get('imgPath_original') );
+
+		// $files  = mosReadDirectory( JPATH_ROOT.$rsgConfig->get('imgPath_original') );
+		// mosReadDirectory deprecated	As of version 1.5
+		// mosReadDirectory ( $path, $filter='.', $recurse=false, $fullpath=false  )
+		// use {@link JFolder::files()} or {@link JFolder::folders()} instead
+		// files($path, $filter = '.', $recurse = false, $full = false
+		$files  = JFolder::files( JPATH_ROOT.$rsgConfig->get('imgPath_original') );
 		//check if size is changed
 		foreach ($files as $file) {
 			if ( imgUtils::makeThumbImage( JPATH_ROOT.$rsgConfig->get('imgPath_original').$file ) )
@@ -559,6 +562,7 @@ class galleryUtils {
 	}/**/
         
 	/**
+	 * @param $xid
 	 * @depreciated use rsgGallery->hasNewImages() instead;
 	 */
     static function newImages($xid) {
@@ -589,10 +593,10 @@ class galleryUtils {
     
     /**
      * This function will retrieve the user Id's of the owner of this gallery.
-     * @param integer id of category
-     * @return the requested user id
+     * @param integer $catid id of category
+     * @return int the requested user id
 	 * Seems to be no longer used in 3.1.0
-     */
+	 */
     static function getUID($catid) {
         $database = JFactory::getDBO();
 		$query = 'SELECT `uid` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid;
@@ -603,8 +607,8 @@ class galleryUtils {
         
     /**
      * This function returns the number of created galleries by the logged in user
-     * @param integer user ID
-     * @return integer number of created categories
+     * @param int $id user ID
+     * @return int number of created categories
      */
     static function userCategoryTotal($id) {
         $database = JFactory::getDBO();
@@ -616,8 +620,8 @@ class galleryUtils {
     
     /**
      * This function returns the number of uploaded images  by the logged in user
-     * @param integer user ID
-     * @return integer number of uploaded images
+     * @param int $id user ID
+     * @return int $id number of uploaded images
      */
     static function userImageTotal($id) {
         $database = JFactory::getDBO();
@@ -629,8 +633,7 @@ class galleryUtils {
         
     /**
      * This function returns the number of uploaded images  by the logged in user
-     * @param integer user ID
-     * @return integer number of uploaded images
+     * @return gallery names in HTML
      */
     static function latestCats() {
 		$my = JFactory::getUser();
@@ -656,8 +659,8 @@ class galleryUtils {
     
     /**
      * This function will retrieve the user name based on the user id
-     * @param integer user id
-     * @return the username
+     * @param int $uid user id
+     * @return string the username
      * @todo isn't there a joomla function for this?
      */
     static function genericGetUsername($uid) {
@@ -705,8 +708,8 @@ class galleryUtils {
     /**
      * replaces spaces with underscores
      * replaces other weird characters with dashes
-     * @param string input text
-     * @return cleaned up text
+     * @param string $text input text
+     * @return string cleaned up text
     **/
     static function replaceStrangeChar($text){
         $text = str_replace(" ", "_", $text);
@@ -716,7 +719,7 @@ class galleryUtils {
     
     /**
      * Retrieves file ID based on the filename
-     * @param string filename
+     * @param string $filename filename
      * @return integer File ID
      */
     static function getFileIdFromName($filename) {
@@ -726,7 +729,12 @@ class galleryUtils {
         $id = $database->loadResult();
         return $id;
     }
-    
+
+	/**
+	 * @param string $tbl
+	 * @param string $where, defaults to null
+	 * @return bool
+	 */
     static function reorderRSGallery ($tbl, $where = NULL ) {
 		// reorders either the categories or images within a category
 		// it is necessary to call this whenever a shuffle or deletion is performed
@@ -804,9 +812,10 @@ class galleryUtils {
 	
 	/**
 	 * Write downloadlink for image
-	 * @param int image ID
-	 * @param string Button or HTML link (button/link)
-	 * @return HTML for downloadlink
+	 * @param int $id image ID
+	 * @param string $showtext Button or HTML link (button/link)
+	 * @param string $type
+	 * writes HTML for downloadlink
 	 */
 	static function writeDownloadLink($id, $showtext = true, $type = 'button') {
 	 	echo "<div class=\"rsg2-toolbar\">";
@@ -832,15 +841,19 @@ class galleryUtils {
 	 		<?php
 	 		}
 	 echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
-	 }
-	 
+	}
+
+	/**
+	 * @param $gallery
+	 * @return string|""
+	 */
 	static function writeGalleryStatus( $gallery ) {
 		global $rsgConfig;
 		$my = JFactory::getUser();
 		
 		// return if status is not displayed
 		if ( !$rsgConfig->get('displayStatus') )
-			return;
+			return "";
 		
 		$owner = JHtml::tooltip(JText::_('COM_RSGALLERY2_YOU_ARE_THE_OWNER_OF_THIS_GALLERY'), 
 				null, 
@@ -874,7 +887,7 @@ class galleryUtils {
 
 	/**
      * Get a list of published (gran)child galleries
-     * @param int Gallery id for which the child galleries must be found
+     * @param int $gallery_id Gallery id for which the child galleries must be found
      * @return string String with all child galleries separated by a comma (e.g. 1,2,3)
      */
 	static function getChildList( $gallery_id ) {
@@ -884,13 +897,13 @@ class galleryUtils {
 	}
 	/**
      * Get a list of published (gran)child galleries
-     * @param int Gallery id for which the child galleries must be found
-     * @return array Array with all child galleries separated by a comma
+     * @param int $gallery_id Gallery id for which the child galleries must be found
+	 * @param int [] $array, defaults to null
+     * @return int [] Array with all child galleries separated by a comma
      */
 	static function getChildListArray( $gallery_id, $array = Null) {
 	 	$database = JFactory::getDBO();
 		
-	 	$array[] = $gallery_id;
 	 	$array[] = $gallery_id;
 
 		$query = $database->getQuery(true);
@@ -911,11 +924,15 @@ class galleryUtils {
 	 	}
 	 	return array_unique($array);
 	}
-	
-	 
+
+	/**
+	 * @return string
+	 */
 	static function showFontList() {
 	 	global $rsgConfig;
-	 	
+
+		$fontlist=[];
+
 	 	$selected = $rsgConfig->get('watermark_font');
 	 	$fonts = JFolder::files(JPATH_RSGALLERY2_ADMIN.DS.'fonts', 'ttf');
 	 	foreach ($fonts as $font) {
@@ -923,14 +940,14 @@ class galleryUtils {
 	 	}
 	 	$list = JHtml::_("select.genericlist", $fontlist, 'watermark_font', '', 'value', 'text', $selected );
 	 	return $list;
-	 	
 	 }
+
 	/**
 	 * Writes selected amount of characters. If there are more, the tail will be printed,
 	 * identifying there is more
-	 * @param string Full text
-	 * @param int Number of characters to display
-	 * @param string Tail to print after substring is printed
+	 * @param string $text Full text
+	 * @param int $length Number of characters to display
+	 * @param string $tail Tail to print after substring is printed
 	 * @return string Subtext, followed by tail
 	 */
 	static function subText($text, $length= 20, $tail="...") {
@@ -953,7 +970,8 @@ class galleryUtils {
 	
 	/**
 	 * Checks if a specific component is installed
-	 * @param Component name
+	 * @param string $component_name Component name
+	 * @return int
 	 */
 	static function isComponentInstalled( $component_name ) {
 		$database = JFactory::getDBO();
@@ -970,8 +988,10 @@ class galleryUtils {
 	
 	/**
 	 * Higlights text based on keywords
-	 * @param string Text to search in.
-	 * @param strinf Keywords to search for
+	 * @param string $string Text to search in.
+	 * @param string $keywords Keywords to search for
+	 * @param string $color, defaults to yellow ? not used ?
+	 * @return string
 	 */
 	static function highlight_keywords($string, $keywords, $color = "yellow") {
 	    if ($keywords != "" || $keywords != NULL) {
@@ -1002,21 +1022,26 @@ class galleryUtils {
 	    return $string;
 	}
 
+	/* Not used 20150128
+	 * @param string $type User type like Addmin super admin ...
+	 * @return bool
+	 *
 	static function isUserType($type = "Super Administrator") {
 		global $my;
+		// Since version 1.6 Joomla has a flexible ACL system, which makes $user->usertype deprecated!
 		if ($my->usertype == $type) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	/**/
 
    /**
 	* Method to return a list of all galleries that a user has permission for a given action
 	* @param	string	$action	The action
-	* @return	array	List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
+	* @return	int []	List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
 	*/
-	
 	static function getAuthorisedGalleries($action){
 		$user = JFactory::getUser();
 		// Brute force method: get all gallery rows for the component and check each one

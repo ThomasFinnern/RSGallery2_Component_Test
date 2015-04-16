@@ -33,6 +33,7 @@ class InstallerController extends JControllerLegacy
 	 * @access	public
 	 * @return	void
 	 * @since	1.5
+	 * @throws Exception
 	 */
 	function installform()
 	{

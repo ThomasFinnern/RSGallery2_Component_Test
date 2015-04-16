@@ -31,22 +31,31 @@ class imageUploadError{
     var $error;
     /**
      * Contructor for imageUploadError
-     * @param string Filename for which the error was found
-     * @param string Error message
+     * @param string $f Filename for which the error was found
+     * @param string $e Error message
      */
     function ImageUploadError($f, $e){
         $this->filename=$f;
         $this->error=$e;
     }
 
+    /**
+     * @return string
+     */
     function getFilename(){
         return $this->filename;
     }
-    
+
+    /**
+     * @return string
+     */
     function getError(){
         return $this->error;
     }
-    
+
+    /**
+     * @return string
+     */
     function toString(){
         return JText::_('COM_RSGALLERY2_ERROR_IMAGE_UPLOAD') . $this->filename . ":<p> " . $this->error . "<br>";
     }
@@ -76,12 +85,12 @@ class fileUtils{
     
     /**
      * Takes an image file, moves the file and adds database entry
-     * @param the verified REAL name of the local file including path
-     * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
-     * @param title of image, if empty will be created from $imgName
-     * @param description of image, if empty will remain empty
-     * @return returns true if successful otherwise returns an ImageUploadError
+     * @param $imgTmpName the verified REAL name of the local file including path
+     * @param $imgName name of file according to user/browser or just the name excluding path
+     * @param $imgCat desired category
+     * @param string $imgTitle title of image, if empty will be created from $imgName
+     * @param string $imgDesc description of image, if empty will remain empty
+     * @return bool|imageUploadError|returns|string returns true if successful otherwise returns an ImageUploadError
      */
     static function importImage($imgTmpName, $imgName, $imgCat, $imgTitle='', $imgDesc='') {
         $handle = fileUtils::determineHandle( $imgName );
@@ -104,6 +113,9 @@ class fileUtils{
     /**
      * new and extra thought out!
      * @todo Deprecated. Can be removed after testing
+     * @param $tmpName
+     * @param $name
+     * @return imageUploadError|string
      */
     static function move_uploadedFile_to_orignalDirX( $tmpName, $name ){
        
@@ -143,11 +155,11 @@ class fileUtils{
      * It checks whether a filename already exists and renames when necessary
      * 
      * @todo Check filenames against database instead of filesystem
-     * @param string Temporary upload location as provided by $_FILES['tmp_name'] or from filename array
-     * @param string Destination location path
-     * @return string Path to the file where the image was saved to 
+     * @param string $tmpName Temporary upload location as provided by $_FILES['tmp_name'] or from filename array
+     * @param string $name Destination location path
+     * @return imageUploadError|string Path to the file where the image was saved to
      */
-    static function move_uploadedFile_to_orignalDir( $tmpName, $name ){     
+    static function move_uploadedFile_to_orignalDir( $tmpName, $name ){
         $parts = pathinfo( $name );
         
         // Clean filename
@@ -178,7 +190,11 @@ class fileUtils{
 
         return $destination;
     }
-    
+
+    /**
+     * @param $filename
+     * @return bool|string
+     */
 	static function determineHandle( $filename ){
 		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/audio.utils.php' );
 		require_once( JPATH_RSGALLERY2_ADMIN.'/includes/video.utils.php' );
@@ -226,6 +242,7 @@ class fileHandler {
     }
     /**
      * Check if OS is Windows
+     * @return bool
      */
     static function is_win() {
         if ( substr(PHP_OS, 0, 3) == 'WIN' )
@@ -236,8 +253,8 @@ class fileHandler {
     
     /**
      * Function returns the permissions in a 4 digit format (e.g: 0777)
-     * @param string full path to folder to check
-     * @return int 4 digit folder permissions
+     * @param string $folder full path to folder to check
+     * @return string from int 4 digit folder permissions
      */
     static function getPerms($folder) {
         $perms = substr(sprintf('%o', fileperms($folder)), -4);
@@ -246,7 +263,7 @@ class fileHandler {
     
     /**
      * Check routine to see is all prerequisites are met to start handling the upload process
-     * @return boolean True if all is well, false if something is missing
+     * @return bool|string True if all is well, false if something is missing
      */
     function preHandlerCheck() {
         /* Check if media gallery exists and is writable */
@@ -271,7 +288,7 @@ class fileHandler {
     
     /**
      * Checks the size of an uploaded ZIP-file and checks it against the upload_max_filesize in php.ini
-     * @param array File array from form post method
+     * @param $zip_file array File array from form post method
      * @return boolean True if size is within the upload limit, false if not
      */
     static function checkSize($zip_file) {
@@ -287,7 +304,7 @@ class fileHandler {
     
     /**
      * Checks if uploaded file is a zipfile or a single file
-     * @param string filename
+     * @param string $filename filename
      * @return string 'zip' if zip-file, 'image' if image file, 'error' if illegal file type
      */
     function checkFileType($filename) {
@@ -307,7 +324,8 @@ class fileHandler {
     }
     /**
      * Returns the correct imagetype
-     * @param string Full path to image
+     * @param string $filename Full path to image
+     * @return string
      */
     static function getImageType( $filename ) {
 		if(!file_exists($filename)) { return ""; }
@@ -347,9 +365,11 @@ class fileHandler {
     
     /**
      * Checks the number of images against the number of images to upload.
-     * @return boolean True if number is within boundaries, false if number exceeds maximum
      * @todo Check if user is Super Administrator. Limits do not count for him
 	 * Does not seem to be used anywhere in 3.1.0
+     * @param bool $zip
+     * @param string $zip_count
+     * @return bool  True if number is within boundaries, false if number exceeds maximum
      */
     static function checkMaxImages($zip = false, $zip_count = '' ) {
 		global $my, $database, $rsgConfig;
@@ -377,9 +397,9 @@ class fileHandler {
     
     /**
      * Cleans out any last remains out of /media directory, except files that belong there
-     * @return boolean True upon completion, false if some files remain in media
+     * returns boolean True upon completion, false if some files remain in media
+     * @param $extractDir
      */
-    
     static function cleanMediaDir( $extractDir ) {
         $mediadir = JPATH_ROOT. DS ."media". DS. $extractDir;
 
@@ -393,7 +413,9 @@ class fileHandler {
     /**
      * Deletes complete directories, including contents. 
      * Idea from Joomla installer class
-     * Deprecated, use JFolder::delete() instead
+     * @Deprecated, use JFolder::delete() instead
+     * @param string $dir
+     * @return bool
      */
     static function deldir( $dir ) {
         $current_dir = opendir( $dir );
@@ -417,9 +439,10 @@ class fileHandler {
      * Uploads archive (with original name) and extracts archive to designated folder.
      * (This function replaces handleZIP used in J!1.5 and allows for all archive formats.)
      * 
-     * @param	array 	Archive tmp path from upload form
-     * @param 	string	Absolute path to destination folder, defaults to joomla /media folder
-     * @return	array	Array with filenames
+     * @param	array $archive	Archive tmp path from upload form
+     * @param 	string $destination	Absolute path to destination folder, defaults to joomla /media folder
+     * @return	array|bool	Array with filenames
+     * @throws Exception
      */
     function extractArchive($archive, $destination = '') {
     	//This is what is given to this function: $archive = JRequest::getVar('uploadFile', null, 'FILES', 'ARRAY');
@@ -439,7 +462,7 @@ class fileHandler {
 		}
 
 		//Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload(). It transfers a file from the source file path to the destination path. Filename is made safe.
-		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(JFile::getName($archive['name']));		
+		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(JFile::baseName($archive['name']));
 		// Move uploaded file (this is truely uploading the file)
 		if (!JFile::upload($archive['tmp_name'], $fileDestination)){
 			$uploadError	= 1;
@@ -497,9 +520,9 @@ class fileHandler {
     
     /**
      * Picks up a ZIP-file from a form and extracts it to a designated directory
-     * @param array File array from form post method
-     * @param string Absolute path to destination folder, defaults to Joomla /media folder
-     * @return array with filenames
+     * @param array $zip_file File array from form post method
+     * @param string  $destination Absolute path to destination folder, defaults to Joomla /media folder
+     * @return array|int with filenames
      */
     function handleZIP($zip_file, $destination = '' ) {
         global $rsgConfig;
@@ -518,13 +541,15 @@ class fileHandler {
         else
             $extractDir = JPath::clean($destination . DS . $tmpdir . DS);
 
-        //Create new zipfile
+        // Create new zipfile
         $tzipfile = new PclZip($zip_file['tmp_name']);
         
-        //Unzip to ftp directory, removing all path info
+        // Unzip to ftp directory, removing all path info
         $zip_list = $tzipfile->extract(  PCLZIP_OPT_PATH, $extractDir, PCLZIP_OPT_REMOVE_ALL_PATH);
 
-        //Create image array from $ziplist
+        $list[] = [];
+
+        // Create image array from $ziplist
         $ziplist = JFolder::files( $extractDir );
         foreach($ziplist as $file) {
             if ( is_dir($extractDir . $file) ) {
@@ -540,7 +565,7 @@ class fileHandler {
         
         if ($zip_list == 0){
             return 0;
-            die ("- Error message :".$tzipfile->errorInfo(true));
+            // die ("- Error message :".$tzipfile->errorInfo(true));
         } else {
             return $list;
         }
@@ -549,8 +574,10 @@ class fileHandler {
     /**
      * Copies all files from a folder to the /media folder.
      * It will NOT delete the media from the FTP-location
-     * @param string Absolute path to the sourcefolder
-     * @param string Absolute path to destination folder, defaults to Joomla /media folder
+     * @param string $source Absolute path to the sourcefolder
+     * @param string $destination Absolute path to destination folder, defaults to Joomla /media folder
+     * @return array
+     * @throws Exception
      */
     function handleFTP($source, $destination = '') {
 		$mainframe = JFactory::getApplication();
@@ -612,12 +639,14 @@ class fileHandler {
         } else {
 			return $list;            
         }
+
+        return [];
     }
     
     /**
      * Reads the error code from the upload routine and generates corresponding message.
-     * @param int Error code, from $_FILES['i_file']['error']
-     * @return 0 if upload is OK, $msg with error message if error has occured 
+     * @param int $error Error code, from $_FILES['i_file']['error']
+     * @return int|string 0 if upload is OK, $msg with error message if error has occured
      */
     static function returnUploadError( $error ) {
         if ( $error == UPLOAD_ERR_OK ) {
@@ -643,7 +672,8 @@ class fileHandler {
                     $msg = JText::_('COM_RSGALLERY2_FAILED_TO_WRITE_FILE_TO_DISK');
                     break;
                 case UPLOAD_ERR_EXTENSION;
-                    $msg = JText::_('COM_RSGALLERY2_FILE_UPLOAD_STOPPED_BY_EXTENSION');         
+                    $msg = JText::_('COM_RSGALLERY2_FILE_UPLOAD_STOPPED_BY_EXTENSION');
+                    break;
                 default:
                     $msg = JText::_('COM_RSGALLERY2_UNKNOWN_FILE_ERROR');
             }

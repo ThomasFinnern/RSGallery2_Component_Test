@@ -14,8 +14,11 @@ defined( '_JEXEC' ) or die( );
  */
 class rsgDisplay_slideshowone extends rsgDisplay{
 
-	static function showSlideShow(){
-		global $rsgConfig;
+	/**
+	 *
+	 */
+	function showSlideShow(){
+		// global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 		

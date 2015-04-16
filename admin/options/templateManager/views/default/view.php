@@ -32,6 +32,10 @@ class InstallerViewDefault extends JViewLegacy
 		$this->_addPath('template', $this->_basePath.DS.'views'.DS.'default'.DS.'tmpl');
 	}
 
+	/**
+	 * @param null $tpl template
+	 * @throws Exception
+	 */
 	function display($tpl=null)
 	{
 		/*
@@ -55,7 +59,9 @@ class InstallerViewDefault extends JViewLegacy
 			$showMessage	= ( $message1 || $message2 );
 		}
 
-		$this->assign('showMessage',	$showMessage);
+		// assign is deprecated. Use native PHP syntax
+		// $this->assign('showMessage',	$showMessage);
+		$this->showMessage = $showMessage;
 		$this->state = $state;
 
 		JHtml::_('behavior.tooltip');
@@ -70,7 +76,10 @@ class InstallerViewDefault extends JViewLegacy
 	function loadItem($index=0)
 	{
 	}
-	
+
+	/**
+	 * @throws Exception
+	 */
 	static function showHeader(){
 		
 		//$ext	= JRequest::getWord('type');
@@ -89,6 +98,9 @@ class InstallerViewDefault extends JViewLegacy
 		
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	static function showTemplateHeader(){
 		
 		//$ext	= JRequest::getWord('type', 'templateGeneral');

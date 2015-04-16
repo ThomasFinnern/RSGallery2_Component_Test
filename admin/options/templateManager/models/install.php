@@ -44,6 +44,10 @@ class InstallerModelInstall extends JModelLegacy
 
 	}
 
+	/**
+	 * @return bool
+	 * @throws Exception
+	 */
 	function install()
 	{
 		$mainframe =& JFactory::getApplication();
@@ -117,7 +121,10 @@ class InstallerModelInstall extends JModelLegacy
 	}
 
 	/**
-	 * @param string The class name for the installer
+	 * string The class name for the installer
+	 *
+	 * @return bool|mixed
+	 * @throws Exception
 	 */
 	static function _getPackageFromUpload()
 	{
@@ -170,8 +177,10 @@ class InstallerModelInstall extends JModelLegacy
 	 * Install an extension from a directory
 	 *
 	 * @static
-	 * @return boolean True on success
+	 * @return bool True on success
 	 * @since 1.0
+	 * @return bool
+	 * @throws Exception
 	 */
 	static function _getPackageFromFolder()
 	{
@@ -209,8 +218,9 @@ class InstallerModelInstall extends JModelLegacy
 	 * Install an extension from a URL
 	 *
 	 * @static
-	 * @return boolean True on success
+	 * @return bool|mixed True on success
 	 * @since 1.5
+	 * @throws Exception
 	 */
 	static function _getPackageFromUrl()
 	{

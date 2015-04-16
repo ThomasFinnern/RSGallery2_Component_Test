@@ -70,6 +70,8 @@ class rsgItem extends JObject{
 		$database->setQuery( $query );
 		
 		if( !$database->execute() ) {
+			// ToDo: 150130 $database->getErrorMsg deprecated
+			// ToDo: 150130 setError deprecated
 			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
@@ -180,12 +182,12 @@ class rsgItem extends JObject{
 		$database = JFactory::getDBO();
 
 		if( !$database->updateObject('#__rsgallery2_files', $this, 'id') ) {
+			// ToDo:: 150130 $database->getErrorMsg is deprecated
 			$this->setError( $database->getErrorMsg() );
 			return false;
 		}
 		
 		return true;
-		
 	}
 	
 	/**

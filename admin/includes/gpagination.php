@@ -19,6 +19,7 @@ jimport("joomla.html.pagination");
  * RSGallery2 components
  * Inheriting JPagination from the Joomla Framework
  *
+ * ToDo: 150202 Compare with version from J!3x
  * @package 	RSGallery2
  * @since		2.0
  */
@@ -31,6 +32,8 @@ class JGPagination extends JPagination
 	 * @access	public
 	 * @return	string	Pagination page list string
 	 * @since	1.0
+	 * @return null|string
+	 * @throws Exception
 	 */
 	public function getPagesLinks()
 	{

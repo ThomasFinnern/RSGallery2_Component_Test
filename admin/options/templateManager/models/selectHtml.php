@@ -39,7 +39,10 @@ class InstallerModelSelectHtml extends InstallerModel
 		// Set state variables from the request
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
-	
+
+	/**
+	 * @return stdClass
+	 */
 	function getItems()
 	{
 		// Determine template CSS directory

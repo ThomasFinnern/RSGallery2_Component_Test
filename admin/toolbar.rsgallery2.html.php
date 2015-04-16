@@ -11,6 +11,10 @@
 defined( '_JEXEC' ) or die();
 
 class menu_rsg2_submenu{
+	/**
+	 * @param string $rsgOption
+	 * @param string $task
+	 */
 	static function addRSG2Submenu($rsgOption = '', $task = '') {
 
 		//The template manager (still) has its own submenu
@@ -46,7 +50,10 @@ class menu_rsg2_submenu{
 
 class menu_rsg2_maintenance{
 	// Only those with core.manage can get here via $rsgOption = maintenance
-	
+
+	/**
+	 *
+	 */
 	static function regenerateThumbs() {
 		// Check if core.admin is allowed
 		$canDo	= Rsgallery2Helper::getActions();
@@ -60,6 +67,9 @@ class menu_rsg2_maintenance{
 }
 
 class menu_rsg2_images{
+	/**
+	 *
+	 */
     static function upload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
         JToolBarHelper::spacer();
@@ -70,6 +80,9 @@ class menu_rsg2_images{
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
 
+	/**
+	 * @throws Exception
+	 */
     static function show() {
 	
 		// $galleryId = JRequest::getInt('gallery_id',0);
@@ -104,7 +117,10 @@ class menu_rsg2_images{
 		}
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
-    
+
+	/**
+	 *
+	 */
     static function edit() {
         JToolBarHelper::apply();
 		JToolBarHelper::save();
@@ -113,7 +129,10 @@ class menu_rsg2_images{
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
-    
+
+	/**
+	 *
+	 */
     static function remove() {
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
@@ -125,6 +144,9 @@ class menu_rsg2_images{
 }
 
 class menu_rsg2_galleries{
+	/**
+	 *
+	 */
     static function show() {
 		$canDo	= Rsgallery2Helper::getActions();
 		
@@ -150,6 +172,9 @@ class menu_rsg2_galleries{
         JToolBarHelper::help( 'screen.rsgallery2' ,true);
     }
 
+	/**
+	 *
+	 */
     static function edit() {
         JToolBarHelper::apply();
 		JToolBarHelper::save();
@@ -158,7 +183,10 @@ class menu_rsg2_galleries{
         JToolBarHelper::spacer();
         JToolBarHelper::help( 'screen.rsgallery2',true );
     }
-    
+
+	/**
+	 *
+	 */
     static function remove() {	//When a gallery is checked and delete is clicked this function is called to confirm removal
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
@@ -169,23 +197,34 @@ class menu_rsg2_galleries{
 }
 
 class menuRSGallery {
-
+	/**
+	 *
+	 */
     static function adminTasksMenuX() {
     }
-    
+
+	/**
+	 *
+	 */
     static function image_new() {
         JToolBarHelper::save();
         JToolBarHelper::cancel();
         JToolBarHelper::spacer();
         }
 
+	/**
+	 *
+	 */
     static function image_edit() {
         JToolBarHelper::save('save_image');
         JToolBarHelper::cancel('view_images');
         JToolBarHelper::spacer();
         
         }
-    
+
+	/**
+	 * @throws Exception
+	 */
     static function image_batchUpload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_BATCH_UPLOAD'), 'generic.png' );
 		
@@ -199,20 +238,29 @@ class menuRSGallery {
         JToolBarHelper::spacer();
         JToolBarHelper::help('screen.rsgallery2',true);
         }
-    
+
+	/**
+	 *
+	 */
     static function image_upload() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
         JToolBarHelper::custom('upload','upload_f2.png','upload_f2.png','COM_RSGALLERY2_UPLOAD', false);
 		JToolBarHelper::custom('upload','forward.png','forward.png','COM_RSGALLERY2_NEXT', false);
         }
-    
+
+	/**
+	 *
+	 */
     static function images_show() {
         JToolBarHelper::addNew('forward');
         JToolBarHelper::editList('edit_image');
         JToolBarHelper::deleteList( '', 'delete_image', JText::_('COM_RSGALLERY2_DELETE') );
         //menuRSGallery::adminTasksMenu();
         }
-        
+
+	/**
+	 *
+	 */
     static function config_rawEdit() {
 		$canDo	= Rsgallery2Helper::getActions();
 
@@ -223,7 +271,10 @@ class menuRSGallery {
 			JToolBarHelper::cancel();
 		}
     }
-    
+
+	/**
+	 *
+	 */
     static function config_dumpVars() {
 		$canDo	= Rsgallery2Helper::getActions();
 
@@ -233,7 +284,10 @@ class menuRSGallery {
 			JToolBarHelper::spacer();
 		}
     }
-    
+
+	/**
+	 *
+	 */
     static function config_show() {
         JToolBarHelper::title( JText::_('COM_RSGALLERY2_CONFIGURATION'), 'generic.png' );
         JToolBarHelper::apply('applyConfig');
@@ -242,25 +296,37 @@ class menuRSGallery {
         JToolBarHelper::help('screen.rsgallery2',true);
         //menuRSGallery::adminTasksMenu();
         }
-        
+
+	/**
+	 *
+	 */
 	static function edit_main() {
 		JToolBarHelper::save( 'save_main' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel('templates');
 	}
 
+	/**
+	 *
+	 */
 	static function edit_thumbs() {
 		JToolBarHelper::save( 'save_thumbs' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel('templates');
 	}
 
+	/**
+	 *
+	 */
 	static function edit_display() {
 		JToolBarHelper::save( 'save_display' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel('templates');
 	}
 
+	/**
+	 *
+	 */
 	static function simple(){
 		$user = JFactory::getUser();
 		$canConfigure = $user->authorise('core.admin', 	'com_rsgallery2');
@@ -277,6 +343,10 @@ class menuRSGallery {
 } 
 
 class menu_rsg2_jumploader {
+
+	/**
+	 *
+	 */
 	static function show() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_JAVA_UPLOADER'), 'generic.png' );
 		JToolBarHelper::apply('');
@@ -284,10 +354,13 @@ class menu_rsg2_jumploader {
 		JToolBarHelper::cancel();
 		JToolBarHelper::help('screen.rsgallery2',true);
 	}
-	
+
+
+	/**
+	 *
+	 */
 	static function simple() {
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_JAVA_UPLOADER'), 'generic.png' );
 		JToolBarHelper::help('screen.rsgallery2',true);
 	}
 }
-?>

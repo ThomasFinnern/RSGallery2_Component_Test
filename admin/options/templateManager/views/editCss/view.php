@@ -22,6 +22,10 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewEditCss extends InstallerViewDefault
 {
+	/**
+	 * @param null $tpl
+	 * @throws Exception
+	 */
 	function display($tpl=null)
 	{
 		/*

@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die();
 
 class myGalleries {
 
-   	static function myGalleries() {
+   	function myGalleries() {
 
    	}
    	
@@ -159,7 +159,7 @@ class myGalleries {
 					<td><?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?></td>
 					<td>
 						<?php
-						//Show all galleries where galleries without create permission are disabled, select name is 'parent', no gallery is selected, no additional select atributes, showTopGallery
+						//Show all galleries where galleries without create permission are disabled, select name is 'parent', no gallery is selected, no additional select attributes, showTopGallery
 						galleryUtils::showUserGalSelectListCreateAllowed('parent', '', '',true);
 						//Limits to only user owned, does not use permissions:
 						//galleryUtils::showCategories(NULL, $my->id, 'parent');
@@ -187,10 +187,14 @@ class myGalleries {
 			</table>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
-			<!--input type="hidden" name="rsgOption" value="< ? php echo JRequest::getCmd('rsgOption'); ? >" / -->
-			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
-			<!--input type="hidden" name="Itemid" value="< ?php echo JRequest::getInt('Itemid'); ? >" /-->
-			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
+			<!--input type="hidden" name="rsgOption" value="< ? php
+				// echo JRequest::getCmd('rsgOption');
+			?>" / -->
+			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', 'CMD'); ?>" />
+			<!--input type="hidden" name="Itemid" value="< ?php
+				// echo JRequest::getInt('Itemid');
+			?>" /-->
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, 'INT'); ?>" />
 			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
@@ -608,8 +612,8 @@ class myGalleries {
     /**
      * This will show the images, available to the logged in users in the My Galleries screen
      * under the tab "My Images".
-     * @param array Result array with image details for the logged in users
-     * @param array Result array with pagenav details
+     * @param array $images Result array with image details for the logged in users
+     * @param array $pageNav Result array with pagenav details
      */
     static function showMyImages($images, $pageNav) {
         JHtml::_('behavior.tooltip');
@@ -626,7 +630,7 @@ class myGalleries {
 		$userId = $user->id;
 		jimport( 'joomla.html.html.grid' );
         ?>
-		<form action="<?php echo JRoute::_('index.php?option='.$option.'&rsgOption='.$rsgOption.'&Itemid='.$Itemid); ?>" method="post" name="adminForm">
+		<form action="<?php echo JRoute::_('index.php?option='.$option.'&rsgOption='.$rsgOption.'&Itemid='.$Itemid); ?>" method="post" name="adminForm" id="adminForm">
         <table class="adminlist" >
 			<tr>
 				<td colspan="2"><h3><?php echo JText::_('COM_RSGALLERY2_MY_IMAGES'); ?></h3></td>
@@ -911,17 +915,21 @@ class myGalleries {
 			<input type="hidden" name="id" 		value="<?php echo $id; ?>" />
 			<input type="hidden" name="task" 	value="" />
 			<input type="hidden" name="option" 	value="com_rsgallery2>" />
-			<!-- input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>" / -->
-			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, INT); ?>" />
-			<!-- input type="hidden" name="rsgOption" value="<?php echo JRequest::getCmd('rsgOption'); ?>" / -->
-			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', CMD); ?>" />
+			<!-- input type="hidden" name="Itemid" value="<?php
+				// echo JRequest::getInt('Itemid');
+			?>" / -->
+			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get( 'Itemid', 0, 'INT'); ?>" />
+			<!-- input type="hidden" name="rsgOption" value="<?php
+			// echo JRequest::getCmd('rsgOption');
+			?>" / -->
+			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get( 'rsgOption', '', 'CMD'); ?>" />
 			
 			<?php echo JHtml::_('form.token'); ?>
         </form>
         <?php
     }
     
-function editCat($rows = null) {
+static function editCat($rows = null) {
     global $rsgConfig;
 	$my = JFactory::getUser();
 	//$editor =& JFactory::getEditor();
@@ -1040,7 +1048,7 @@ function editCat($rows = null) {
  * Javascript for My galleries forms which use Joomla.submitbutton function.
  * toolbarbutton sends information in formname.task format.
  */
-function mygalleriesJavascript() {
+static function mygalleriesJavascript() {
 	//$editor =& JFactory::getEditor();
 	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
 	$editor = JEditor::getInstance($editor);	

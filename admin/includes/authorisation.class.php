@@ -19,8 +19,8 @@ class rsgAuthorisation{
 
 	/**
 	 * Check for edit (own) authorisation on gallery
-	 * $param int gallery id
-	 * @return boolean true if authorised, false if not.
+	 * @param int $gallery_id gallery id defaults to null
+	 * @return bool true if authorised, false if not.
 	 */
 	static function authorisationEditGallery($gallery_id = Null) {
 		$user = JFactory::getUser();
@@ -57,7 +57,7 @@ class rsgAuthorisation{
 
 	/**
 	 * Check for edit (own) authorisation on item
-	 * $param int item id
+	 * @param int $item_id item id
 	 * @return boolean true if authorised, false if not.
 	 */
 	static function authorisationEditItem($item_id = Null) {
@@ -95,7 +95,7 @@ class rsgAuthorisation{
 
 	/**
 	 * Check for delete (own) authorisation on gallery
-	 * $param int gallery id
+	 * @param int $gallery_id gallery id
 	 * @return boolean true if authorised, false if not.
 	 */
 	static function authorisationDeleteGallery($gallery_id = Null) {
@@ -133,7 +133,7 @@ class rsgAuthorisation{
 	
 	/**
 	 * Check for delete (own) authorisation on item
-	 * $param int item id
+	 * @param int $item_id item id
 	 * @return boolean true if authorised, false if not.
 	 */
 	static function authorisationDeleteItem($item_id = Null) {
@@ -170,7 +170,7 @@ class rsgAuthorisation{
 	}
 	/**
 	 * Check for edit state (own) authorisation on gallery
-	 * $param int gallery id
+	 * @param int $gallery_id gallery id
 	 * @return boolean true if authorised, false if not.
 	 */
 	static function authorisationEditStateGallery($gallery_id = Null) {
@@ -207,7 +207,7 @@ class rsgAuthorisation{
 	}
 	/**
 	 * Check for edit state (own) authorisation on item
-	 * $param int item id
+	 * @param int $item_id item id
 	 * @return boolean true if authorised, false if not.
 	 */
 	static function authorisationEditStateItem($item_id = Null) {
@@ -244,7 +244,7 @@ class rsgAuthorisation{
 	}
 	/**
 	 * Check for create (own) authorisation in parent gallery (check on component permission when gid = 0)
-	 * $param int item id
+	 * @param int $parent_gallery item id
 	 * @return boolean true if authorised, false if not.
 	 */
 	static function authorisationCreate($parent_gallery = Null) {
@@ -294,7 +294,6 @@ class rsgAuthorisation{
 
    /**
 	* Method to return a list of all galleries that a user has permission for a given action
-	* @param	string	$action	The action
 	* @return	array	List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
 	*/
 	static function authorisationCreate_galleryList(){
@@ -338,4 +337,3 @@ class rsgAuthorisation{
 	
 }
 //end class //
-?>

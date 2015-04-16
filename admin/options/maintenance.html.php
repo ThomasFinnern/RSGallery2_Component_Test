@@ -17,6 +17,9 @@ defined( '_JEXEC' ) or die();
  */
 class html_rsg2_maintenance {
 
+	/**
+	 *
+	 */
 	static function showMaintenanceCP() {
 		?>
 		<div id="rsg2-thisform">
@@ -62,9 +65,10 @@ class html_rsg2_maintenance {
 	
 	 /**
       * Used by showCP to generate buttons
-      * @param string URL for button link
-      * @param string Image name for button image
-      * @param string Text to show in button
+      * @param string $link URL for button link
+      * @param string $image Image name for button image
+	  * @param $title
+	  * @param string $text Text to show in button
       */
 	static function quickiconBar( $link, $image, $title, $text = "" ) {
 	    ?>
@@ -83,7 +87,10 @@ class html_rsg2_maintenance {
 	    <div class='rsg2-clr'>&nbsp;</div>
 	    <?php
 	}
-	
+
+	/**
+	 * @param $lists
+	 */
 	static function regenerateImages($lists) {
 		global $rsgConfig;
 		?>
@@ -134,7 +141,10 @@ class html_rsg2_maintenance {
 		</form>
 		<?php
 	}
-	
+
+	/**
+	 * @param $option
+	 */
 	static function consolidateDbInformX($option){
 	    // inform user of purpose of this function, then provide a proceed button
 		?>
@@ -171,7 +181,14 @@ class html_rsg2_maintenance {
 	    </form>
 	<?php
 	}
-	
+
+	/**
+	 * @param $db_name
+	 * @param $file_display
+	 * @param $file_original
+	 * @param $file_thumb
+	 * @param $files_total
+	 */
 	static function consolidateDB($db_name, $file_display, $file_original, $file_thumb, $files_total) {
 	    global $rsgConfig;
 	    require_once( JPATH_RSGALLERY2_ADMIN.'/config.rsgallery2.php' );

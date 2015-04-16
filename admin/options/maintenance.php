@@ -79,6 +79,9 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 	}	// end task switch
 }
 
+/**
+ *
+ */
 function test() {
 	// http://JOOMLA/administrator/index.php?option=com_rsgallery2&rsgOption=maintenance&task=test
 	echo '<a href='.JRoute::_('index.php?option=com_rsgallery2&rsgOption=maintenance&task=test').'>function test() in admin/options/maintenance </a><p></p>';
@@ -123,6 +126,9 @@ function showMigration() {
 	}
 }
 
+/**
+ * @throws Exception
+ */
 function doMigration() {
 	//$type  	= JRequest::getVar('type', null);
 	$input =JFactory::getApplication()->input;
@@ -142,6 +148,9 @@ function showMaintenanceCP() {
 	html_rsg2_maintenance::showMaintenanceCP();
 }
 
+/**
+ *
+ */
 function regenerateImages() {
 	//Select the right gallery, multiple galleries or select them all
 	$lists['gallery_dropdown'] = galleryUtils::galleriesSelectList(null, "gid[]", true, "MULTIPLE");
@@ -152,6 +161,9 @@ function regenerateImages() {
  * Function will regenerate thumbs for a specific gallery or set of galleries
  * @todo Check if width really changed, else no resize needed. 
  * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting. 
+ */
+/**
+ * @throws Exception
  */
 function executeRegenerateThumbImages() {
 	global $rsgConfig;
@@ -197,7 +209,8 @@ function executeRegenerateThumbImages() {
 }
 /**
  * Function will regenerate display images for a specific gallery or set of galleries
- * @todo Check if width really changed, else no resize needed. 
+ * @todo Check if width really changed, else no resize needed.
+ * @throws Exception
  */
 function executeRegenerateDisplayImages() {
 	global $rsgConfig;
@@ -268,11 +281,17 @@ function executeRegenerateDisplayImages() {
     $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 }
 
+/**
+ *
+ */
 function consolidateDB() {
 	$consolidate = new rsg2_consolidate();
 	$consolidate->consolidateDB();
 }
 
+/**
+ * @throws Exception
+ */
 function createImages() {
 	global $rsgConfig;
 	$mainframe =& JFactory::getApplication();
@@ -324,6 +343,9 @@ function createImages() {
 	$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
 }
 
+/**
+ * @throws Exception
+ */
 function deleteImages() {
 	$mainframe =& JFactory::getApplication();
 	$database = JFactory::getDBO();
@@ -341,6 +363,9 @@ function deleteImages() {
     $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
 }
 
+/**
+ * @throws Exception
+ */
 function createDbEntries() {
 	$input =JFactory::getApplication()->input;
 	//$name = JRequest::getVar('name'  , null);
@@ -358,6 +383,7 @@ function createDbEntries() {
 /**
  * Used in the consolidate database function
  * Creates images based on an image id or an image name
+ * @throws Exception
  */
 function regenerateImage() {
 	$mainframe =& JFactory::getApplication();
@@ -405,6 +431,7 @@ function regenerateImage() {
 
 /**
  * Checks database for problems and optimizes tables
+ * @throws Exception
  */
 function optimizeDB() {
 	$mainframe =& JFactory::getApplication();

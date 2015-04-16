@@ -24,13 +24,14 @@ class audioUtils extends fileUtils{
 
     /**
      * Takes an image file, moves the file and adds database entry
-     * @param the verified REAL name of the local file including path
-     * @param name of file according to user/browser or just the name excluding path
-     * @param desired category
-     * @param title of image, if empty will be created from $name
-     * @param description of image, if empty will remain empty
-     * @return returns true if successfull otherwise returns an ImageUploadError
+     * @param $tmpName The verified REAL name of the local file including path
+     * @param $name name of file according to user/browser or just the name excluding path
+     * @param $cat desired category
+     * @param string $title title of image, if empty will be created from $name
+     * @param string $desc description of image, if empty will remain empty
+     * @return bool|imageUploadError|string returns true if successfull otherwise returns an ImageUploadError
      */
+
     static function importImage($tmpName, $name, $cat, $title='', $desc='') {
         global $rsgConfig;
 		$database = JFactory::getDBO();
@@ -66,12 +67,18 @@ class audioUtils extends fileUtils{
         
         if (!$database->execute()){
 			audioUtils::deleteAudio( $parts['basename'] );
+            // ToDo: 150130 $database->stderr(true) deprecated
             return new imageUploadError( $parts['basename'], $database->stderr(true) );
         }
 
         return true;
     }
-    
+
+    /**
+     * @param $name
+     * @param bool $local
+     * @return string|void
+     */
     static function getAudio($name, $local=false){
         global  $rsgConfig;
         
@@ -87,7 +94,7 @@ class audioUtils extends fileUtils{
     
     /**
     * deletes all elements of image on disk and in database
-    * @param string name of image
+    * @param $name string name of image
     * @return true if success or notice and false if error
     */
 	function deleteAudio($name){
@@ -117,7 +124,11 @@ class audioUtils extends fileUtils{
         
         return true;
     }
-      
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
     static function getAudioName($name){
         return $name;
     }

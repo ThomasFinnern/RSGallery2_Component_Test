@@ -57,7 +57,7 @@ foreach ($rows as $row)
         <table border="0" cellpadding="0" cellspacing="0" style="border: white inset 2px; width: <?php echo $image_width; ?>px;">
         <tr>
             <td>
-            <img name="stage" border="0" src="<?php echo JURI_SITE.$imagepath."/".$name;?>" style="filter: revealtrans(); font-size:12;">
+            <img name="stage" border="0" src="<?php echo JURI_SITE.$imagepath."/".$name;?>" style="filter: revealtrans(); font-size:12px;">
             </td>
         </tr>
         </table>

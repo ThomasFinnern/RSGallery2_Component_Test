@@ -22,7 +22,10 @@ include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
 class InstallerViewSelectHtml extends InstallerViewDefault
 {
-	static function display($tpl=null)
+	/**
+	 * @param null $tpl
+	 */
+	function display($tpl=null)
 	{
 		/*
 		 * Set toolbar items for the page

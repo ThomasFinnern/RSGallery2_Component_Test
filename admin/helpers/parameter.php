@@ -24,6 +24,16 @@
 defined('JPATH_PLATFORM') or die;
 
 
+/*---------------------------
+Only used:
+
+param::construct
+param::loadIni data:"testParameter=blue"
+param::loadSetupFile Path: "D:\xampp\htdocs\Joomla3x\components\com_rsgallery2\templates\semantic\templateDetails.xml"
+
+Collected from log file: 2015.02.13 whazzup
+*/
+
 // Register the element class with the loader.
 // JLoader::register('JElement', dirname(__FILE__) . '/parameter/element.php');
 
@@ -78,7 +88,7 @@ class JParameter extends JRegistry
 
 		parent::__construct('_default');
 
-		JLog::add('param::construct'); //, JLog::DEBUG);
+// Used:		JLog::add('param::construct'); //, JLog::DEBUG);
 		
 		// Set base path.
 		$this->_elementPath[] = dirname(__FILE__) . '/parameter/element';
@@ -118,7 +128,7 @@ class JParameter extends JRegistry
 	 */
 	public function loadINI($data, $namespace = null, $options = array())
 	{
-		JLog::add('param::loadIni data:"'.$data.'"'); //, JLog::DEBUG);
+// Used:		JLog::add('param::loadIni data:"'.$data.'"'); //, JLog::DEBUG);
 		
 		// @codeCoverageIgnoreStart
 		// Deprecation warning.
@@ -448,8 +458,8 @@ class JParameter extends JRegistry
 	
 		/* $xml = trim(file_get_contents($path)); */
 		/* 	$this->_parse($xml); */
-	
-		JLog::add('param::loadSetupFile Path: "'.$path.'"'); //, JLog::DEBUG);
+
+// Used:		JLog::add('param::loadSetupFile Path: "'.$path.'"'); //, JLog::DEBUG);
 
 		$result = false;
 
@@ -457,6 +467,7 @@ class JParameter extends JRegistry
 		{
 			// $xml = JFactory::getXMLParser('Simple');
 			// if ($xml->loadFile($path))
+			// ToDo:: 150130  getXML is deprecated
             if($xml = JFactory::getXML($path))
             // Try: simplexml_load_file
             // if($xml = JSimpleXml::loadFile($path))

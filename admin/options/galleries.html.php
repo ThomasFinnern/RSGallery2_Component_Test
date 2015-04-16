@@ -18,8 +18,16 @@ class html_rsg2_galleries{
     /**
      * show list of galleries
      */
+	/**
+	 * @param $rows
+	 * @param $lists
+	 * @param $search
+	 * @param $pageNav
+	 * @throws Exception
+	 */
     static function show( &$rows, &$lists, &$search, &$pageNav ){
-        global $rsgOption;
+        global $rsgOption; // , $rsgConfig;
+
 		//$option = JRequest::getCmd('option');
 		$input =JFactory::getApplication()->input;
 		$option = $input->get( 'option', '', 'CMD');	
@@ -209,6 +217,10 @@ class html_rsg2_galleries{
     /**
      * warns user what will be deleted
      */
+	/**
+	 * @param $galleries
+	 * @throws Exception
+	 */
     static function removeWarn( $galleries ){
         global $rsgOption;
 		//$option = JRequest::getCmd('option');
@@ -239,6 +251,10 @@ class html_rsg2_galleries{
         </form>
         <?php
     }
+
+	/**
+	 * @param $galleries
+	 */
     static function printTree( $galleries ){
         echo "<ul>";
 
@@ -256,10 +272,10 @@ class html_rsg2_galleries{
 	*
 	* A new record is defined when <var>$row</var> is passed with the <var>id</var>
 	* property set to 0.
-	* @param rsgGallery The gallery object
-	* @param array An array of select lists
-	* @param object Parameters
-	* @param string The option
+	* @param rsgGallery $row The gallery object
+	* @param array $lists An array of select lists
+	* @param object $params Parameters
+	* @param string $option The option
 	*/
 	static function edit( &$row, &$lists, &$params, $option ) {
 		global $rsgOption, $rsgConfig;

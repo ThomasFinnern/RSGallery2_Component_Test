@@ -17,6 +17,14 @@ defined( '_JEXEC' ) or die();
  */
 class html_rsg2_images {
 
+	/**
+	 * @param $option
+	 * @param $rows
+	 * @param $lists
+	 * @param $search
+	 * @param $pageNav
+	 * @throws Exception
+	 */
 	static function showImages( $option, &$rows, &$lists, &$search, &$pageNav ) {
 		global $rsgOption, $rsgConfig;
 		// $option = JRequest::getCmd('option');
@@ -193,10 +201,10 @@ class html_rsg2_images {
 	*
 	* A new record is defined when <var>$row</var> is passed with the <var>id</var>
 	* property set to 0.
-	* @param mosWeblink The weblink object
-	* @param array An array of select lists
-	* @param object Parameters
-	* @param string The option
+	* @param mosWeblink $row The weblink object
+	* @param array $listsAn array of select lists
+	* @param object $params Parameters
+	* @param string $option The option
 	*/
 	static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
@@ -330,7 +338,10 @@ class html_rsg2_images {
 								<td>
 									<div align="center">
 									<?php
-									$item = rsgGalleryManager::getItem( $row->id );//MK returns rsgItem_image for given item id (or rsgItem_audio)
+									//MK returns rsgItem_image for given item id (or rsgItem_audio)
+									//$item = rsgGalleryManager::getItem( $row->id ); -> getItem deprecated
+									$gallery = rsgGalleryManager::get();
+									$item = $gallery->getItem( $row->id );
 									$original = $item->original();
 									$thumb 		= $item->thumb();
 
@@ -466,10 +477,8 @@ class html_rsg2_images {
 	*
 	* A new record is defined when <var>$row</var> is passed with the <var>id</var>
 	* property set to 0.
-	* @param mosWeblink The weblink object
-	* @param array An array of select lists
-	* @param object Parameters
-	* @param string The option
+	* @param array $lists An array of select lists
+	* @param string $option The option
 	*/
 	static function uploadImage( $lists, $option ) {
 		global $rsgOption;
@@ -757,8 +766,8 @@ class html_rsg2_images {
 	*
 	* All uploaded images are shown. They can be deleted, get a title and/or description and
 	* the gallery can be choosen if that wasn't done in step 1.
-	* @param array Array with stings: filenames of uploaded images 
-	* @param string Location where files are extracted
+	* @param array $ziplist Array with stings: filenames of uploaded images
+	* @param string $extractDir Location where files are extracted
 	*/
 	static function batchupload_2( $ziplist, $extractDir ){
 		/* Info for javascript on input element names and values:

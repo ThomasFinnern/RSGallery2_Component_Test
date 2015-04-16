@@ -56,7 +56,8 @@ $firstImage = $firstImage->display();
 <!--
 /* 
 SlideShow. Written by PerlScriptsJavaScripts.com
-Copyright http://www.perlscriptsjavascripts.com 
+Copyright http://www.perlscriptsjavascripts.com
+Code page http://www.perlscriptsjavascripts.com/js/slideshow.html
 Free and commercial Perl and JavaScripts     
 */
 

@@ -40,6 +40,9 @@ class InstallerModelTemplates extends InstallerModel
 		$this->setState('filter.string', $mainframe->getUserStateFromRequest( "com_rsgallery2_com_installer.templates.string", 'filter', '', 'string' ));
 	}
 
+	/**
+	 *
+	 */
 	function _loadItems()
 	{
 		global $option, $rsgConfig;

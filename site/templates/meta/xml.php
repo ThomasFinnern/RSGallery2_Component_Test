@@ -10,12 +10,15 @@ class rsgXmlGalleryTemplate_generic{
 
     /**
         class constructor
-        @param rsgGallery object
+        @param rsgGallery $gallery object
     **/
     function rsgXmlGalleryTemplate_generic( $gallery ){
         $this->gallery = $gallery;
     }
 
+    /**
+     * @return string
+     */
     static function getName(){
         return 'generic xml template';
     }

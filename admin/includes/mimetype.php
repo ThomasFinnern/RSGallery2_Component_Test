@@ -46,7 +46,9 @@ class MimeTypes{
 
 	/**
 		TODO: php4 is terrible.  $mtypes should be a class level static var in php5
-	**/
+	 * @param $filename
+	 * @return mixed
+	 */
 	static function getMimeType($filename){
 		static $mtypes = array(
 	 "ez" => "application/andrew-inset",
@@ -196,7 +198,10 @@ class MimeTypes{
 	   in a future world
 	   when php properlly detects mime types
 	   this will be a nice security feature
-	**/
+	 * @param $filename
+	 * @param $uploadedName
+	 * @return null
+	 */
 	static function futuregetMimeType($filename, $uploadedName){
 		global $mtypes;
 		

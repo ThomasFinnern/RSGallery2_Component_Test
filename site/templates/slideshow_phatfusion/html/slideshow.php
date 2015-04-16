@@ -4,30 +4,36 @@ JHtml::_('behavior.framework', true);
 
 global $rsgConfig;
 
-$doc = JFactory::getDocument();
-
-// ToDo: find all addCustomTag replace with ???
-$doc->addCustomTag('');
-$doc->addCustomTag('');
+$document = JFactory::getDocument();
 
 //Add stylesheets and scripts to header
-$css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
-$doc->addCustomTag($css1);
+//$css1 = "<link rel=\"stylesheet\" href=\"components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css\" type=\"text/css\" media=\"screen\" charset=\"utf-8\" />";
+$css1 = JURI::base().'components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css';
+$document->addStyleSheet($css1);
 
-$js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
-$doc->addCustomTag($js1);
-$js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";
-$doc->addCustomTag($js2);
+
+// $js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
+$js1 = JURI::base().'components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js';
+$document->addScript($js1);
+
+// $js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";
+$js2 = JURI::base().'components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js';
+$document->addScript($js2);
+
+//--- Override default CSS styles ---
+// Add styles
+
+$style = ''
+	. '.slideshowContainer {'
+	. 'border: 1px solid #ccc;'
+	. 'width: 400px;'
+	. 'height: 300px;'
+	. 'margin-bottom: 5px;'
+	. '}';
+$document->addStyleDeclaration($style);
+
 ?>
-<!-- Override default CSS styles -->
-<style>
-.slideshowContainer {
-	border: 1px solid #ccc;
-	width: 400px;
-	height: 300px;
-	margin-bottom: 5px;
-}
-</style>
+
 <!-- show main slideshow screen -->
 <div id="container">
 	<h3><?php echo $this->galleryname;?></h3>

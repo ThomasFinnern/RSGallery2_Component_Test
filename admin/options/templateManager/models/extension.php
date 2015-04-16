@@ -38,6 +38,7 @@ class InstallerModel extends JModelLegacy
 	/**
 	 * Overridden constructor
 	 * @access	protected
+	 * @throws Exception
 	 */
 	function __construct()
 	{
@@ -52,6 +53,9 @@ class InstallerModel extends JModelLegacy
 		$this->setState('pagination.total',	0);
 	}
 
+	/**
+	 * @return array
+	 */
 	function &getItems()
 	{
 		if (empty($this->_items)) {
@@ -61,6 +65,9 @@ class InstallerModel extends JModelLegacy
 		return $this->_items;
 	}
 
+	/**
+	 * @return JPagination|object
+	 */
 	function &getPagination()
 	{
 		if (empty($this->_pagination)) {
@@ -83,6 +90,11 @@ class InstallerModel extends JModelLegacy
 	 * @param	array	An array of identifiers
 	 * @return	boolean	True on success
 	 * @since 1.0
+	 */
+	/**
+	 * @param array $eid, ids in the form id => client_id
+	 * @return bool
+	 * @throws Exception
 	 */
 	function remove($eid=array())
 	{
@@ -140,6 +152,9 @@ class InstallerModel extends JModelLegacy
 		return $result;
 	}
 
+	/**
+	 * @return object
+	 */
 	function _loadItems()
 	{
 		return JError::raiseError( 500, JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED'));

@@ -15,6 +15,9 @@ defined( '_JEXEC' ) or die( );
  */
 class rsgDisplay_slideshow_phatfusion extends rsgDisplay{
 
+	/**
+	 *
+	 */
 	function showSlideShow(){
 		global $rsgConfig;
 		

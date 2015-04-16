@@ -62,7 +62,9 @@ class rsgImagesItem extends JTable {
 	function __construct( &$db ) {
 		parent::__construct( '#__rsgallery2_files', 'id', $db );
 	}
-	/** overloaded check function */
+	/** overloaded check function
+	 * @return bool
+	 */
 	function check() {
 		// filter malicious code
 		$ignoreList = array( 'params','descr' );
@@ -93,7 +95,7 @@ class rsgImagesItem extends JTable {
 	 * The default name is in the form `table_name.id`
 	 * where id is the value of the primary key of the table.
 	 *
-	 * @return      string
+	 * @return string
 	 */
 	protected function _getAssetName() {
 		$k = $this->_tbl_key;
@@ -112,7 +114,9 @@ class rsgImagesItem extends JTable {
 	/**
 	 * Get the parent asset id for the item (which is the asset id of the gallery)
 	 *
-	 * @return      int
+	 * @param JTable $table
+	 * @param int $id
+	 * @return int|null
 	 */
 	protected function _getAssetParentId(JTable $table = null, $id = null) {
 		// Initialise variables
