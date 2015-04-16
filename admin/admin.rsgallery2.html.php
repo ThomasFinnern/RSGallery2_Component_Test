@@ -9,7 +9,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 
 /**
@@ -101,7 +101,19 @@ class HTML_RSGALLERY{
         //Show Warningbox if some preconditions are not met
         galleryUtils::writeWarningBox();
         ?>
-	
+
+			<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+                <div id="j-sidebar-container" class="span2">
+                    <?php echo JHtmlSidebar::render( ); ?>
+                </div>
+                <div id="j-main-container" class="span12">
+            <?php else : ?>
+                <div id="j-main-container">
+            <?php endif;?>
+		
+            <div class="clearfix"> </div>
+				<!-- -->
+		
         <div id="rsg2-thisform">
             <div id='rsg2-infoTabs'>
                 <table width="100%">
@@ -320,12 +332,12 @@ class HTML_RSGALLERY{
                 $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
-                $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
-                HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
-
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
                 
+                $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
+                HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
+
 				//Java Uploader: not implemented at this point, so removed
                 //$link = 'index.php?option=com_rsgallery2&rsgOption=jumploader';
                 //HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_JAVA_UPLOADER') );
@@ -394,6 +406,9 @@ class HTML_RSGALLERY{
             </div>
         </div>
         <div class='rsg2-clr'>&nbsp;</div>
+
+		</div> <!-- j-main-container -->
+
         <?php
     }
 

@@ -15,7 +15,7 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 
 **/
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic';

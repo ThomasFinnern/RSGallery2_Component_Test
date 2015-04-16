@@ -8,7 +8,7 @@
 **/
 
 // ensure this file is being included by a parent file
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 class menu_rsg2_submenu{
 	static function addRSG2Submenu($rsgOption = '', $task = '') {
@@ -20,27 +20,26 @@ class menu_rsg2_submenu{
 				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL-PANEL'),
 				'index.php?option=com_rsgallery2',
 		        (($rsgOption=='' AND $task == '' ) OR ($rsgOption == 'config')));
-			//Upload
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
-				'index.php?option=com_rsgallery2&rsgOption=images&task=upload',
-		        $rsgOption=='images' AND $task == 'upload');
-		    //Batch Upload
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'),
-				'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload',
-		        $rsgOption=='images' AND $task == 'batchupload');
-			//Items
-			JHtmlSidebar::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_ITEMS'),
-				'index.php?option=com_rsgallery2&rsgOption=images',
-		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 		    //Galleries
 			JHtmlSidebar::addEntry(
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
 				'index.php?option=com_rsgallery2&rsgOption=galleries',
 		        $rsgOption=='galleries' AND $task == '');
-
+		    //Batch Upload
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'),
+				'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload',
+		        $rsgOption=='images' AND $task == 'batchupload');
+			//Upload
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
+				'index.php?option=com_rsgallery2&rsgOption=images&task=upload',
+		        $rsgOption=='images' AND $task == 'upload');
+			//Items
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_ITEMS'),
+				'index.php?option=com_rsgallery2&rsgOption=images',
+		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 		}
 	}
 }

@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die();
 
 require_once(JPATH_RSGALLERY2_ADMIN.'/includes/mimetype.php');
 //require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');				//Mirjam: no longer used since SVN 975
@@ -569,7 +569,7 @@ class fileHandler {
         //Store dirname for cleanup at the end.
         $this->extractDir = $tmpdir;
 
-        //Add trailing slash to source path, clean function will remove it when unnecessery
+        //Add trailing slash to source path, clean function will remove it when unnecessary
         $source = JPath::clean($source.DS);
 
         //Check source directory
@@ -581,7 +581,9 @@ class fileHandler {
         //Read (all) files from FTP-directory
         $files = JFolder::files($source, '');
         if (!$files) {
-	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN').' '.$source.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH') );
+	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN')
+				.' '.JText::_('COM_RSGALLERY2_FTP_PATH').' '.$source."<br>"
+				.JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH') );
             $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
         }
         
@@ -603,7 +605,9 @@ class fileHandler {
 		
 		//Return imagelist only when there are images in it, else redirect
         if (count($list) == 0) {
-	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS') );
+	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS')
+	        .JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH').'<br>'
+	        .JText::_('COM_RSGALLERY2_FTP_PATH').' "'.$source.'"' );
 			$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
         } else {
 			return $list;            

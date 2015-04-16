@@ -47,7 +47,7 @@ class InstallerModel extends JModelLegacy
 		parent::__construct();
 
 		// Set state variables from the request
-		$this->setState('pagination.limit',	$mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int'));
+		$this->setState('pagination.limit',	$mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int'));
 		$this->setState('pagination.offset',$mainframe->getUserStateFromRequest('com_rsgallery2_com_installer.limitstart.'.$this->_type, 'limitstart', 0, 'int'));
 		$this->setState('pagination.total',	0);
 	}

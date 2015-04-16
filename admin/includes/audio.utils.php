@@ -8,7 +8,7 @@
 * RSGallery2 is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Access Denied' );
+defined( '_JEXEC' ) or die();
 
 require_once( $rsgClasses_path . 'file.utils.php' );
 

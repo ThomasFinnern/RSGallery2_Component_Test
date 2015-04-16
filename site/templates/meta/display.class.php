@@ -6,7 +6,7 @@
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 //require_once( 'joomla.filesystem.files' );
 // ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5

@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' ); 
+defined( '_JEXEC' ) or die(); 
 
 /**
 * The generic item class

@@ -1,6 +1,6 @@
 <?php
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 /**
  * Class to determine correct mimetype for uploaded files
  * @version $Id: mimetype.php 1011 2011-01-26 15:36:02Z mirjam $

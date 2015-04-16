@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Maintenance class for RSGallery2

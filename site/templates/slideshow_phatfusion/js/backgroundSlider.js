@@ -36,7 +36,7 @@ var BackgroundSlider = new Class({
 		if(this.options.id){
 			this.bg = $(this.options.id);
 		}else{
-			this.bg = new Element('div').setProperty('id','BgSlider_'+new Date().getTime()).injectInside(document.body);
+			this.bg = new Element('div').setProperty('id','BgSlider_'+new Date().getTime()).inject(document.body, 'bottom');
 			if(this.options.className){
 				this.bg.addClass(this.options.className);	
 			}
@@ -93,7 +93,8 @@ var BackgroundSlider = new Class({
 	},
 	
 	move: function(el){
-		$clear(this.timer);
+		// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
+		$clearTimeout(this.timer);
 		var pos = el.getCoordinates();
 		
 		this.effects.stop();

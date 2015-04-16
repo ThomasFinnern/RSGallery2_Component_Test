@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 require_once( $rsgOptions_path . 'maintenance.html.php' );
 require_once( $rsgOptions_path . 'maintenance.class.php' );

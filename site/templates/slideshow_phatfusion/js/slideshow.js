@@ -51,13 +51,13 @@ var SlideShow = new Class({
 			width: '0px',
 			height: '0px',
 			display: 'none'
-		}).injectInside(this.container);
+		}).inject(this.container, 'bottom');  
 		
 		if($type(images) == 'string' && !this.options.thumbnails){
 			var imageList = [];
 			$$('.'+images).each(function(el){
 				imageList.push(el.src);
-				el.injectInside(this.imagesHolder);
+				el.inject(this.imagesHolder, 'bottom');
 			},this);
 			this.images = imageList;
 			
@@ -94,7 +94,7 @@ var SlideShow = new Class({
 			display: 'none',
 			width: this.container.getStyle('width'),
 			height: this.container.getStyle('height')
-		}).injectInside(this.container);
+		}).inject(this.container, 'bottom');
 		
 		this.oldImage = new Element('div').setStyles({
 			position: 'absolute',
@@ -104,12 +104,10 @@ var SlideShow = new Class({
 			opacity: 0,
 			width: this.container.getStyle('width'),
 			height: this.container.getStyle('height')
-		}).injectInside(this.container);
+		}).inject(this.container, 'bottom');
 		
 		this.newImage = this.oldImage.clone();
-		this.newImage.injectInside(this.container);
-		
-		
+		this.newImage.inject(this.container, 'bottom');
 		
 		this.timer = 0;
 		this.image = -1;
@@ -120,7 +118,7 @@ var SlideShow = new Class({
 	},
 	
 	load: function(){
-		$clear(this.timer);
+		$clearTimeout(this.timer);
 		this.loading.setStyle('display','block');
 		this.image++;
 		var img = this.images[this.image];
@@ -147,7 +145,7 @@ var SlideShow = new Class({
 	show: function(add){
 		
 		if(this.add){
-			this.imageObj.injectInside(this.imagesHolder);
+			this.imageObj.Inside(this.imagesHolder, 'bottom');
 		}
 		
 		this.newImage.setStyles({
@@ -159,7 +157,7 @@ var SlideShow = new Class({
 			img.replaceWith(this.imageObj.clone());
 		}else{
 			var obj = this.imageObj.clone();
-			obj.injectInside(this.newImage);
+			obj.inject(this.newImage, 'bottom');
 		}
 		this.imageLoaded = this.image;
 		this.loading.setStyle('display','none');
@@ -201,7 +199,8 @@ var SlideShow = new Class({
 	},
 	
 	stop: function(){
-		$clear(this.timer);
+		// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
+		$clearTimeout(this.timer);
 		this.stopped = true;
 	},
 	
@@ -215,7 +214,7 @@ var SlideShow = new Class({
 		}
 		if(doNext){
 			this.cloneImage();
-			$clear(this.timer);
+			$clearTimeout(this.timer);
 			if(this.image < this.images.length-1){
 				if(wait){
 					this.wait();
@@ -252,7 +251,7 @@ var SlideShow = new Class({
 			img.replaceWith(this.imageObj.clone());
 		}else{
 			var obj = this.imageObj.clone();
-			obj.injectInside(this.oldImage);
+			obj.inject(this.oldImage, 'bottom');
 		}
 		
 		this.oldImage.setStyles({

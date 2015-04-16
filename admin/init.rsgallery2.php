@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die();
 
 if(!defined('DS')){
 	define('DS',DIRECTORY_SEPARATOR);
@@ -31,7 +31,7 @@ define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
 if( isset( $rsgConfig )) return;
 
 // initialize the rsg config file
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 
 //Set image paths for RSGallery2

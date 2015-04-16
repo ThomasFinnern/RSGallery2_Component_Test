@@ -32,13 +32,13 @@ var HistoryManager = {
 		observeDelay: 100,
 		stateSeparator: ';',
 		iframeSrc: 'blank.html',
-		onStart: Class.empty,
-		onRegister: Class.empty,
-		onUnregister: Class.empty,
-		onStart: Class.empty,
-		onUpdate: Class.empty,
-		onStateChange: Class.empty,
-		onObserverChange: Class.empty
+		onStart: function(){}, // Class.empty,
+		onRegister: function(){}, // Class.empty,
+		onUnregister: function(){}, // Class.empty,
+		onStart: function(){}, // Class.empty,
+		onUpdate: function(){}, // Class.empty,
+		onStateChange: function(){}, // Class.empty,
+		onObserverChange: function(){} // Class.empty
 	},
 
 	/**
@@ -110,7 +110,7 @@ var HistoryManager = {
 	 */
 	register: function(key, defaults, onMatch, onGenerate, regexp, options) {
 		if (!this.modules) this.initialize();
-		var data = $merge(this.dataOptions, options || {}, {
+		var data = Object.merge(this.dataOptions, options || {}, {
 			defaults: defaults,
 			onMatch: onMatch,
 			onGenerate: onGenerate,
@@ -231,8 +231,11 @@ var HistoryManager = {
 	},
 
 	observeTimeout: function() {
-		if (this.timeout) this.timeout = $clear(this.timeout);
-		else this.timeout = this.observeTimeout.delay(200, this);
+		// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
+		if (this.timeout) 
+			this.timeout =  $clearInterval(this.timeout); // old: $clear(this.timeout);
+		else 
+			this.timeout = this.observeTimeout.delay(200, this);
 	},
 
 	getHash: function() {
@@ -253,15 +256,15 @@ var HistoryManager = {
 		}
 		if (window.webkit419 && history.length != this.count) {
 			this.count = history.length;
-			return $pick(this.states[this.count - 1], state);
+			return Array.pick(this.states[this.count - 1], state);
 		}
 		return state;
 	},
 
 	setState: function(state, fix) {
-		state = $pick(state, '');
+		state = Array.pick(state, '');
 		if (window.webkit419) {
-			if (!this.form) this.form = new Element('form', {method: 'get'}).injectInside(document.body);
+			if (!this.form) this.form = new Element('form', {method: 'get'}).inject(document.body, 'bottom');
 			this.count = history.length;
 			this.states[this.count] = state;
 			this.observeTimeout();
@@ -272,7 +275,7 @@ var HistoryManager = {
 				this.iframe = new Element('iframe', {
 					src: this.options.iframeSrc,
 					styles: 'visibility: hidden;'
-				}).injectInside(document.body);
+				}).inject(document.body, 'bottom');
 				this.istate = this.state;
 			}
 			try {
@@ -324,7 +327,7 @@ Array.extend({
 	 * @param	{Object} Array
 	 */
 	complement: function(array) {
-		for (var i = 0, j = this.length; i < j; i++) this[i] = $pick(this[i], array[i] || null);
+		for (var i = 0, j = this.length; i < j; i++) this[i] = Array.pick(this[i], array[i] || null);
 		return this;
 	}
 });

@@ -6,7 +6,7 @@
  * @copyright (C) 2003 - 2012 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined('_JEXEC') or die('Restricted access'); ?>
+defined('_JEXEC') or die(); ?>
 
 <?php
 $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );

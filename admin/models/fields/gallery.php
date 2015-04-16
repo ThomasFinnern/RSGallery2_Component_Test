@@ -8,7 +8,7 @@
 */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('_JEXEC') or die();
 
 // import the list field type
 jimport('joomla.html.html.list');

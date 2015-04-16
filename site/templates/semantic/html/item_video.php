@@ -1,6 +1,7 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
-JHTML::_('behavior.framework');
+defined('_JEXEC') or die();
+JHTML::_('behavior.framework', true);
+global $rsgConfig;
 
 $item = $this->currentItem;
 
@@ -9,7 +10,7 @@ $item = $this->currentItem;
 $input = JFactory::getApplication()->input;		
 $PreTemplate = $input->get( 'rsgTemplate', $rsgConfig->get('template'), 'CMD');
 
-$templatePath = JURI_SITE . "components/com_rsgallery2/templates/".$PreTemplate); 
+$templatePath = JURI_SITE . "components/com_rsgallery2/templates/".$PreTemplate;
 
 $jsSwf = '
 		window.addEvent("domready", function() {

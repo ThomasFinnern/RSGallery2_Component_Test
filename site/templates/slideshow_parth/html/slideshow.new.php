@@ -5,11 +5,11 @@
  * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
+JHtml::_('behavior.framework', true);
 
 global $rsgConfig;
 $document = JFactory::getDocument();
-JHtml::_("behavior.framework");
 
 //Add stylesheets and scripts to header
 $css1 = JURI::base().'components/com_rsgallery2/templates/slideshow_parth/css/jd.gallery.css';
@@ -105,16 +105,18 @@ $javascript = '';
 	. "function startGallery()" 
 	. "{" . "\n"
 //	. "     alert('Test 1');"
+//	. "		if (\$ === window.jQuery) alert('\$ bound to jQuery'); " . "\n"
+//	. "		if (\$() === document.id()) alert('\$ bound to MooTools');"  . "\n"
 	. "    var myGallery = new gallery(\$('myGallery'), {" . "\n"
 	. "        timed: $timed," . "\n"
 	. "        showCarousel: $showCarousel," . "\n"
-	. "        textShowCarousel: $textShowCarousel," . "\n"
+	. "        textShowCarousel: '$textShowCarousel'," . "\n"
 	. "        thumbHeight: $thumbHeight," . "\n"
 	. "        thumbWidth: $thumbWidth," . "\n"
 	. "        fadeDuration: $fadeDuration," . "\n"
 	. "        delay: $delay," . "\n"
 	. "        embedLinks: $embedLinks," . "\n"
-	. "        defaultTransition: $defaultTransition," . "\n"
+	. "        defaultTransition: '$defaultTransition'," . "\n"
 	. "        showInfopane: $showInfopane," . "\n"
 	. "        slideInfoZoneSlide: $slideInfoZoneSlide," . "\n"
 	. "        showArrows: $showArrows" . "\n"

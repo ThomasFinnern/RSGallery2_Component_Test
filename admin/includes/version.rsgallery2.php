@@ -9,7 +9,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die( );
 
 /**
  * Version information class, based on the Joomla version class
@@ -20,7 +20,7 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '4.0.1';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '4.0.3';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
     var $DEV_STATUS = 'dev';
     /** @var int Sub Release Level */

@@ -5,11 +5,12 @@
  * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
+
+JHtml::_('behavior.framework', true);
 
 global $rsgConfig;
 $document = JFactory::getDocument();
-JHtml::_("behavior.framework");
 
 //Add stylesheets and scripts to header
 $css1 = JURI::base().'components/com_rsgallery2/templates/slideshow_parth/css/jd.gallery.css';
@@ -92,10 +93,8 @@ $javascript = '';
 	$thumbWidth = $this->params->get('thumbWidth',50);
 	/* Fade duration in milliseconds (500 equals 0.5 seconds)*/
 	$fadeDuration = $this->params->get('fadeDuration',500);
-	$fadeDuration = 200;
 	/* Delay in milliseconds (6000 equals 6 seconds)*/
 	$delay = $this->params->get('delay',6000);
-	$delay = 500;
 	/* Disable the 'open image' link for the images */
 	$embedLinks = $this->params->get('embedLinks',1);
 	$defaultTransition = $this->params->get('defaultTransition','fade');
@@ -106,8 +105,6 @@ $javascript = '';
 	$javascript .= ''
 	. "function startGallery()" 
 	. "{" . "\n"
-//	. "		if (\$ === window.jQuery) alert('\$ bound to jQuery'); " . "\n"
-//	. "		if (\$() === document.id()) alert('\$ bound to MooTools');"  . "\n"
 	. "    var myGallery = new gallery(\$('myGallery'), {" . "\n"
 	. "        timed: $timed," . "\n"
 	. "        showCarousel: $showCarousel," . "\n"
@@ -129,18 +126,7 @@ $javascript = '';
 
 // Add Javascript
 $document->addScriptDeclaration($javascript);
-/*
-$document->addScriptDeclaration('
-    window.event("domready", function() {
-        alert("An inline JavaScript Declaration");
-    });
-');
-*/
-$document->addScriptDeclaration("
-    window.event('domready', function() {
-        alert('An inline JavaScript Declaration');
-    });
-");
+
 ?>
 
 <div class="content">

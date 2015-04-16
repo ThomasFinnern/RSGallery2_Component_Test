@@ -5,7 +5,7 @@
  * @copyright (C) 2003 - 2011 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die( );
 
 /**
  * Slideshow class for RSGallery2
@@ -18,7 +18,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 	var $maxSlideshowWidth;
 
 	function showSlideShow(){
-		global $rsgConfig;
+		// global $rsgConfig;
 		
 		$gallery = rsgGalleryManager::get();
 		

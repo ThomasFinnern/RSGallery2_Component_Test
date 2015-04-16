@@ -9,10 +9,9 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 
 require_once( $rsgClasses_path . 'file.utils.php' );
-
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
 require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
@@ -112,7 +111,7 @@ switch ($task) {
 
 /**
 * Compiles a list of records
-* @param database A database connector object
+* @param database $option A database connector object
 */
 function showImages( $option ) {
 	global $mosConfig_list_limit;
@@ -120,7 +119,7 @@ function showImages( $option ) {
 	$database = JFactory::getDBO();
 	
 	$gallery_id = intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
-	$limit      = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');   
+	$limit      = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int');
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->escape( trim( strtolower( $search ) ) );
@@ -791,16 +790,32 @@ function batchupload($option) {
 	//$selcat 		= JRequest::getInt('selcat', null);
 	$selcat         = $input->get( 'selcat', null, 'INT');					
 	//$zip_file 		= JRequest::getVar('zip_file', null, 'FILES');
-    $OldZipFile 	= JRequest::getVar('zip_file', null, 'FILES');
+    //$OldZipFile 	= JRequest::getVar('zip_file', null, 'FILES');
     // ToDo: see above upload ->getArray() ??
 	//$zip_file00 	= $input->get( 'zip_file', null, 'FILES');
     //$zip_file01     = $input->files->get('zip_file', array(), 'FILES'); //
 
     $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
 
+	// getPath does not allow a slash at the end and no absolute paths
+	// $ftppath 		= JRequest::getVar('ftppath', null);
+	// $ftppath 		= $input->getPath( 'ftppath', null);
+	// $ftppath 		= $input->get( 'ftppath', null, 'RAW');
+	// if(substr($ftppath, -1) == '/' || substr($ftppath, -1) == '\\') {
+	// 	$ftppath = substr($ftppath, 0, -1);
+	// 	$input->set( 'ftppath', $ftppath);
+	// }
+	// $ftppath 		= $input->getPath( 'ftppath', null);
+	// $ftppath 		= $input->get( 'ftppath', null, 'PATH');
+	// $ftppath .= '/';
+	// $ftppath 		= $input->get( 'ftppath', null, 'RAW');
+	// if(substr($ftppath, -1) == '/' || substr($ftppath, -1) == '\\') {
 
-    //$ftppath 		= JRequest::getVar('ftppath', null);
-	$ftppath 		= $input->get( 'ftppath', null);
+	$ftppath = $input->get( 'ftppath', null, 'RAW');
+	if(substr($ftppath, -1) != '/' && substr($ftppath, -1) == '\\') {
+		$ftppath .= '/';
+	}
+
 	//$xcat 			= JRequest::getInt('xcat', null);
 	$xcat           = $input->get( 'xcat', null, 'INT');					
 	

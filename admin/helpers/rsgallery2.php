@@ -22,7 +22,7 @@ class RSGallery2Helper
 	/**
 	 * Gets a list of the actions that can be performed.
 	 *
-	 * @param	int		The gallery ID.
+	 * @param	int	$galleryId	The gallery ID.
 	 * @return	JObject
 	 */
 	public static function getActions($galleryId = 0) {

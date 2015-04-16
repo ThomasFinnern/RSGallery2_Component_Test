@@ -13,7 +13,7 @@
 */
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
 
 require_once( rsgOptions_installer_path . DS . 'helpers' . DS . 'template.php');
 require_once( rsgOptions_installer_path . DS . 'controller.php' );

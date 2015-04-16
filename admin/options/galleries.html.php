@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Direct Access to this location is not allowed.' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Explain what this class does
@@ -37,150 +37,171 @@ class html_rsg2_galleries{
 		
         ?>
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <table border="0" width="100%">
-        <tr>
-            <td width="50%">
-            &nbsp;
-            </td>
-            <td style="white-space:nowrap;" width="50%" align="right">
-            <?php echo JText::_('COM_RSGALLERY2_MAX_LEVELS')?>
-            <?php echo $lists['levellist'];?>
-            <?php echo JText::_('COM_RSGALLERY2_FILTER')?>:
-            <input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
-            </td>
-        </tr>
-        </table>
+		<!--form action="<?php echo JRoute::_('index.php?option=com_rsg2&view=galleries'); ?>" method="post" name="adminForm" id="adminForm"-->
+            <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+                <div id="j-sidebar-container" class="span2">
+                    <?php echo JHtmlSidebar::render( ); ?>
+                </div>
+                <div id="j-main-container" class="span10">
+            <?php else : ?>
+                <div id="j-main-container">
+            <?php endif;?>
 
-        <table class="adminlist">
-        <thead>
-        <tr>
-            <th width="1%">
-				ID
-            </th>
-            <th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
-            </th>
-            <th class="Name">
-				<?php echo JText::_('COM_RSGALLERY2_NAME')?>
-            </th>
-            <th width="5%">
-				<?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?>
-            </th>
-            <th width="5%">
-				<?php echo JText::_('JGRID_HEADING_ACCESS')?>
-            </th>
-			<th width="5%">
-				<?php echo JText::_('COM_RSGALLERY2_REORDER')?>
-            </th>
-			<th width="2%">
-				<?php echo JText::_('COM_RSGALLERY2_ORDER')?>
-			</th>
-			<th width="2%">
-				<?php echo JHtml::_('grid.order',  $rows); ?>
-			</th>
-			<th width="5%">
-				<?php echo JText::_('COM_RSGALLERY2_ITEMS')?>
-			</th>
-            <th width="5%">
-				<?php echo JText::_('COM_RSGALLERY2_HITS')?>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        $k = 0;
-        for ($i=0, $n=count( $rows ); $i < $n; $i++) {
-            $row = &$rows[$i];
-			
-            $link   = "index.php?option=$option&rsgOption=$rsgOption&task=editA&hidemainmenu=1&id=". $row->id;
-
-            $task   = $row->published ? 'unpublish' : 'publish';
-            $img    = $row->published ? 'publish_g.png' : 'publish_x.png';
-            $alt    = $row->published ? 'Published' : 'Unpublished';
-
-            $checked    = JHtml::_('grid.checkedout', $row, $i );
-			
-			//Get permissions
-			$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
-			$can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
-			$can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
-			
-			//Use the $orderLookup array to determine if for the same 
-			// parent one can still move up/down. First look up the parent info.
-			// combine this with permission
-			$orderkey = array_search($row->id, $orderLookup[$row->parent]);
-			$showMoveUpIcon		= ((isset($orderLookup[$row->parent][$orderkey - 1])) AND ($can['EditStateGallery']));
-			$showMoveDownIcon	= ((isset($orderLookup[$row->parent][$orderkey + 1])) AND ($can['EditStateGallery']));
-			$disabled = $can['EditStateGallery'] ?  '' : 'disabled="disabled"';
-			
-            ?>
-            <tr class="<?php echo "row$k"; ?>">
-                <td>
-					<?php echo $row->id; ?>
-                </td>
-                <td>
-					<?php echo $checked; ?>
-                </td>
-                <td>
-					<?php
-					//Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
-					if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
-						echo stripslashes($row->treename);
-					} else { 
-						?>
-						<a href="<?php echo $link; ?>" name="Edit Gallery">
-						<?php echo stripslashes($row->treename); ?>
-						</a>
-						<?php
-					}
-					?>
-
-					<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$row->id); ?>" >
-						<img src="<?php echo 'templates/bluestork/images/j_arrow.png';?>"  style="margin: 0px 20px" alt="<?php echo JText::_('COM_RSGALLERY2_ITEMS'); ?>" />
-					</a>
-					
-                </td>
-                <td align="center">
-                	<?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can['EditStateGallery']); ?>
-                </td>
-				<td>
-					<?php echo $row->access_level;?>
-				</td>
-                <td class="order">
-                	<span>
-					<?php echo $pageNav->orderUpIcon( $i , $showMoveUpIcon ); ?>
-					</span>
-                	<span>
-					<?php echo $pageNav->orderDownIcon( $i, $n , $showMoveDownIcon); ?>
-					</span>
-                </td>
-                <td colspan="2" align="center">
-					<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
-                </td>
-                <td align="center">
-					<?php $gallery = rsgGalleryManager::get( $row->id ); echo $gallery->itemCount()?>
-                </td>
-                <td align="left">
-					<?php echo $row->hits; ?>
-                </td>
-            </tr>
+            <div class="clearfix"> </div>
             <?php
-            $k = 1 - $k;
-        }
-        ?>
-        </tbody>
-        <tfoot>
-        <tr>
-        	<td colspan="10"><?php echo $pageNav->getListFooter(); ?></td>
-        </tr>
-        </tfoot>
-        </table>
-    
-        <input type="hidden" name="option" value="<?php echo $option;?>" />
-        <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
-        <input type="hidden" name="task" value="" />
-        <input type="hidden" name="boxchecked" value="0" />
-        <input type="hidden" name="hidemainmenu" value="0" />
+            // Search tools bar
+            // echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+            ?>
+            <table border="0" width="100%">
+                <tr>
+                    <td width="50%">
+                    &nbsp;
+                    </td>
+                    <td style="white-space:nowrap;" width="50%" align="right">
+                        <?php echo JText::_('COM_RSGALLERY2_MAX_LEVELS')?>
+                        <?php echo $lists['levellist'];?>
+                        <?php echo JText::_('COM_RSGALLERY2_FILTER')?>:
+                        <input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
+                    </td>
+                </tr>
+            </table>
+            <!-- ?php if (empty($this->items)) : ? -->
+            <?php if (count( $rows ) == 0) : ?>
+                <div class="alert alert-no-items">
+                    <?php echo JText::_('No existing gallery'); ?>
+                </div>
+            <?php else : ?>
+                <table class="adminlist table table-striped" id="GalleryList">
+                    <thead>
+                        <tr>
+                            <th width="1%">
+                                ID
+                            </th>
+                            <th width="1%">
+                                <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" />
+                            </th>
+                            <th class="Name">
+                                <?php echo JText::_('COM_RSGALLERY2_NAME')?>
+                            </th>
+                            <th width="5%">
+                                <?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?>
+                            </th>
+                            <th width="5%">
+                                <?php echo JText::_('JGRID_HEADING_ACCESS')?>
+                            </th>
+                            <th width="5%">
+                                <?php echo JText::_('COM_RSGALLERY2_REORDER')?>
+                            </th>
+                            <th width="2%">
+                                <?php echo JText::_('COM_RSGALLERY2_ORDER')?>
+                            </th>
+                            <th width="2%">
+                                <?php echo JHtml::_('grid.order',  $rows); ?>
+                            </th>
+                            <th width="5%">
+                                <?php echo JText::_('COM_RSGALLERY2_ITEMS')?>
+                            </th>
+                            <th width="5%">
+                                <?php echo JText::_('COM_RSGALLERY2_HITS')?>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $k = 0;
+                        for ($i=0, $n=count( $rows ); $i < $n; $i++) {
+                            $row = &$rows[$i];
+
+                            $link   = "index.php?option=$option&rsgOption=$rsgOption&task=editA&hidemainmenu=1&id=". $row->id;
+
+                            $task   = $row->published ? 'unpublish' : 'publish';
+                            $img    = $row->published ? 'publish_g.png' : 'publish_x.png';
+                            $alt    = $row->published ? 'Published' : 'Unpublished';
+
+                            $checked    = JHtml::_('grid.checkedout', $row, $i );
+
+                            //Get permissions
+                            $can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
+                            $can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
+                            $can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+
+                            //Use the $orderLookup array to determine if for the same
+                            // parent one can still move up/down. First look up the parent info.
+                            // combine this with permission
+                            $orderkey = array_search($row->id, $orderLookup[$row->parent]);
+                            $showMoveUpIcon		= ((isset($orderLookup[$row->parent][$orderkey - 1])) AND ($can['EditStateGallery']));
+                            $showMoveDownIcon	= ((isset($orderLookup[$row->parent][$orderkey + 1])) AND ($can['EditStateGallery']));
+                            $disabled = $can['EditStateGallery'] ?  '' : 'disabled="disabled"';
+
+                            ?>
+                            <tr class="<?php echo "row$k"; ?>">
+                                <td>
+                                    <?php echo $row->id; ?>
+                                </td>
+                                <td>
+                                    <?php echo $checked; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    //Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+                                    if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
+                                        echo stripslashes($row->treename);
+                                    } else {
+                                        ?>
+                                        <a href="<?php echo $link; ?>" name="Edit Gallery">
+                                        <?php echo stripslashes($row->treename); ?>
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$row->id); ?>" >
+                                        <img src="<?php echo 'templates/bluestork/images/j_arrow.png';?>"  style="margin: 0px 20px" alt="<?php echo JText::_('COM_RSGALLERY2_ITEMS'); ?>" />
+                                    </a>
+
+                                </td>
+                                <td align="center">
+                                    <?php echo JHtml::_('jgrid.published', $row->published, $i, '', $can['EditStateGallery']); ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->access_level;?>
+                                </td>
+                                <td class="order">
+                                    <span>
+                                    <?php echo $pageNav->orderUpIcon( $i , $showMoveUpIcon ); ?>
+                                    </span>
+                                    <span>
+                                    <?php echo $pageNav->orderDownIcon( $i, $n , $showMoveDownIcon); ?>
+                                    </span>
+                                </td>
+                                <td colspan="2" align="center">
+                                    <input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+                                </td>
+                                <td align="center">
+                                    <?php $gallery = rsgGalleryManager::get( $row->id ); echo $gallery->itemCount()?>
+                                </td>
+                                <td align="left">
+                                    <?php echo $row->hits; ?>
+                                </td>
+                            </tr>
+                            <?php
+                            $k = 1 - $k;
+                        }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="10"><?php echo $pageNav->getListFooter(); ?></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            <?php endif; ?>
+			</div> <!-- j-main-container -->
+            <input type="hidden" name="option" value="<?php echo $option;?>" />
+            <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
+            <input type="hidden" name="task" value="" />
+            <input type="hidden" name="boxchecked" value="0" />
+            <input type="hidden" name="hidemainmenu" value="0" />
         </form>
         <?php
     }
@@ -444,9 +465,9 @@ class html_rsg2_galleries{
 
 		<div class="clr"></div>
 
-<?php 	//Create the rules slider at the bottom of the page
-		if ($canAdmin) { 
-?>
+		<?php 	//Create the rules slider at the bottom of the page
+			if ($canAdmin) { 
+		?>
 			<br/>
 			<!--div  class="width-100 fltlft" -->
 			<div  class="fltlft">

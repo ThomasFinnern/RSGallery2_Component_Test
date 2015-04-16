@@ -9,7 +9,7 @@
 **/
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die();
 ?>
 
 Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
@@ -34,9 +34,14 @@ Legend:
 ! ToDo: Don't install/remove database table #__rsgallery2_acl
 ! ToDo: Backend: Installation of template does not function (yet).
 ! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
-  ToDo: Delete galleries: create filter in gallery view and check that delete-permission is granted for deleting subgalleries/images. Right now you may delete everything if you have delete permission for the component, even if an item/(sub)gallery doesn't have delete permission.
-  ToDo: Convert JParameter to JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
-
+  ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
+       is granted for deleting subgalleries/images. Right now you may delete everything
+	   if you have delete permission for the component, even if an item/(sub)gallery 
+	   doesn't have delete permission.
+  ToDo: Convert JParameter to (a)
+       JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+	   (b) Own Jparameter file (see below)
+       
 ! ToDo: 
 	  ^ Language files in rsgallery2.xml moved according "Language file naming conventions
 		and precedence: www.http://docs.joomla.org/Specification_of_language_files"
@@ -46,7 +51,8 @@ Legend:
 	  ^ Language files missing
 		language/en-GB/en-GB.com_rsgallery2.sys.ini
 ! ToDo: 2014.10.18 
-		Log files only when rsgallery2 debug switch is on -> Hint to user that there is one log per day
+		Log files only when rsgallery2 debug switch is on (ok) 
+			-> Hint to user that there is one log per day (Missing)
 ! ToDo: 2014.10.18 
 		Preparation: Delete chosen "Gallery thumbnail" file by hand. It will bring an error to 
 		back end and front side. Add function in "Consolidate Database which checks and correct this
@@ -55,7 +61,7 @@ Legend:
 			a) field too small
 			b) field where the resulting path is shown
 			c) Improve info: a) general b) hint for standard setup ...
-			d) Test: Does it work for linux and windows instalations (XAMPP ? path fails ?)
+			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ?)
 			e) Hint for standard input in config 
 ! ToDo: 2014.10.20 
 		replace foreign icons like  
@@ -84,13 +90,46 @@ Legend:
 		Check for plugin PlgDisplayGallery and PlgDisplaySingle for deprecated functions
 ! ToDo: 2015.01.03 **
 		Cancel button in Upload
-! ToDo: Replace missing header selection possibility *****
+! ToDo: 2015.01.06 ******
+		Replace missing header selection possibility *****
 		| Kontrollzentrum | Upload | Stapel-Upload | Bilder | Galerien | 
 		with new side selection (? Pictures ?)
-  		
+! ToDo: 2015.01.09 **
+		fix why we can't get the version from $rsgVersion! 
+		function rsgConfig
+		Only one place for version ID -> *.xml 
+! ToDo: 2015.01.15 ***
+		JParameter file: support reading parameters 
+! ToDo: 2015.01.18 *****
+		Check deprecated functions with phpstorm (admit + site)
+! ToDo: 2015.01.18 ****
+		Check all slideshows for working
+! Redesign upload forms 		
+		- one form for all , head register and start button on foot 
+		see jomls standard loader 
+		
+		
 ---------------- Recent ----------------
 
-* --------------- 4.0.0 -- SVN 1126 -- 2015-01-04 -------------
+* --------------- 4.0.3 -- SVN 1127 -- 2015-01-11 -------------
+
+11.01.2015 finnern
++ Slideshow parth is working
+
+
+* --------------- 4.0.2 -- SVN 1127 -- 2015-01-11 -------------
+
+11.01.2015 finnern
+# Fixed: FTP upload didn't find given path: The new Joomla 
+    function Jinput replacing Jrequest was deleting the given 
+	path as a backslash at the end and absolute paths are 
+	rejected. The Path is read as raw now
++ Improved layout of main pages. They show now a link to 
+  the other main pages on the left side 
++ Changed order of menus -> 1. configuration, 2. galleries, 
+	3. batch upload, 4. uplaod, 5. images
+
+* --------------- 4.0.1 -- SVN 1126 -- 2015-01-04 -------------
 
 04.01.2015 finnern
 # Fixed: install_ Sql begun with first file

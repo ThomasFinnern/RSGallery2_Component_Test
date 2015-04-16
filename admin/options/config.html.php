@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined( '_JEXEC' ) or die( 'Restricted Access' );
+defined( '_JEXEC' ) or die();
 
 /**
  * Explain what this class does
@@ -271,6 +271,18 @@ class html_rsg2_config{
 			}
 		</script>
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
+            
+			<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+                <div id="j-sidebar-container" class="span2">
+                    <?php echo JHtmlSidebar::render( ); ?>
+                </div>
+                <div id="j-main-container" class="span10">
+            <?php else : ?>
+                <div id="j-main-container">
+            <?php endif;?>
+
+            <div class="clearfix"> </div>
+			
 		<?php
 		echo JHtml::_('tabs.start', 'tab_group_id', $options);
 		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_GENERAL'), 'rsgConfig');

@@ -8,7 +8,7 @@
 * RSGallery is Free Software
 */
 
-defined('_JEXEC') or die( 'Restricted Access' );
+defined('_JEXEC') or die();
 
 // Only those with core.manage can get here via $rsgOption = installer
 // Check if core.admin is allowed

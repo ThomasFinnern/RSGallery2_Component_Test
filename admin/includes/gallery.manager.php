@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
-defined( '_JEXEC' ) or die( 'Access Denied.' );
+defined( '_JEXEC' ) or die( );
 
 /**
 * Gallery utilities class
@@ -19,7 +19,9 @@ class rsgGalleryManager{
 	/**
 	 * returns the rsgGallery object with all associated items (one of which is the given item id)
 	 *
-	 * @param id of item
+	 * @param int|null $id id of item
+	 * @return null|rsgGallery
+	 * @throws Exception
 	 */
 	static function getGalleryByItemID( $id = null ) {
 		$database = JFactory::getDBO();
@@ -52,9 +54,10 @@ class rsgGalleryManager{
 	/**
 	 * Returns an rsgItem_image (or rsgItem_audio) object, which is taken from
 	 * an rsgGallery object and its associated items, based on the given item id.
-	 * @param id of an item
 	 * @deprecated Use rsgGallery->getItem() instead!
-	**/
+	 * @param int|null $id
+	 * @return mixed
+	 */
 	static function getItem( $id = null ){
 		$gallery = rsgGalleryManager::get();
 		return $gallery->getItem($id);
@@ -65,10 +68,12 @@ class rsgGalleryManager{
      * Checks for catid, gid in $_GET if no item id is given, 
      * and if those are not found then checks for (item) id in $_GET 
      * to get gallery id. 
-     * @param id of the gallery
-     */
+	 * @param int|null $id
+	 * @return null|rsgGallery
+	 * @throws Exception
+	 */
 	static function get( $id = null ){
-		global $rsgConfig;
+		//global $rsgConfig;
 		$mainframe = JFactory::getApplication();
 		$user	= JFactory::getUser();
 		$groups	= $user->getAuthorisedViewLevels();
@@ -115,25 +120,28 @@ class rsgGalleryManager{
 
     /**
      * returns an array of all images in $parent and sub galleries
-     * @param int id of parent gallery
      * @todo this is a stub, no functionality yet
-     */
+	 * @param $parent
+	 * @return bool
+	 */
     static function getFlatArrayofImages( $parent ){
         return true;
     }
     /**
      * returns an array of all sub galleris in $parent including $parent
-     * @param int id of parent gallery
      * @todo this is a stub, no functionality yet
-     */
+	 * @param $parent
+	 * @return bool
+	 */
     static function getFlatArrayofGalleries( $parent ){
         return true;
     }
 
     /**
      * returns an array of galleries from an array of IDs
-     * @param id of the gallery
-     */
+	 * @param int [] $cid
+	 * @return array
+	 */
     static function getArray( $cid ){
         $galleries = array();
         
@@ -145,10 +153,12 @@ class rsgGalleryManager{
     
     /**
      * returns an array of galleries: the children of the given gallery that will be shown
-     * @param id of parent gallery
-     */
+	 * @param int $parent id of parent gallery
+	 * @return array|bool
+	 * @throws Exception
+	 */
     static function getList( $parent ){
-        global $rsgConfig;
+        // global $rsgConfig;
 		$database = JFactory::getDBO();
 		$app = JFactory::getApplication();
         if( !is_numeric( $parent )) return false;
@@ -185,8 +195,9 @@ class rsgGalleryManager{
 
     /**
      * recursively deletes all galleries and subgalleries in array
-     * @param array of gallery ids
-     */
+	 * @param int [] $cid array of gallery ids
+	 * @return bool
+	 */
     static function deleteArray( $cid ){
 		// delete all galleries and sub galleries
         $galleries = rsgGalleryManager::_getArray( $cid );
@@ -202,8 +213,9 @@ class rsgGalleryManager{
 	/**
 	 * Returns an rsgGallery object of the gallery which id was given
 	 * with all associated items
-	 * @param the id of a gallery
-	*/
+	 * @param int $gallery the id of a gallery
+	 * @return rsgGallery
+	 */
 	static function _get( $gallery ){
 		static $galleries = array();
 
@@ -235,11 +247,11 @@ class rsgGalleryManager{
     /**
      * return the top level gallery
      * this is a little interesting, because the top level gallery is a pseudo gallery, but we need to create some 
-     * usefull values so that it can be used as a real gallery.
+     * useful values so that it can be used as a real gallery.
      * @todo possibly have the top level gallery be a real gallery in the db.  this obviously needs to be discussed more.
      * @todo are these good defaults?  not sure....
-     * @param rsgGallery object
-     */
+	 * @return rsgGallery
+	 */
     static function _getRootGallery(){
         global $rsgConfig;
 
@@ -265,8 +277,9 @@ class rsgGalleryManager{
     
     /**
      * returns an array of galleries from an array of IDs
-     * @param id of the gallery
-     */
+	 * @param int [] $cid array of gallery ids
+	 * @return rsgGallery []
+	 */
     static function _getArray( $cid ){
         $galleries = array();
         
@@ -278,9 +291,11 @@ class rsgGalleryManager{
 
     /**
      * recursively deletes a tree of galleries
-     * @param id of the gallery
      * @todo this is a quick hack.  galleryUtils and imgUtils need to be reorganized; and a rsgImage class created to do this proper
-     */
+	 * @param rsgGallery [] $galleries
+	 * @return bool
+	 * @throws Exception
+	 */
     static function _deleteTree( $galleries ){
 		$database = JFactory::getDBO();
         foreach( $galleries as $gallery ){
@@ -310,5 +325,7 @@ class rsgGalleryManager{
 				}
 			}
 		}
+
+		return true;
 	}
 }

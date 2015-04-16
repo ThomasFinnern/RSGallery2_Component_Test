@@ -1,5 +1,7 @@
 <?php
-	defined('_JEXEC') or die('Restricted access');
+	defined('_JEXEC') or die();
+
+global $rsgConfig;
 
 	$item = $this->currentItem;
 	$watermark = $rsgConfig->get('watermark');

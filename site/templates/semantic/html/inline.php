@@ -1,4 +1,4 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php defined('_JEXEC') or die();
 
 // Show slideshow link when viewing individual display items
 $slideshow   = $rsgConfig->get('displaySlideshowImageDisplay',0);
