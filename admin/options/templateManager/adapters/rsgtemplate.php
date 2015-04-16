@@ -34,7 +34,7 @@ class JInstaller_rsgTemplate extends JObject
 	 */
 	function __construct(&$parent)
 	{
-		$this->parent =& $parent;
+		$this->parent = $parent;
 	}
 
 	/**
@@ -47,15 +47,15 @@ class JInstaller_rsgTemplate extends JObject
 	function install()
 	{
 		// Get database connector object
-		$db =& $this->parent->getDBO();
-		$manifest =& $this->parent->getManifest();
-		$root =& $manifest->document;
+		$db = $this->parent->getDBO();
+		$manifest = $this->parent->getManifest();
+		$root = $manifest->document;
 
 		// Get the client application target
 		if ($cname = $root->attributes('client')) {
 			// Attempt to map the client to a base path
 			global $rsgConfig;
-			$client =& $rsgConfig->getClientInfo($cname, true);
+			$client = $rsgConfig->getClientInfo($cname, true);
 			if ($client === false) {
 				$this->parent->abort(JText::_('COM_RSGALLERY2_RSGTEMPLATE').' '.JText::_('COM_RSGALLERY2_INSTALL').': '.JText::_('COM_RSGALLERY2_UNKNOWN_CLIENT_TYPE').' ['.$cname.']');
 				return false;
@@ -70,7 +70,7 @@ class JInstaller_rsgTemplate extends JObject
 		}
 
 		// Set the extensions name
-		$name =& $root->getElementByPath('name');
+		$name = $root->getElementByPath('name');
 		$name = JFilterInput::clean($name->data(), 'cmd');
 		$this->set('name', $name);
 
@@ -162,7 +162,7 @@ class JInstaller_rsgTemplate extends JObject
 
 		// Get the template root path
 		global $rsgConfig;
-		$client =& $rsgConfig->getClientInfo( $clientId );
+		$client = $rsgConfig->getClientInfo( $clientId );
 		if (!$client) {
 			JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_INVALID_APPLICATION'));
 			return false;
@@ -170,14 +170,14 @@ class JInstaller_rsgTemplate extends JObject
 		$this->parent->setPath('extension_root', $client->path.DS.'templates'.DS.$name);
 		$this->parent->setPath('source', $this->parent->getPath('extension_root'));
 
-		$manifest =& $this->parent->getManifest();
+		$manifest = $this->parent->getManifest();
 		if (!is_a($manifest, 'JSimpleXML')) {
 			// Make sure we delete the folders
 			JFolder::delete($this->parent->getPath('extension_root'));
 			JError::raiseWarning(100, JTEXT::_('COM_RSGALLERY2_TEMPLATE').' '.JTEXT::_('COM_RSGALLERY2_UNINSTALL').': '.JTEXT::_('COM_RSGALLERY2_PACKAGE_MANIFEST_FILE_INVALID_OR_NOT_FOUND'));
 			return false;
 		}
-		$root =& $manifest->document;
+		$root = $manifest->document;
 
 		// Remove files
 		$this->parent->removeFiles($root->getElementByPath('media'), $clientId);

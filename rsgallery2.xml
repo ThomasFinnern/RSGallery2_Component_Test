@@ -7,7 +7,7 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>http://www.rsgallery2.nl</authorUrl>
-	<version>4.0.3</version>
+	<version>4.0.5</version>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
@@ -87,6 +87,7 @@
 			<filename>init.rsgallery2.php</filename>
 			<filename>toolbar.rsgallery2.html.php</filename>
 			<filename>toolbar.rsgallery2.php</filename>
+			<filename>template.css</filename>
 		</files>
 
 		<languages folder="admin">

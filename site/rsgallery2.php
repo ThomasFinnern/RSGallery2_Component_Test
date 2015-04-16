@@ -10,7 +10,7 @@
 defined( '_JEXEC' ) or die();
 
 // Initialize RSG2 core functionality
-require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "init.rsgallery2.php" );
+require_once( JPATH_SITE ."/administrator/components/com_rsgallery2/init.rsgallery2.php" );
 
 $Rsg2DebugActive = $rsgConfig->get('debug');
 if ($Rsg2DebugActive)

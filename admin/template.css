@@ -2354,6 +2354,9 @@ a.icon-16-menu span img {
 }
 
 /* ---- Submenu styles -------------------------- */
+/* 150308 whazzup: removed as Joomla brings here its own definition.
+   It destroys the sidebar in configuration
+   but i don't know where it may be used though
 #submenu {
 	list-style: none;
 	padding: 0;
@@ -2389,7 +2392,7 @@ a.icon-16-menu span img {
 	color: #146295;
 	background: #FFF;
 }
-
+*/
 
 /* -- COMPONENT STYLES ------------------------------ */
 div.message {

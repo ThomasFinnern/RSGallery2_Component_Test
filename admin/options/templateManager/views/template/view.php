@@ -37,7 +37,7 @@ class InstallerViewTemplate extends InstallerViewDefault
 		JToolBarHelper::help( 'screen.installerTemplate' );
 		
 		// Get data from the model
-		$item = &$this->get('Item');
+		$item = $this->get('Item');
 		
 		$this->item = $item;
 		

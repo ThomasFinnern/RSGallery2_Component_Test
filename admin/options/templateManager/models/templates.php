@@ -31,7 +31,7 @@ class InstallerModelTemplates extends InstallerModel
 	 */
 	function __construct()
 	{
-		$mainframe =& JFactory::getApplication();
+		$mainframe = JFactory::getApplication();
 
 		// Call the parent constructor
 		parent::__construct();
@@ -49,7 +49,7 @@ class InstallerModelTemplates extends InstallerModel
 
 		$db = JFactory::getDBO();
 
-		$clientInfo =& $rsgConfig->getClientInfo( 'site', true );
+		$clientInfo = $rsgConfig->getClientInfo( 'site', true );
 		$client = $clientInfo->name;
 		$templateDirs = JFolder::folders($clientInfo->path.DS.'templates');
 
@@ -91,6 +91,10 @@ class InstallerModelTemplates extends InstallerModel
 				$row->directory = $template->folder;
 				$row->baseDir	= $template->baseDir;
 
+                // ToDo: 2015.03.08 whazzup name was not defined but where should it be taken from ?
+                // $row->name	= $template->name;
+                $row->name	= '';
+
 				if ($data) {
 					foreach($data as $key => $value) {
 						$row->$key = $value;
@@ -100,8 +104,7 @@ class InstallerModelTemplates extends InstallerModel
 				$row->isDisabled = (in_array($row->directory, $inactiveList));
 				$row->isDefault = ( $rsgConfig->get( 'template' ) == $template->folder);
 				$row->checked_out = 0;
-				$row->jname = JString::strtolower( str_replace( ' ', '_', $row->name ) );
-
+				$row->jname = strtolower( str_replace( ' ', '_', $row->name ) );
 
 				$rows[] = $row;
 				$rowid++;

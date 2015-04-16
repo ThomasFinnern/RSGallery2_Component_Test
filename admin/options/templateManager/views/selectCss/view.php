@@ -36,7 +36,7 @@ class InstallerViewSelectCss extends InstallerViewDefault
 		JToolBarHelper::help( 'screen.installerSelectCss' );
 		
 		// Get data from the model
-		$item = &$this->get('Items');
+		$item = $this->get('Items');
 		$this->item = $item;
 		
 		parent::showTemplateHeader();

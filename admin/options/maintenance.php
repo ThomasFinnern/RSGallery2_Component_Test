@@ -72,6 +72,8 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 			test();
 			break;
 		default:
+            // menu_rsg2_submenu::addRSG2Submenu ();
+            HTML_RSGALLERY::RSGallerySidebar();
 			HTML_RSGALLERY::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_MAINT_HEADER'));
 			showMaintenanceCP( $option );
 			HTML_RSGALLERY::RSGalleryFooter();

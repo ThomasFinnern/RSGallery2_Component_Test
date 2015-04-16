@@ -65,7 +65,8 @@ class rsgGalleriesItem extends JTable {
 		
         /** check for valid name */
         if (trim( $this->name ) == '') {
-            $this->_error = JText::_('COM_RSGALLERY2_GALLERY_NAME');
+            //$this->_errors = JText::_('COM_RSGALLERY2_GALLERY_NAME');
+            $this->setError (JText::_('COM_RSGALLERY2_GALLERY_NAME'));
             return false;
         }
 
@@ -79,7 +80,7 @@ class rsgGalleriesItem extends JTable {
 
         $xid = intval( $this->_db->loadResult() );
         if ($xid && $xid != intval( $this->id )) {
-            $this->_error = JText::_('COM_RSGALLERY2_THERE_IS_A_GALLERY_ALREADY_WITH_THAT_NAME_PLEASE_TRY_AGAIN');
+            $this->setError (JText::_('COM_RSGALLERY2_THERE_IS_A_GALLERY_ALREADY_WITH_THAT_NAME_PLEASE_TRY_AGAIN'));
             return false;
         }
         return true;

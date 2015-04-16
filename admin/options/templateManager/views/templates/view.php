@@ -37,8 +37,8 @@ class InstallerViewTemplates extends InstallerViewDefault
 		JToolBarHelper::help( 'screen.installer2' );
 
 		// Get data from the model
-		$items		= &$this->get('Items');
-		$pagination	= &$this->get('Pagination');
+		$items		= $this->get('Items');
+		$pagination	= $this->get('Pagination');
 
 		$this->items = $items;
 		$this->pagination = $pagination;
@@ -52,7 +52,7 @@ class InstallerViewTemplates extends InstallerViewDefault
 	 */
 	function loadItem($index=0)
 	{
-		$item =& $this->items[$index];
+		$item = $this->items[$index];
 		$item->id		= $item->directory;
 		$item->index	= $index;
 

@@ -32,7 +32,7 @@ class InstallerModelEditHtml extends InstallerModel
 	 */
 	function __construct()
 	{
-		$mainframe =& JFactory::getApplication();
+		$mainframe = JFactory::getApplication();
 		
 		// Call the parent constructor
 		parent::__construct();

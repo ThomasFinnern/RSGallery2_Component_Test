@@ -37,7 +37,7 @@ class InstallerViewSelectHtml extends InstallerViewDefault
 		JToolBarHelper::help( 'screen.installerSelectHtml' );
 		
 		// Get data from the model
-		$item = &$this->get('Items');
+		$item = $this->get('Items');
 		$this->item = $item;
 		
 		parent::showTemplateHeader();

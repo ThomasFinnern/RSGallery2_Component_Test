@@ -23,7 +23,9 @@ class menu_rsg2_submenu{
 			JHtmlSidebar::addEntry(
 				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL-PANEL'),
 				'index.php?option=com_rsgallery2',
-		        (($rsgOption=='' AND $task == '' ) OR ($rsgOption == 'config')));
+		        (($rsgOption=='' AND $task == '' )
+                    OR ($rsgOption == 'config')
+                    OR ($rsgOption == 'maintenance') ));
 		    //Galleries
 			JHtmlSidebar::addEntry(
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),

@@ -31,7 +31,7 @@ class InstallerModelTemplate extends InstallerModel
 	 */
 	function __construct()
 	{
-		$mainframe =& JFactory::getApplication();
+		$mainframe = JFactory::getApplication();
 		
 		// Call the parent constructor
 		parent::__construct();
@@ -55,7 +55,7 @@ class InstallerModelTemplate extends InstallerModel
 		if (!is_dir( $tBaseDir . DS . $this->template )) {
 			return JError::raiseWarning( 500, 'Template not found' );
 		}
-		$lang =& JFactory::getLanguage();
+		$lang = JFactory::getLanguage();
 		$lang->load( 'tpl_'.$this->template, JPATH_RSGALLERY2_SITE );
 
 		$ini	= JPATH_RSGALLERY2_SITE .DS. 'templates'.DS.$this->template.DS.'params.ini';
@@ -77,7 +77,7 @@ class InstallerModelTemplate extends InstallerModel
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 
 		$item = new stdClass();
 		$item->params = $params;

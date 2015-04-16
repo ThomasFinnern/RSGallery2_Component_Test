@@ -28,7 +28,11 @@
 
 <form enctype="multipart/form-data" action="index.php" method="post" name="adminForm">
 
-	<?php if ($this->ftp) : ?>
+    <?php
+    HTML_RSGALLERY::RSGallerySidebar();
+    ?>
+
+    <?php if ($this->ftp) : ?>
 		<?php echo $this->loadTemplate('ftp'); ?>
 	<?php endif; ?>
 

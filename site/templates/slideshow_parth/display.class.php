@@ -50,7 +50,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay{
 			}
 
 			//The subtitleSelector for jd.gallery.js is p. This interferes with any
-			//p-tags in the item desciption. Changing p tag to div.descr tag works for Firefox
+			//p-tags in the item description. Changing p tag to div.descr tag works for Firefox
 			//but not for IE (tested IE7). So removing p tags from item description:
 			$search[] = '<p>';
 			$search[] = '</p>';

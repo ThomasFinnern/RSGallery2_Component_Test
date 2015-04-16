@@ -50,7 +50,7 @@ class InstallerModelInstall extends JModelLegacy
 	 */
 	function install()
 	{
-		$mainframe =& JFactory::getApplication();
+		$mainframe = JFactory::getApplication();
 
 		$this->setState('action', 'install');
 
@@ -87,7 +87,7 @@ class InstallerModelInstall extends JModelLegacy
 		//$db =  JFactory::getDBO();
 
 		// Get an installer instance
-		$installer =& JInstaller::getInstance();
+		$installer = JInstaller::getInstance();
 		require_once( rsgOptions_installer_path .DS. 'adapters' .DS. 'rsgtemplate.php' );
 		$installer->setAdapter( 'rsgTemplate', new JInstaller_rsgTemplate( $installer ) );  
 
@@ -111,7 +111,7 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Cleanup the install files
 		if (!is_file($package['packagefile'])) {
-			$config =& JFactory::getConfig();
+			$config = JFactory::getConfig();
 			$package['packagefile'] = $config->getValue('config.tmp_path').DS.$package['packagefile'];
 		}
 
@@ -159,7 +159,7 @@ class InstallerModelInstall extends JModelLegacy
 		}
 
 		// Build the appropriate paths
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		$tmp_dest 	= $config->getValue('config.tmp_path').DS.$userfile['name'];
 		$tmp_src	= $userfile['tmp_name'];
 
@@ -247,7 +247,7 @@ class InstallerModelInstall extends JModelLegacy
 			return false;
 		}
 
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		$tmp_dest 	= $config->getValue('config.tmp_path');
 
 		// Unpack the downloaded package file

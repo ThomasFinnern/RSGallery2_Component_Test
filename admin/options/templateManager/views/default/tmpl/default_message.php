@@ -1,5 +1,5 @@
 <?php
-	$state			= &$this->get('State');
+	$state			= $this->get('State');
 	$message1		= $state->get('message');
 	$message2		= $state->get('extension.message');
 ?>

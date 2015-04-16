@@ -307,13 +307,14 @@ function saveUploadedItem() {
 		//Get parameters from form
 		$input =JFactory::getApplication()->input;
 		//$i_file = JRequest::getVar( 'i_file', null, 'files', 'array'); 
-		$i_file = $input->get( 'i_file', null, 'FILES');		
+		$i_file = $input->files->get( 'i_file', null, 'FILES');
+
 		//$gallery_id = JRequest::getInt( 'gallery_id'  , ''); 
 		$gallery_id = $input->get( 'gallery_id', 0, 'INT');		
 		//$title = JRequest::getString( 'title'  , '');
 		$title = $input->get( 'title', '', 'STRING');
 		//$descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		$descr = $input->post->get('desc', '', 'RAW');
+		$descr = $input->post->get('descr', '', 'RAW');
 
 		//$uploader = JRequest::getVar( 'uploader'  , ''); //No longer used in 3.1.0
 		
@@ -473,7 +474,9 @@ function saveCat($gid) {
 		//Bind user input to $row (parent, name, description, existing gallery: gid, ordering)
 		//if (!$row->bind( JRequest::get('post') )) {
 		$input =JFactory::getApplication()->input;
-		if (!$row->bind( $input->post)) {
+		$array = $input->post->getArray();
+		// if (!$row->bind( $input->post)) {
+		if (!$row->bind($array)) {
 			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
@@ -511,12 +514,12 @@ function saveCat($gid) {
 		}
 		//Do some checks (overloads JTable::check() with rsgGalleriesItem::check())
 		if (!$row->check()) {
-			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
+			echo "<script> alert('row->check: ".$row->getError()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		//And store the row (this is where the asset is also stored; JTable::store())
 		if (!$row->store()) {
-			echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
+			echo "<script> alert('row->store: ".$row->getError()."'); window.history.go(-1); </script>\n";
 			exit();
 		}
 		//Then checkin and reorder (JTable:checkin() and JTable::reorder())

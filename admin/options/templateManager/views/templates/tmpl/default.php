@@ -8,7 +8,12 @@
  */
  ?>
  <form action="index.php" method="post" name="adminForm">
-	<table class="adminform">
+
+     <?php
+     HTML_RSGALLERY::RSGallerySidebar();
+     ?>
+
+     <table class="adminform">
 		<tbody>
 			<tr>
 				<td width="100%"><?php echo JText::_( 'COM_RSGALLERY2_DESCTEMPLATES' );echo " ".JText::_( 'COM_RSGALLERY2_DESCTEMPLATES_NOTE' ); ?></td>

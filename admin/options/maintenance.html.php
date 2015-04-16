@@ -99,7 +99,7 @@ class html_rsg2_maintenance {
 	            var form = document.adminForm;
 	            
 	            if (pressbutton != 'cancel'){
-	                submitform( pressbutton );
+	                Joomla.submitform( pressbutton );
 	                return;
 	            } else {
 	                window.history.go(-1);

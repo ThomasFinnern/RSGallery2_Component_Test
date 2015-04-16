@@ -271,7 +271,7 @@ class html_rsg2_config{
 		<script  type="text/javascript">
 			function submitbutton(pressbutton) {
 				<?php echo $editor->save('intro_text') ; ?>
-				submitform( pressbutton );
+                Joomla.submitform( pressbutton );
 			}
 		</script>
 		<form action="index.php" method="post" name="adminForm" id="adminForm">

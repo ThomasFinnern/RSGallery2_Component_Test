@@ -42,7 +42,7 @@ class InstallerViewEditHtml extends InstallerViewDefault
 		$input->set('hidemainmenu', 1);
 		
 		// Get data from the model
-		$item = &$this->get('Item');
+		$item = $this->get('Item');
 		$this->item = $item;
 		
 		parent::showTemplateHeader();

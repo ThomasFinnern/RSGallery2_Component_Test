@@ -513,14 +513,29 @@ class HTML_RSGALLERY{
     /**
      * Inserts the HTML placed at the bottom of all RSGallery Admin pages.
      */
-    static function RSGalleryFooter()
-        {
+    static function RSGalleryFooter(){
         global $rsgVersion;
         ?>
         <div class= "rsg2-footer" align="center"><br /><br /><?php echo $rsgVersion->getShortVersion();?></div>
         <div class='rsg2-clr'>&nbsp;</div>
         <?php
-        }
+    }
+
+    /**
+     * Inserts the HTML placed at the bottom of all RSGallery Admin pages.
+     */
+    static function RSGallerySidebar(){
+        if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+            <div id="j-sidebar-container" class="span2">
+                <?php echo JHtmlSidebar::render( ); ?>
+            </div>
+            <div id="j-main-container" class="span10">
+        <?php else : ?>
+            <div id="j-main-container">
+        <?php endif;?>
+            <div class="clearfix"> </div>
+         <?php
+    }
 
     /**
      *

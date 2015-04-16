@@ -54,16 +54,16 @@ class InstallerController extends JControllerLegacy
 	 * @return	void
 	 * @since	1.5
 	 */
-	static function doInstall()
+	function doInstall()
 	{
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'Install' );
-		$view	= &$this->getView( 'Install' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'Install' );
+		$view	= $this->getView( 'Install' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		if ($model->install()) {
@@ -82,12 +82,12 @@ class InstallerController extends JControllerLegacy
 	 * @return	void
 	 * @since	1.5
 	 */
-	static function manage()
+	function manage()
 	{
-		$model	= &$this->getModel( 'templates' );
-		$view	= &$this->getView( 'templates' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'templates' );
+		$view	= $this->getView( 'templates' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		$view->setModel( $model, true );
@@ -101,7 +101,7 @@ class InstallerController extends JControllerLegacy
 	 * @return	void
 	 * @since	1.5
 	 */
-	static function setDefault()
+	function setDefault()
 	{
 		
 		global $rsgConfig;
@@ -126,7 +126,7 @@ class InstallerController extends JControllerLegacy
 	 * @return	void
 	 * @since	1.5
 	 */
-	static function remove()
+	function remove()
 	{
 		global $rsgConfig;
 		
@@ -149,7 +149,7 @@ class InstallerController extends JControllerLegacy
 		
 	}
 	
-	static function template(){
+	function template(){
 		switch($this->get('task_type', 'templateGeneral')){
 			
 			case "templateCSS": $this->selectCSS();break;
@@ -166,15 +166,15 @@ class InstallerController extends JControllerLegacy
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	static function editTemplate(){
+	function editTemplate(){
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'template' );
-		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'template' );
+		$view	= $this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		//$template = JRequest::getVar( 'template' );
@@ -194,12 +194,12 @@ class InstallerController extends JControllerLegacy
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	static function applyTemplate(){
+	function applyTemplate(){
 		
-		$model	= &$this->getModel( 'template' );
-		$view	= &$this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'template' );
+		$view	= $this->getView( 'template' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		//$template = JRequest::getVar( 'template' );
@@ -224,9 +224,9 @@ class InstallerController extends JControllerLegacy
 	* @since	RSG 1.5
 	* @author John Caprez (john@porelaire.com)
 	*/
-	static function saveTemplate(){
+	function saveTemplate(){
 		
-		$model	= &$this->getModel( 'template' );
+		$model	= $this->getModel( 'template' );
 		
 		//$template = JRequest::getVar( 'template' );
 		$input = JFactory::getApplication()->input;
@@ -250,15 +250,15 @@ class InstallerController extends JControllerLegacy
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	static function selectCss(){
+	function selectCss(){
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'selectCss' );
-		$view	= &$this->getView( 'selectCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'selectCss' );
+		$view	= $this->getView( 'selectCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		//$template = JRequest::getVar( 'template' );
@@ -277,19 +277,19 @@ class InstallerController extends JControllerLegacy
 	* @since	RSG 1.5
 	* @author John Caprez (john@porelaire.com)
 	*/
-	static function editCSS(){
+	function editCSS(){
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'editCss' );
-		$view	= &$this->getView( 'editCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'editCss' );
+		$view	= $this->getView( 'editCss' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		//$template = JRequest::getVar( 'template' );
-		$input =JFactory::getApplication()->input;
+		$input = JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
 		
 		$model->template = $template;
@@ -299,13 +299,13 @@ class InstallerController extends JControllerLegacy
 		$view->setModel( $model, true );
 		$view->display();
 	}
-	static function saveCSS()
+	function saveCSS()
 	{
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'editCss' );
+		$model	= $this->getModel( 'editCss' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;
 		$model->filename = $input->get( 'filename' );
@@ -320,13 +320,13 @@ class InstallerController extends JControllerLegacy
 
 		$this->selectCss();
 	}
-	static function applyCSS()
+	function applyCSS()
 	{
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'editCss' );
+		$model	= $this->getModel( 'editCss' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;
 		$model->filename = $input->get( 'filename' );
@@ -341,7 +341,8 @@ class InstallerController extends JControllerLegacy
 		
 		$this->editCSS();
 	}
-	static function cancelCSS()
+
+    function cancelCSS()
 	{
 		$this->selectCss();
 	}
@@ -353,19 +354,19 @@ class InstallerController extends JControllerLegacy
 	 * @since	RSG 1.5
 	 * @author John Caprez (john@porelaire.com)
 	 */
-	static function selectHTML(){
+	function selectHTML(){
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'selectHtml' );
-		$view	= &$this->getView( 'selectHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'selectHtml' );
+		$view	= $this->getView( 'selectHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		//$template = JRequest::getVar( 'template' );
-		$input =JFactory::getApplication()->input;
+		$input = JFactory::getApplication()->input;
 		$template = $input->get( 'template' );
 		$model->template = $template;
 		
@@ -379,15 +380,15 @@ class InstallerController extends JControllerLegacy
 	* @since	RSG 1.5
 	* @author John Caprez (john@porelaire.com)
 	*/
-	static function editHTML() {
+	function editHTML() {
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'editHtml' );
-		$view	= &$this->getView( 'editHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
+		$model	= $this->getModel( 'editHtml' );
+		$view	= $this->getView( 'editHtml' , '', '', array( 'base_path'=>rsgOptions_installer_path ) );
 		
-		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 		
 		//$template = JRequest::getVar( 'template' );
@@ -401,13 +402,13 @@ class InstallerController extends JControllerLegacy
 		$view->setModel( $model, true );
 		$view->display();
 	}
-	static function saveHTML()
+	function saveHTML()
 	{
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'editHtml' );
+		$model	= $this->getModel( 'editHtml' );
 		//$model->filename = JRequest::getVar( 'filename' );
 		$input =JFactory::getApplication()->input;
 		$model->filename = $input->get( 'filename' );
@@ -422,15 +423,15 @@ class InstallerController extends JControllerLegacy
 		
 		$this->selectHTML();
 	}
-	static function applyHTML()
+	function applyHTML()
 	{
 		// Check for request forgeries
 		//JRequest::checkToken() or die( 'Invalid Token' );
         JSession::checkToken() or jexit( 'Invalid Token' );
 
-		$model	= &$this->getModel( 'editHtml' );
+		$model = $this->getModel( 'editHtml' );
 		//$model->filename = JRequest::getVar( 'filename' );
-		$input =JFactory::getApplication()->input;
+		$input = JFactory::getApplication()->input;
 		$model->filename = $input->get( 'filename' );
 
 		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
@@ -443,9 +444,12 @@ class InstallerController extends JControllerLegacy
 		
 		$this->editHTML();
 	}
-	static function cancelHTML()
+	function cancelHTML()
 	{
 		$this->selectHTML();
 	}
 }
+
+
+
 

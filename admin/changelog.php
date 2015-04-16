@@ -35,7 +35,7 @@ Legend:
 ! ToDo: Backend: Installation of template does not function (yet).
 ! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
   ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
-       is granted for deleting subgalleries/images. Right now you may delete everything
+       is granted for deleting sub galleries/images. Right now you may delete everything
 	   if you have delete permission for the component, even if an item/(sub)gallery 
 	   doesn't have delete permission.
   ToDo: Convert JParameter to (a)
@@ -78,10 +78,10 @@ Legend:
 ! ToDo: 2014.10.27
 		Does the file and structure inside the Templates > templateDetails.xml have to be 
 		updated to 2.5 & 3.x structure to work better (debug_listeverything, meta,
-		semantic, slideshow_parth, slideshow_phatfusion, slideshowone)
+		semantic, slideshow_parth, slideshow_phatfusion, slideshowone) ?
 ! ToDo: 2014.10.27
 		replace all rsgInstance::getVar with JRequest::get ... and replace these with JInput ... 
-! ToDo: 2014.11.14 *****
+! ToDo: 2014.11.14 ********
 		replace error handling from Joomla
 ! ToDo: 2014.11.14 **
 		FIX: Missing parameter chmod , 755 -> directory, ... ???
@@ -90,10 +90,6 @@ Legend:
 		Check for plugin PlgDisplayGallery and PlgDisplaySingle for deprecated functions
 ! ToDo: 2015.01.03 **
 		Cancel button in Upload
-! ToDo: 2015.01.06 ******
-		Replace missing header selection possibility *****
-		| Kontrollzentrum | Upload | Stapel-Upload | Bilder | Galerien | 
-		with new side selection (? Pictures ?)
 ! ToDo: 2015.01.09 **
 		fix why we can't get the version from $rsgVersion! 
 		function rsgConfig
@@ -101,7 +97,7 @@ Legend:
 ! ToDo: 2015.01.15 ***
 		JParameter file: support reading parameters 
 ! ToDo: 2015.01.18 *****
-		Check deprecated functions with phpstorm (admit + site)
+		Check deprecated functions with phpstorm (admin + site)
 ! ToDo: 2015.01.18 ****
 		Check all slideshows for working
 ! ToDo: 2015.01.18 ***
@@ -128,12 +124,26 @@ Legend:
 		$database->getErrorMsg() is deprecated. Has a lot of occurences
 ! ToDo: 2015.01.30 ******
 		JRequest in instance.class.php multiple times
-! ToDo: 13.02.2015 *******
-		mygalleries: Buttons do not work. Probable reason:
-		There a more than one form inside the created HTML Page.
-		Maybe submit needs a unique id 
+! ToDo: 18.02.2015 *******
+		mygalleries: Update of image information or gallery 
+		information change will not call function inside 
+! ToDo: 18.02.2015 ***
+		If the table rsgallery_config is empty caused by 
+        repair of sql table RSG2 is not starting any more
+! ToDo: 18.02.2015 ***
+		Replace every slideshow mootools version in rsg2 with 
+		similar version with jquery
+		
+		
 		
 ---------------- Recent ----------------
+
+* --------------- 4.0.5 -- SVN 1141 -- 2015-03-10 -------------
+13.02.2015 finnern
++ Improved template manager 
++ Sidebar is shown on template manager and maintenance
++ Sidebar in configuration improved
++
 
 * --------------- 4.0.4 -- SVN 1141 -- 2015-02-13 -------------
 13.02.2015 finnern
