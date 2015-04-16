@@ -18,34 +18,17 @@ if(!defined('DS')){
 // Include the JLog class.
 jimport('joomla.log.log');
 
-
-/* Add the logger.
-JLog::addLogger(
-     // Pass an array of configuration options
-    array(
-            // Set the name of the log file
-			//'text_file' => substr($application->scope, 4) . ".log.php",
-            'text_file' => 'rsgallery.install.log.php',
-
-            // (optional) you can change the directory
-            'text_file_path' => 'logs'
-     ) 
-);
-
-JLog::add('Starting to log install.class.php');
-*/
-
 //require_once( $rsgClasses_path . 'file.utils.php' );
 
 global $rsgConfig;
 if( !isset( $rsgConfig )){
     
-	JLog::add('require once: config /version');
+	JLog::add('require once: config /version', JLog::DEBUG);
 	
     require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . 'includes' .DS. "config.class.php" );
     require_once( JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . 'includes' .DS. "version.rsgallery2.php" );
 
-	JLog::add('create config /version');
+	JLog::add('create config /version', JLog::DEBUG);
 		
     $rsgVersion = new rsgalleryVersion();
     $rsgConfig = new rsgConfig( false );
@@ -84,7 +67,7 @@ class rsgInstall {
     function rsgInstall(){
 		global $rsgConfig;
 		
-		JLog::add('Constructor rsgInstall class');
+		JLog::add('Constructor rsgInstall class', JLog::DEBUG);
 		
         $app =JFactory::getApplication();
 		
@@ -119,7 +102,7 @@ class rsgInstall {
             $this->galleryList[] = new migrate_testMigratorFail;
         }
         
-		JLog::add('rsgInstall: exit constructor');
+		JLog::add('rsgInstall: exit constructor', JLog::DEBUG);
 
     }
     /** For debug purposes only */
@@ -149,7 +132,7 @@ class rsgInstall {
      */
     function createDirStructure() {
         
-		JLog::add('rsgInstall: createDirStructure');
+		JLog::add('rsgInstall: createDirStructure', JLog::DEBUG);
 		
         $dirs = array($this->galleryDir, $this->dirOriginal, $this->dirThumbs, $this->dirDisplay, $this->dirWatermarked);
         $count = 0;
@@ -177,7 +160,7 @@ class rsgInstall {
     **/
     function createTableStructure(){
 
-		JLog::add('rsgInstall: createTableStructure');
+		JLog::add('rsgInstall: createTableStructure', JLog::DEBUG);
 
 		$result = $this->populate_db();
 
@@ -270,7 +253,7 @@ class rsgInstall {
      */
     function createImages($dir, $type = "display") {
 
-		JLog::add('rsgInstall: createImages');
+		JLog::add('rsgInstall: createImages', JLog::DEBUG);
 
 		global $rsgConfig;
 		/** 
@@ -394,7 +377,7 @@ class rsgInstall {
      */
     function deleteGalleryDir($target, $exceptions, $output=false) {
     
-		JLog::add('rsgInstall: deleteGalleryDir: ' + $target);
+		JLog::add('rsgInstall: deleteGalleryDir: ' + $target, JLog::DEBUG);
 		
 		if (file_exists($target) && is_dir($target))
 		{
@@ -447,7 +430,7 @@ class rsgInstall {
      */
     static function setDirPermsOnGallery($dir, &$warning_num)
     {
-		JLog::add('rsgInstall: setDirPermsOnGallery');
+		JLog::add('rsgInstall: setDirPermsOnGallery', JLog::DEBUG);
 		
         global $ftpIsAvailable, $ftpUse;
         if(file_exists($dir))
@@ -517,7 +500,7 @@ class rsgInstall {
     static function componentInstalled($component){
 		$database = JFactory::getDBO();
 		
-		JLog::add('rsgInstall: componentInstalled');
+		JLog::add('rsgInstall: componentInstalled', JLog::DEBUG);
 		
 		$component = $database->quote($component);
 		$sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
@@ -606,7 +589,7 @@ class rsgInstall {
      */
     function deleteTable($table)
     {
-		JLog::add('rsgInstall: deleteTable');
+		JLog::add('rsgInstall: deleteTable', JLog::DEBUG);
 	
         $database = JFactory::getDBO();
         $sql = "DROP TABLE IF EXISTS `$table`";
@@ -748,7 +731,7 @@ class rsgInstall {
     function upgradeInstallX() {
     global $rsgConfig, $database, $mosConfig_absolute_path;
 	
-		JLog::add('upgradeInstallX()');
+		JLog::add('upgradeInstallX()', JLog::DEBUG);
 
 
 	
@@ -777,7 +760,7 @@ class rsgInstall {
             else
                 {
                 //Well, component is installed, but no version information can be established
-				JLog::add('-  redirect: no version information can be established: ' + COM_RSGALLERY2_UPGRADE_REC_FULL);
+				JLog::add('-  redirect: no version information can be established: ' + COM_RSGALLERY2_UPGRADE_REC_FULL, JLog::DEBUG);
                 // ToDo Fix: Undefined variable mainframe ?
 					$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_REC_FULL') );
                     $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
@@ -977,7 +960,7 @@ class rsgInstall {
                 $exceptions = array(".","..");
                 $this->deleteGalleryDir(JPATH_SITE.$this->galleryDir, $exceptions, $output=false);
                 //Abort upgrade. Gallery structure present but no version information could be retrieved
-				JLog::add('-  redirect: Abort upgrade. Gallery structure present but no version information could be retrieved: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
+				JLog::add('-  redirect: Abort upgrade. Gallery structure present but no version information could be retrieved: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE, JLog::DEBUG);
 				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE') );
                 $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
                 }
@@ -985,7 +968,7 @@ class rsgInstall {
         else
             {
             //No, component is not installed
-			JLog::add('-  redirect: No, component is not installed: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE);
+			JLog::add('-  redirect: No, component is not installed: ' + COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE, JLog::DEBUG);
 			$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_UPGRADE_NOT_POSSIBLE') );
             $mainframe->redirect("index.php?option=com_rsgallery2&task=install");
             }

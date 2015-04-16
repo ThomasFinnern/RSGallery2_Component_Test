@@ -138,6 +138,16 @@ Legend:
 		
 ---------------- Recent ----------------
 
+* --------------- 4.0.5 -- SVN 1144 -- 2015-03-14 -------------
+14.03.2015 finnern
+* Changed array definition which was not valid for PHP 5.3.27
+
+* --------------- 4.0.5 -- SVN 1144 -- 2015-03-14 -------------
+14.03.2015 finnern
++ Removed debug messages from setup
++ Removed log path to administrator folder for 
+  installation (Did not install on all servers)
+
 * --------------- 4.0.5 -- SVN 1141 -- 2015-03-10 -------------
 13.02.2015 finnern
 + Improved template manager 

@@ -547,7 +547,7 @@ class fileHandler {
         // Unzip to ftp directory, removing all path info
         $zip_list = $tzipfile->extract(  PCLZIP_OPT_PATH, $extractDir, PCLZIP_OPT_REMOVE_ALL_PATH);
 
-        $list[] = [];
+        $list[] = array (); // = [];
 
         // Create image array from $ziplist
         $ziplist = JFolder::files( $extractDir );

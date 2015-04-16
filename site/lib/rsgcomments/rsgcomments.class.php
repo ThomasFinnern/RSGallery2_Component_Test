@@ -254,7 +254,8 @@ function editComment( $item_id ) {
 	$editor = JEditor::getInstance($editor);
 	?>
 	<script type="text/javascript">
-        function submitbutton(pressbutton) {
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
             var form = document.rsgcommentform;
             if (pressbutton == 'cancel') {
                 form.reset();

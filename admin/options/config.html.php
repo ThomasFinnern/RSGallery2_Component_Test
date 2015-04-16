@@ -269,7 +269,8 @@ class html_rsg2_config{
 
 		?>
 		<script  type="text/javascript">
-			function submitbutton(pressbutton) {
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
 				<?php echo $editor->save('intro_text') ; ?>
                 Joomla.submitform( pressbutton );
 			}

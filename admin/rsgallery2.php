@@ -31,8 +31,8 @@ if ($Rsg2DebugActive)
 
 				// (optional) you can change the directory
 				'text_file_path' => 'logs'
-		 ) ,
-			JLog::ALL ^ JLog::DEBUG // leave out db messages
+		),
+		JLog::ALL ^ JLog::DEBUG // leave out db messages
 	);
 	
 	// start logging...

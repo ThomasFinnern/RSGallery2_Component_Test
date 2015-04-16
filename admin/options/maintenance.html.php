@@ -95,10 +95,12 @@ class html_rsg2_maintenance {
 		global $rsgConfig;
 		?>
 		<script language="Javascript">
-	        function submitbutton(pressbutton){
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
+				
 	            var form = document.adminForm;
 	            
-	            if (pressbutton != 'cancel'){
+				if (pressbutton != 'cancel'){
 	                Joomla.submitform( pressbutton );
 	                return;
 	            } else {
@@ -149,7 +151,8 @@ class html_rsg2_maintenance {
 	    // inform user of purpose of this function, then provide a proceed button
 		?>
 	    <script language="Javascript">
-	        function submitbutton(pressbutton){
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
 	            if (pressbutton != 'cancel'){
 	                submitform( pressbutton );
 	                return;

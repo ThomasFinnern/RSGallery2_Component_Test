@@ -26,13 +26,21 @@ JLog::addLogger(
             'text_file' => 'rsgallery2.install.log.'.$date.'.php',
 
             // (optional) you can change the directory
-            'text_file_path' => 'logs'
-     ) 
+            // 'text_file_path' => 'logs'
+    ),
+	//JLog::ALL ^ JLog::DEBUG, // leave out database messages
+	//JLog::ALL, // 
+	JLog::ALL // 
+	// The log category/categories which should be recorded in this file
+    // In this case, it's just the one category from our extension, still
+    // we need to put it inside an array
+    // array('com_rsgallery2')
 );
 
-// start logging...
-JLog::add('-------------------------------------------------------');
-JLog::add('Starting to log install.rsgallery2.php for installation');
+// start logging... , 'com_rsgallery2'
+JLog::add('-------------------------------------------------------', JLog::DEBUG);
+JLog::add('Starting to log install.rsgallery2.php for installation X', JLog::DEBUG);
+
 		
 class com_rsgallery2InstallerScript
 {
@@ -57,7 +65,7 @@ class com_rsgallery2InstallerScript
 
 	function preflight($type, $parent)
 	{
-		JLog::add('preflight: '.$type);
+		JLog::add('preflight: '.$type, JLog::DEBUG);
 
 		// this component does not work with Joomla releases prior to 3.0
 		// abort if the current Joomla release is older
@@ -72,16 +80,16 @@ class com_rsgallery2InstallerScript
 		$this->actual_joomla_release = $jversion->getShortVersion();
 
         // Show the essential information at the install/update back-end
-        echo '<br/>Installing component manifest file version = ' . $this->newRelease;
-        JLog::add('<br/>Installing component manifest file version = ' . $this->newRelease);
+		$NextLine = 'Installing component manifest file version = ' . $this->newRelease;
+        echo '<br/>' . $NextLine;
+        JLog::add($NextLine, JLog::DEBUG);
         if ( $type == 'update' ) {
-			echo '<br/>Old/current component version (manifest cache) = ' . $this->oldRelease;
-			JLog::add('Old/current component version (manifest cache) = ' . $this->oldRelease);
+			$NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
+			echo '<br/>' . $NextLine;
+			JLog::add($NextLine, JLog::DEBUG);
 		}
-        //echo 'Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
-        JLog::add('<br/>Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release);
-        //echo 'Current Joomla version = ' . $this->actual_joomla_release;
-        JLog::add('<br/>Current Joomla version = ' . $this->actual_joomla_release);
+        JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release, JLog::DEBUG);
+        JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
  
        // Abort if the current Joomla release is older
         if (version_compare( $this->actual_joomla_release, $this->minimum_joomla_release, 'lt' )) {
@@ -91,11 +99,11 @@ class com_rsgallery2InstallerScript
             return false;
         }
 
-		JLog::add('After version compare');
+		JLog::add('After version compare', JLog::DEBUG);
 
         if ( $type == 'update' ) {
 		
-			JLog::add('-> pre update');
+			JLog::add('-> pre update', JLog::DEBUG);
 			$rel = $this->oldRelease . ' to ' . $this->newRelease;
 			
 			// Abort if the component being installed is older than the currently installed version 
@@ -104,9 +112,10 @@ class com_rsgallery2InstallerScript
 					Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
 					return false;
 			}
-			/**/
 
-			echo '<br/>' . JText::_('COM_RSGALLERY2_PREFLIGHT_UPDATE_TEXT') . ' ' . $rel;		
+			$NextLine = JText::_('COM_RSGALLERY2_PREFLIGHT_UPDATE_TEXT') . ' ' . $rel;
+			echo '<br/>' . $NextLine . '<br/>';
+			JLog::add($NextLine, JLog::DEBUG);
 
 			//--------------------------------------------------------------------------------
 			// Check if version is already set in "_schemas" table
@@ -123,21 +132,9 @@ class com_rsgallery2InstallerScript
 					. ' AND ' . $db->quoteName('name') . ' = ' . $db->quote('com_rsgallery2'));
             $db->setQuery($query);		
 			$Rsg2id = $db->loadResult();
-			JLog::add('Rsg2id: ' . $Rsg2id);
+			JLog::add('Rsg2id: ' . $Rsg2id, JLog::DEBUG);
 
-		
-
-			//--- Read SchemaVersion ------------------
-			/*
-			$query->clear();
-            $query->select($db->quoteName('version_id'))
-                ->from('#__schemas')
-                ->where($db->quoteName('extension_id') . ' = ' . $db->quote($Rsg2id));
-            $db->setQuery($query);		
-			$SchemaVersion = $db->loadResult();
-			JLog::add('SchemaVersion: ' . $SchemaVersion);
-			*/
-			
+			//--- Read SchemaVersion ------------------			
             //--- Check if entry in _schemas table exists ------------------
 			
 			$query->clear();
@@ -146,13 +143,13 @@ class com_rsgallery2InstallerScript
                 ->where($db->quoteName('extension_id') . ' = ' . $db->quote($Rsg2id));
 			$db->setQuery($query);
 			$SchemaVersionCount = $db->loadResult();
-			JLog::add('SchemaVersionCount: ' . $SchemaVersionCount);
+			JLog::add('SchemaVersionCount: ' . $SchemaVersionCount, JLog::DEBUG);
 
 			// Create component entry (version) in __schemas
 			// Rsg2id not set 
 			if($SchemaVersionCount != 1)
 			{
-				JLog::add('Create RSG2 version in __schemas: ');
+				JLog::add('Create RSG2 version in __schemas: ', JLog::DEBUG);
 				
 				//	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700	
 				$query->clear();
@@ -165,19 +162,19 @@ class com_rsgallery2InstallerScript
         }
         else 
 		{ // $type == 'install'
-			JLog::add('-> pre freshInstall');
+			JLog::add('-> pre freshInstall', JLog::DEBUG);
 			$rel = $this->newRelease; 
 			
 			// Remove accidentally left overs (Image Files or Database) -> uncomment for use
-			// Only for developers use !!!
+			//    Only for developers use !!!
 			// RemoveManualInstallationParts ()
 			
-			// ??? Install options ?
-
-			echo '<br/>' . JText::_('COM_RSGALLERY2_PREFLIGHT_INSTALL_TEXT') . ' ' . $rel;		
+			$NextLine = JText::_('COM_RSGALLERY2_PREFLIGHT_INSTALL_TEXT') . ' ' . $rel;
+			echo '<br/>' . $NextLine . '<br/>';
+			JLog::add($NextLine, JLog::DEBUG);
 		}
 
-		JLog::add('exit preflight');
+		JLog::add('exit preflight', JLog::DEBUG);
 	}
 
 	/*-------------------------------------------------------------------------
@@ -191,23 +188,23 @@ class com_rsgallery2InstallerScript
 	-------------------------------------------------------------------------*/
 	function install($parent)
 	{
-		JLog::add('install');
+		JLog::add('install', JLog::DEBUG);
 		
 		require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 
-		JLog::add('freshInstall');
+		JLog::add('freshInstall', JLog::DEBUG);
 
 		//Initialize install
 		$rsgInstall = new rsgInstall();		
 		$rsgInstall->freshInstall();
 
 		echo '<p>' . JText::_('COM_RSGALLERY2_INSTALL_TEXT') . '</p>';
-		JLog::add('Before redirect');
+		JLog::add('Before redirect', JLog::DEBUG);
 		
 		// Jump directly to the newly installed component configuration page
         // $parent->getParent()->setRedirectURL('index.php?option=com_rsgallery2');
 
-		JLog::add('exit install');
+		JLog::add('exit install', JLog::DEBUG);
 	}
 
 	/*-------------------------------------------------------------------------
@@ -221,7 +218,7 @@ class com_rsgallery2InstallerScript
 	-------------------------------------------------------------------------*/
 	function update($parent)
 	{
-		JLog::add('function update');
+		JLog::add('function update', JLog::DEBUG);
 		
 		require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 		
@@ -233,21 +230,21 @@ class com_rsgallery2InstallerScript
 		//Initialize install
 		$rsgInstall = new rsgInstall();		
 		/** /
-		JLog::add('freshInstall');
+		JLog::add('freshInstall', JLog::DEBUG);
 		$rsgInstall->freshInstall();
 		
-		JLog::add('After freshInstall');
+		JLog::add('After freshInstall', JLog::DEBUG);
 		if (false)
 		/*
 		{*/
 		$rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get( 'version' )) , 'ok');
 
-		JLog::add('Before migrate');
+		JLog::add('Before migrate', JLog::DEBUG);
 
 		//Initialize rsgallery migration
 		$migrate_com_rsgallery = new migrate_com_rsgallery();
 		
-		JLog::add('Do migrate');
+		JLog::add('Do migrate', JLog::DEBUG);
 		//Migrate from earlier version
 		$result = $migrate_com_rsgallery->migrate();
 		
@@ -260,10 +257,10 @@ class com_rsgallery2InstallerScript
 		}
 
 		
-		JLog::add('view update text');
+		JLog::add('view update text', JLog::DEBUG);
 		echo '<p>' . JText::_('COM_RSGALLERY2_UPDATE_TEXT') . '</p>';
 
-		JLog::add('exit update');
+		JLog::add('exit update', JLog::DEBUG);
 	}
 
 	/*-------------------------------------------------------------------------
@@ -278,22 +275,22 @@ class com_rsgallery2InstallerScript
 	-------------------------------------------------------------------------*/
 	function postflight($type, $parent)
 	{
-		JLog::add('postflight');
+		JLog::add('postflight', JLog::DEBUG);
 		echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . strtoupper($type) . '_TEXT') . '</p>';
 		
         if ( $type == 'update' ) {
-			JLog::add('-> post update');
+			JLog::add('-> post update', JLog::DEBUG);
 			
 			// $this->installComplete(JText::_('COM_RSGALLERY2_UPGRADE_SUCCESS'));
         }
         else 
 		{ // $type == 'install'
-			JLog::add('-> post freshInstall');
+			JLog::add('-> post freshInstall', JLog::DEBUG);
 			
 			//$this->installComplete(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
 		}
  
-		JLog::add('exit postflight');
+		JLog::add('exit postflight', JLog::DEBUG);
 	}
 
 	/*-------------------------------------------------------------------------
@@ -306,9 +303,9 @@ class com_rsgallery2InstallerScript
 	-------------------------------------------------------------------------*/
 	function uninstall($parent)
 	{
-		JLog::add('uninstall');
+		JLog::add('uninstall', JLog::DEBUG);
 		echo '<p>' . JText::_('COM_RSGALLERY2_UNINSTALL_TEXT') . '</p>';
-		JLog::add('exit uninstall');
+		JLog::add('exit uninstall', JLog::DEBUG);
 	}
 
 	/*

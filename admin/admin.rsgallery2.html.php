@@ -454,7 +454,8 @@ class HTML_RSGALLERY{
     static function requestCatCreation(){
 		?>
 		<script>
-		function submitbutton(pressbutton){
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
             if (pressbutton != 'cancel'){
                 // Deprecated
                 // submitform() - use Joomla.submitform() instead
@@ -543,7 +544,8 @@ class HTML_RSGALLERY{
     static function showUploadStep1(){
         ?>
         <script type="text/javascript">
-        function submitbutton( pressbutton ) {
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
             var form = document.form;
             if ( pressbutton == 'controlPanel' ) {
                 location = "index.php?option=com_rsgallery2";
@@ -656,8 +658,9 @@ class HTML_RSGALLERY{
 
         ?>
         <script language="javascript" type="text/javascript">
-        function submitbutton(pressbutton) {
-           var form = document.form3;
+	        // old:function submitbutton(pressbutton){
+	        Joomla.submitbutton = function(pressbutton) {
+			var form = document.form3;
                 form.submit();
         }
         </script>

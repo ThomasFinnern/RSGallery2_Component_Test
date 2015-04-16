@@ -30,9 +30,9 @@ if ($Rsg2DebugActive)
 				'text_file' => 'rsgallery2.'.$date.'.log.php',
 
 				// (optional) you can change the directory
-				'text_file_path' => 'logs'
-		 ) ,
-			JLog::ALL ^ JLog::DEBUG // leave out db messages
+				// 'text_file_path' => 'logs'
+		),
+		JLog::ALL ^ JLog::DEBUG // leave out db messages
 	);
 
 	// start logging...

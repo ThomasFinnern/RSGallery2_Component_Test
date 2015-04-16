@@ -437,7 +437,7 @@ class rsgGallery extends JObject{
 	{
         //$array3 = []; // 141031 thomas
         //$array3 = (); // 141031 thomas
-
+		//$array3 = array (); // 150316 finnern may be needed empty ?
         $array2=explode($glue2, $array);
         foreach($array2 as  $val)
         {

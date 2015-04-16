@@ -914,7 +914,7 @@ class myGalleries {
 			</table>
 			<input type="hidden" name="id" 		value="<?php echo $id; ?>" />
 			<input type="hidden" name="task" 	value="" />
-			<input type="hidden" name="option" 	value="com_rsgallery2>" />
+			<input type="hidden" name="option" 	value="com_rsgallery2" />
 			<!-- input type="hidden" name="Itemid" value="<?php
 				// echo JRequest::getInt('Itemid');
 			?>" / -->
@@ -1037,7 +1037,7 @@ static function editCat($rows = null) {
         <input type="hidden" name="gid" value="<?php echo $gid; ?>" />
         <input type="hidden" name="ordering" value="<?php echo $ordering; ?>" />
 		<input type="hidden" name="task" 	value="" />
-		<input type="hidden" name="option" 	value="com_rsgallery2>" />
+		<input type="hidden" name="option" 	value="com_rsgallery2" />
 		<?php echo JHtml::_('form.token'); ?>
         </table>
 	</form>

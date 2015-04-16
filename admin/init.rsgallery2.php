@@ -69,7 +69,3 @@ require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.clas
 require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
 
 require_once( $rsgOptions_path . 'images.class.php' );
-
-//Load Joomla library files
-// deprecated JParameter 
-// jimport( 'joomla.html.parameter' );		//JParameter
