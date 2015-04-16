@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_RSGALLERY2_SLIDESHOWVIEW_DEFAULT_TITLE">
+		<message>
+			COM_RSGALLERY2_SLIDESHOWVIEW_DEFAULT_DESC
+		</message>
+	</layout>
+
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+		>
+
+			<field
+					id="gid"
+					name="gid"
+					type="gallerynoroot"
+					label="COM_RSGALLERY2_CHOOSE_GALLERY"
+					description="COM_RSGALLERY2_CHOOSE_GALLERYNOROOT_DESC"
+					default="0"
+					required="true"
+			><!-- introduces new field type gallery -->
+			</field>
+			<field
+					id="page"
+					name="page"
+					value="slideshow"
+					required="true"
+					default="slideshow"
+					type="hidden"
+			>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

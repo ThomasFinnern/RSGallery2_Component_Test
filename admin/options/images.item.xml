@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosparams type="component">
+	<params>
+		<param name="link" type="text" default="" label="COM_RSGALLERY2_PARAM_IMAGES_LINK" description="COM_RSGALLERY2_PARAM_IMAGES_LINK_DESC">
+		</param>
+		<param name="link_text" type="text" default="" label="COM_RSGALLERY2_LINK_TEXT" description="COM_RSGALLERY2_LINK_TEXT_DESC">
+		</param>
+	</params>
+</mosparams>

@@ -1,0 +1,49 @@
+// SimpleTaskFile: ToDo, FileId: Base@20140510_121100.274, Version: 100::
+// [-.%*+!] {Prio Base}  '-':  Afterthought, '.':  Just an idea, '%':  In the future, '*':  Standard, '+':  Nice to have, '!':  Error
+//   '-': Afterthought (1)
+//   '.': Just an idea (2)
+//   '%': In the future (4)
+//   '*': Standard (8)
+//   '+': Nice to have (16)
+//   '!': Error (32)
+- ToDo: **++::JRequest::setVar replace with ...
+- ToDo: **+++:: search for ToDo: deprecated 
+- ToDo: **+::JParameter ? $this->params = new JParameter($content, $xml, 'template'); wrong parameter number ? 
+- ToDo: *+.::Access control GACL
+- ToDo: **.::JRequest is replaced by Jinput like
+- ToDo: *...::JPane -> deprecated
+- ToDo: *..::JUser::$usertype has been removed. $my->usertype == $type
+- ToDo: *.::JHtml::_('list.specificordering', $row, $id, $query, true ); -> function editImage( $option, $id )
+- ToDo: *::$this->params = new JParameter($content, $xml, 'template'); -> JParameter (use JForm instead or, in most circumstances, JRegistry - for example to retrieve in a component a plugin parameter)
+- ToDo: ...::Use PHP Exception for JError::raiseWarning -> trigger_error() Using E_WARNING as the 2nd argument
+- ToDo: ...::Use PHP Exception for JError::raiseNotice ->
+- ToDo: ...::Use PHP Exception for JError::raiseError -> throw new Exception('Division durch Null.');
+- ToDo: ...::JavaScript: Forms that have name="adminForm" now also require id="adminForm"
+- ToDo: ...::Install preflight
+-> install: delete folder and database left overs (see other acces for preflights
+-> update: check if database and folders exists
+- ToDo: ...::getApplication()->input;
+$fields = $jinput->get('jform','','array');
+- ToDo: ...::after install: ??COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED??
+??COM_RSGALLERY2_CONTROL_PANEL??
+??COM_RSGALLERY2_CONTROL_PANEL??
+- ToDo: ...::after install: ??COM_RSGALLERY2_DIRECTORY_STRUCTURE_DELETED??
+??COM_RSGALLERY2_FOLDER_IS_CREATED?
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JException::get is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JException::get is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JException::get is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JException is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JError::throwError() is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JError::raiseWarning() is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JError::raise() is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JError::hanleMessage() is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JError::getErrorHandling() is deprecated.
+- ToDo: ...::2014-04-27T16:26:46+00:00  WARNING deprecated  JError::addToStack() is deprecated.
+- ToDo: ...::? JSimpleXML -> deprecated
+- ToDo: ...::
+- ToDo: ...::
+- ToDo: ...::
+- ToDo: ...::
+- ToDo: ...::
+- ToDo: ...::
+- ToDo: ...::
