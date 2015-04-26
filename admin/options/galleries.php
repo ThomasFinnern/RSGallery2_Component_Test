@@ -180,8 +180,9 @@ function edit( $option, $id ) {
 
     // fail if checked out not by 'me'
     if ($row->isCheckedOut( $my->id )) {
-		// ToDS: Translate 
-	    $mainframe->enqueueMessage(  'The module $row->title is currently being edited by another administrator.' );
+		// ToDo: Translate 
+		$msg = JText::_( 'The module $row->title is currently being edited by another administrator' );
+	    $mainframe->enqueueMessage($msg);
         $mainframe->redirect( 'index.php?option='. $option );
     }
 
@@ -220,12 +221,98 @@ function edit( $option, $id ) {
 		$lists['published'] = ($row->published ? JText::_('JYES') : JText::_('JNO'));
 	}
 	
+	//--- Add info / text as form fields to be edited -----------------------
+	// Commented out (voting_view, voting_vote, gallery_sort_order) 
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/galleries.item.xml';
 
 	// ToDo: Debug / Test to check if following replacement is working 
 	//$params = new JParameter( $row->params, $file );
 	$jparams = new JRegistry();
 	$params = $jparams->get($row->params, $file);
+/// ToDo: Jparameter ... Try this for J3:
+/*
+$params2 = new JForm('params');
+$params2->loadFile($file);///var_dump($row);
+$params2->bind( $row->params );
+
+$fields = $params2->getFieldset('params');
+foreach( $fields AS $field => $obj ){
+  echo $params2->getLabel( $field, null );
+  echo $params2->getInput( $field, null, null );	
+}
+
+
+I have been working hard on this and come up with a solution, its the "proper" way to do it that other modules do but are hidden behind multiple layers of objects (so a bit hard to figure out).
+
+First I thought that the problem was in JFormField but it really was not. It has no need to access those properties since they only "parse" the fields were not made to give any direct control.
+
+So here is a bit of the other code I have.
+
+if($form->loadFile($path.'/fields.xml')){
+        $fieldset = $form->getFieldset();
+        //SQL STUFF HERE TO GET $result
+        $result = $db->loadObject();
+        if(isset($result->params)){
+            $moduleParams = json_decode($result->params);
+        }else{
+            $moduleParams = new stdClass;
+        }
+        foreach($fieldset as $index=>$field){
+            $field->name = 'plg_form_settings['.$field->name.']';
+            $content .= '<div class="control-group">';
+                $content .= '<div class="control-label">';
+                    $content .= $field->label;
+                $content .= '</div>';
+                $content .= '<div class="controls">';
+                    $content .= $field->input;
+                $content .= '</div>';
+            $content .= '</div>';
+        }
+    }
+
+This loops each field in the fieldset and returns an instance of JFormField a more or less read only class. What should be done is any edits you want to do is done via JForm itself.
+
+if($form->loadFile($path.'/fields.xml')){
+    $fieldset = $form->getFieldset();
+    //SQL STUFF HERE TO GET $result
+    $result = $db->loadObject();
+    if(isset($result->params)){
+        $moduleParams = json_decode($result->params);
+    }else{
+        $moduleParams = new stdClass;
+    }
+    $dataArray = array();
+    //split the loop into 2, this way the data can be bound
+    foreach($fieldset as $index=>$field){
+        if($id!=0&&isset($moduleParams->{$index})){
+            $dataArray[$index] = $moduleParams->{$index};
+        }
+    }
+    //bind and reset to ensure it worked
+    $form->bind($dataArray);
+    $fieldset = $form->getFieldset();
+    foreach($fieldset as $index=>$field){
+        $output = '<div class="control-group">';
+            $output .= '<div class="control-label">';
+                $output .= $field->label;
+            $output .= '</div>';
+            $output .= '<div class="controls">';
+                $output .= $field->input;
+            $output .= '</div>';
+        $output .= '</div>';
+        $content .= $output;
+    }
+}
+
+As you can see I use 2 loops, one is just to match a parameter to a field (I could probably improve it by looping the actual $moduleParams object). While the other is the same as the one I had before. In between I bind the data to form and "reset" the fieldset variable (not sure if its needed but it does not hurt in the debugging process. This however will only correctly change the $field->value as you are binding a forms value, so the other variables are still protected.
+
+So I came up with a solution for name, which this question was mainly about. JForm is fairly strict on the name as it uses that as a basis for its interaction with other objects, so its best not to touch it while JForm is parsing the form, but after.
+
+
+
+*/
+///JForm has no render method as used in images.html.php line  343
+
     html_rsg2_galleries::edit( $row, $lists, $params, $option );
 }
 

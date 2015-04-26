@@ -44,6 +44,12 @@ class rsgItem extends JObject{
 	/**
 	 * @param array a database row
 	 */
+    /**
+     * @param mixed|null $type
+     * @param $mimetype
+     * @param $gallery
+     * @param $row
+     */
 	function __construct( $type, $mimetype, &$gallery, $row ){
 		$this->type = $type;
 		$this->mimetype = $mimetype;
@@ -52,7 +58,10 @@ class rsgItem extends JObject{
 		foreach( $row as $n=>$a )
 			$this->$n = $a;
 	}
-	
+
+    /**
+     * @return JParameter|null
+     */
 	function parameters(){
 		if( $this->parameters === null )
 			$this->parameters = new JParameter( $this->params );

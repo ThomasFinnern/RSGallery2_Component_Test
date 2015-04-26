@@ -111,46 +111,6 @@ class fileUtils{
     }
 
     /**
-     * new and extra thought out!
-     * @todo Deprecated. Can be removed after testing
-     * @param $tmpName
-     * @param $name
-     * @return imageUploadError|string
-     */
-    static function move_uploadedFile_to_orignalDirX( $tmpName, $name ){
-       
-        $parts = pathinfo( $name );
-        
-        // clean odd characters (including spaces)
-        $basename = preg_replace('/[^a-z0-9_\-\.]/i', '_', $parts['basename']);
-
-        // make sure we don't use the old name
-        unset( $parts );
-        unset( $name );
-
-        $ext = substr( strrchr( $basename, "." ), 1 );
-        
-        // TODO: I think comparing the name to the filenames in the db would be cleaner and faster.
-        if ( file_exists( JPATH_DISPLAY . DS . $basename ) || file_exists( JPATH_ORIGINAL . DS . $basename )){
-            $stub = substr( $basename, 0, (strlen( $ext )+1)*-1 );
-    
-            // if file exists, add a number, test, increment, test...  similar to what filemanagers will do
-            $i=0;
-            do {
-                $basename=$stub . "-" . ++$i . "." . $ext;
-            } while( file_exists( JPATH_DISPLAY . DS . $basename ) || file_exists( JPATH_ORIGINAL . DS . $basename ));
-        }
-        
-        $destination = JPATH_ORIGINAL . DS . $basename;
-        if ( !move_uploaded_file( $tmpName, $destination )) {
-            if( !copy( $tmpName, $destination )){
-            	return new imageUploadError( $basename, JText::_('COM_RSGALLERY2_COULD_NOT_COPY')."$tmpName ".JText::_('COM_RSGALLERY2_IMAGE_TO')." $destination" );
-                }
-        }
-        return $destination;
-    }
-
-    /**
      * Moves file to the original folder.
      * It checks whether a filename already exists and renames when necessary
      * 
@@ -462,7 +422,7 @@ class fileHandler {
 		}
 
 		//Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload(). It transfers a file from the source file path to the destination path. Filename is made safe.
-		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(JFile::baseName($archive['name']));
+		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(basename($archive['name']));
 		// Move uploaded file (this is truely uploading the file)
 		if (!JFile::upload($archive['tmp_name'], $fileDestination)){
 			$uploadError	= 1;

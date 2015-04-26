@@ -18,7 +18,7 @@ defined( '_JEXEC' ) or die();
 class rsgGallery extends JObject{
 //     variables from the db table
 	/** @var array the entire table row */
-	var $row = null;
+	var $row = null; /* rsgGallery parameters as associatian array */
 	
 	/** @var int Primary key */
 	var $id = null;
@@ -76,6 +76,9 @@ class rsgGallery extends JObject{
 
 	var $_itemCount = null;
 
+    /**
+     * @param mixed|null $row (rsgGallery parameters as associatian array)
+     */
     function __construct( $row ){
 		$this->row = $row;
 
@@ -106,8 +109,9 @@ class rsgGallery extends JObject{
 	}
 	
 	/**
-	 * @return true if there is new images within the given time span
-	 * @param int amount of days to the past
+     *
+	 * @param int  $days amount of days to the past
+     * @return true if there is new images within the given time span
 	 * @todo rewrite the sql to use better date features
 	 */
 	function hasNewImages($days = 7){
@@ -117,12 +121,14 @@ class rsgGallery extends JObject{
 		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `date` >= '. $database->quote($lastweek). ' AND `gallery_id` = '. (int) $this->id .' AND `published` = 1';
 		$database->setQuery($query);
 		$database->execute();
+
 		return (bool) $database->getNumRows();
 	}
 	
 	/**
-	* returns the total number of items in this gallery.
-	*/
+     * returns the total number of items in this gallery.
+     * @return int
+     */
 	function itemCount(){
 		if( $this->_itemCount === null ){
 			$db = JFactory::getDBO();
@@ -144,8 +150,9 @@ class rsgGallery extends JObject{
 	}
 	
 	/**
-	* returns an array of sub galleries in this gallery
-	*/
+     * returns an array of sub galleries in this gallery
+     * @return array rsgGallery|bool
+     */
 	function kids(){
 		// check if we need to generate the list
 		if( $this->kids == null ){
@@ -156,8 +163,9 @@ class rsgGallery extends JObject{
 	}
 	
 	/**
-	* returns the parent gallery item.
-	*/
+	 * returns the parent gallery item.
+     * @return null|rsgGallery
+     */
 	function parent(){
 		return rsgGalleryManager::get( $this->parent );
 	}
@@ -165,7 +173,9 @@ class rsgGallery extends JObject{
 	/**
 	*  returns an array of item db rows
 	* @todo image listing should be based on what the current visitor can see (owner, administrator, un/published, etc.)
-	*/
+     * @return array rsgGallery|mixed
+     * @throws Exception
+     */
 	function itemRows( ){
 		
 		if( $this->_itemRows === null ){
@@ -202,8 +212,9 @@ class rsgGallery extends JObject{
 	}
 
 	/**
-	*  returns an array of all item objects
-	*/
+	*  returns an array of all item objects (imagess) n? strings ?
+     * @return array rsgGallery
+     */
 	function items( ){
 		if( $this->items === null ){
 			$this->items = array();
@@ -219,7 +230,9 @@ class rsgGallery extends JObject{
 
 	/**
 	* returns an array of item objects viewable with the current pagination
-	*/
+     * @return array rsgGallery
+     * @throws Exception
+     */
 	function currentItems(){
 		global $rsgConfig;
 		if( $this->items === null )
@@ -242,8 +255,11 @@ class rsgGallery extends JObject{
 	}
 
 	/**
-	*  returns basic information for this gallery
-	*/
+ 	 *  returns basic information for this gallery
+	 * @param string $key
+     * @param string $default
+     * @return mixed|null
+     */
 	function get( $key , $default = null){
 		
 		if(!isset($this->$key))
@@ -254,8 +270,13 @@ class rsgGallery extends JObject{
 
 	
 	/**
-	*  returns item by it's db id
+	*  returns item by it's db id (images)
 	*/
+    /**
+     * @param int $id
+     * @return mixed
+     * @throws Exception
+     */
 	function getItem( $id = null ){
 
 		if( $this->items === null )
@@ -275,7 +296,12 @@ class rsgGallery extends JObject{
         $arr = array_slice($this->items, $id, 1);
 		return array_pop($arr);
 	}
-	
+
+    /**
+     * @param int $id
+     * @return bool|int|mixed|string
+     * @throws Exception
+     */
 	function indexOfItem($id = null){
 	
 		if( $id === null ){
@@ -298,7 +324,8 @@ class rsgGallery extends JObject{
 	
 	/**
 	*  returns the thumbnail representing this gallery
-	*/
+     * @return string | null|the thump image ? path
+     */
 	function thumb( ){
 		// check if we need to find out what it is first
 		if( $this->thumb == null ){
@@ -321,7 +348,8 @@ class rsgGallery extends JObject{
 	/**
 	 * increases the hit counter for this object
 	 * @todo doesn't work right now
-	 */
+     * @return bool
+     */
 	function hit(){
 		$query = 'UPDATE `#__rsgallery2_galleries` SET `hits` = hits + 1 WHERE `id` = '. (int) $this->id;
 
@@ -340,8 +368,9 @@ class rsgGallery extends JObject{
 	 * Method to get a pagination object for the the gallery items
 	 *
 	 * @access public
-	 * @return integer
-	 */
+     * @return JPagination
+     * @throws Exception
+     */
 	function getPagination()
 	{
 		// Lets load the content if it doesn't already exist
@@ -360,8 +389,8 @@ class rsgGallery extends JObject{
 	}
 	
 	/** get local path to gallery
-	 * @param string char to separate path with (default = DS)
-	 * @return path to gallery
+	 * @param string $path_separator char to separate path with (default = DS)
+	 * @return string path to gallery
 	 **/
 	function getPath($path_separator = DS){
 
@@ -433,6 +462,12 @@ class rsgGallery extends JObject{
 		return($result);
 	}
 
+    /**
+     * @param $glue1
+     * @param $glue2
+     * @param $array
+     * @return mixed
+     */
 	static function explode_assoc($glue1, $glue2, $array)
 	{
         //$array3 = []; // 141031 thomas

@@ -16,8 +16,7 @@ class html_rsg2_search {
 		$document= JFactory::getDocument();
 
 		if($document->getType() == 'html') {
-			$css = "<link rel=\"stylesheet\" href=\"".JURI_SITE."components/com_rsgallery2/lib/rsgsearch/rsgsearch.css\" type=\"text/css\" />";
-			$document->addCustomTag($css);
+			$document->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgsearch.css");
 		}
     	?>
 

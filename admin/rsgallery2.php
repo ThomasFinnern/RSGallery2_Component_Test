@@ -222,8 +222,10 @@ function uploadFile( $filename, $userfile_name, &$msg ) {
 	if (file_exists( $baseDir )) {
 		if (is_writable( $baseDir )) {
 			if (move_uploaded_file( $filename, $baseDir . $userfile_name )) {
-// ToDo FIX: Missing parameter chmod , 755 -> directory, ... ???
-				if (JClientFtp::chmod( $baseDir . $userfile_name )) {
+				// Try making the file writeable first. 				
+				// if (JClientFtp::chmod( $baseDir . $userfile_name, 0777 )) {
+				//if (JPath::setPermissions( $baseDir . $userfile_name, 0777 )) {
+				if (JPath::setPermissions( $baseDir . $userfile_name)) {
 					return true;
 				} else {
 					$msg = JText::_('COM_RSGALLERY2_FAILED_TO_CHANGE_THE_PERMISSIONS_OF_THE_UPLOADED_FILE');
@@ -292,6 +294,8 @@ function purgeEverything(){
 		
 		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_PURGED'), true );
 	}
+
+    return;
 }
 
 /**
@@ -319,6 +323,8 @@ function reallyUninstall(){
 
 		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REAL_UNINST_DONE') );
 	}
+
+    return;
 }
 
 /**
@@ -350,4 +356,4 @@ function cancelGallery($option) {
 
     $mainframe->redirect("index.php?option=$option");
 }
-?>
+

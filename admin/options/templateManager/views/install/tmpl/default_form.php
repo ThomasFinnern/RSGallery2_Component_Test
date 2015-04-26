@@ -5,7 +5,7 @@
 
 		// do field validation
 		if (form.install_directory.value == ""){
-			alert( "<?php echo JText::_( 'Please select a directory', true ); ?>" );
+			alert( "<?php echo JText::_( 'COM_RSGALLERY2_PLEASE_SELECT_A_DIR', true ); ?>" );
 		} else {
 			form.installtype.value = 'folder';
 			form.submit();
@@ -17,7 +17,7 @@
 
 		// do field validation
 		if (form.install_url.value == "" || form.install_url.value == "http://"){
-			alert( "<?php echo JText::_( 'Please enter a URL', true ); ?>" );
+			alert( "<?php echo JText::_( 'COM_RSGALLERY2_PLEASE_ENTER_A_URL', true ); ?>" );
 		} else {
 			form.installtype.value = 'url';
 			form.submit();

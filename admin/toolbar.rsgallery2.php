@@ -204,4 +204,3 @@ if ($app->isAdmin()){
 		} // switch task
 	} // only use the legacy task switch if rsgOption is not used.
 }	// Only show RSG2 submenu in the backend - end
-?>

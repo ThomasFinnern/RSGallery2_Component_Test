@@ -203,8 +203,7 @@ function editImage( $option, $id ) {
 	
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-		// ToDo Translate
-	    $mainframe->enqueueMessage( "The module $row->title is currently being edited by another administrator." );
+	    $mainframe->enqueueMessage( JText::sprintf('COM_RSGALLERY2_MODULE_CURRENTLY_EDITED',$row->title ));
 		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 	}
 
@@ -242,6 +241,10 @@ function editImage( $option, $id ) {
 	} else {
 		$lists['userid'] 		= JFactory::getUser($row->userid)->name;
 	}
+	
+	
+	//--- Add link info / text as form fields to be edited -----------------------
+	// COM_RSGALLERY2_LINK_TEXT_DESC COM_RSGALLERY2_PARAM_IMAGES_LINK_DESC
 	$file 	= JPATH_SITE .'/administrator/components/com_rsgallery2/options/images.item.xml';
 
 	// ToDo: Debug / Test to check if following replacement is working 
@@ -250,7 +253,8 @@ function editImage( $option, $id ) {
 	$params = $jparams->get($row->params, $file);
 
 ///Try this for J3:
-/*$params2 = new JForm('params');
+/*
+$params2 = new JForm('params');
 $params2->loadFile($file);///var_dump($row);
 $params2->bind( $row->params );
 
@@ -575,7 +579,7 @@ function uploadImage( $option ) {
     }
     
 	//Create gallery selectlist
-	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false , Null, 0);
+	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false , Null, 0, true);
 	html_rsg2_images::uploadImage( $lists, $option );
 }
 

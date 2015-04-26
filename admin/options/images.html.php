@@ -71,7 +71,7 @@ class html_rsg2_images {
 			<!-- ?php if (empty($this->items)) : ? -->
 			<?php if (count( $rows ) == 0) : ?>
 				<div class="alert alert-no-items">
-					<?php echo JText::_('No existing gallery'); ?>
+					<?php echo JText::_('COM_RSGALLERY2_GALLERY_HAS_NO_IMAGES_ASSIGNED'); ?>
 				</div>
 			<?php else : ?>
 				<table class="adminlist table table-striped" id="GalleryList">
@@ -394,8 +394,22 @@ class html_rsg2_images {
 							</tr>
 							<tr>
 								<td>
-									<!-- Note: to do: the $params->render is not available in J3
-										(administrator/components/com_rsgallery2/options/images.html.php lin 344) -->
+									<!-- Note: ToDo: the $params->render is not available in J3
+										(administrator/components/com_rsgallery2/options/images.html.php lin 344) 
+										
+									///Try this for J3:
+/*$params2 = new JForm('params');
+$params2->loadFile($file);///var_dump($row);
+$params2->bind( $row->params );
+
+$fields = $params2->getFieldset('params');
+foreach( $fields AS $field => $obj ){
+  echo $params2->getLabel( $field, null );
+  echo $params2->getInput( $field, null, null );	
+}*/
+///JForm has no render method as used in images.html.php line  343	
+										
+										-->
 									<?php //echo $params->render();?>&nbsp;
 								</td>
 							</tr>
@@ -642,7 +656,7 @@ class html_rsg2_images {
 					if (form.zip_file.value == '') {
 						alert( "<?php echo JText::_('COM_RSGALLERY2_ZIP-UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');?>" );
 						return;
-					} else if (form.xcat.value <= 0 & selcat_method == '1') {
+					} else if (form.xcat.value <= 0 && selcat_method == '1') {
 						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
 						return;
 					} else {
@@ -652,7 +666,7 @@ class html_rsg2_images {
 					if (form.ftppath.value == '') {
 						alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP-PATH_PROVIDED');?>" );	
 						return;
-					} else if (form.xcat.value <= 0 & selcat_method == '1') {
+					} else if (form.xcat.value <= 0 && selcat_method == '1') {
 						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
 						return;
 					} else {
@@ -685,38 +699,44 @@ class html_rsg2_images {
 					<td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td width="200"><strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
-                    <?php
-                    echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
-                    ?>
+                    <td width="200">
+                        <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
+                        <?php
+                            echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
+                        ?>
                     </td>
                     <td width="200">
                         <input type="radio" value="zip" name="batchmethod" CHECKED/>
-                        <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?></td>
-                    <td>
-                        <input type="file" name="zip_file" size="20" style="border: blue solid 2px; width: 100%" />
+                        <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?>
+                    </td>
+                    <td width="60%">
+                        <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />
                         <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                        <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
+                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td>&nbsp;
+                    <td width="200">&nbsp;
 					</td>
-                    <td>
+                    <td width="200">
                         <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH') ); ?></td>
+                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH')); ?>
+                    </td>
                     <td>
-						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><br>
-						&nbsp;&nbsp;<?php echo JPATH_SITE.DS; ?>
+						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE.DS; ?>
                     </td>
                 </tr>
                 <tr>
-                    <td>&nbsp;
+                    <td width="200">&nbsp;
 					</td>
-                    <td>&nbsp;                    
+                    <td width="200">&nbsp;
 					<td width="60%">
-                        <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%" value="<?php echo $FTP_path; ?>" size="30" />
+                        <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
+                            padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
+                        <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
+                            <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -729,7 +749,7 @@ class html_rsg2_images {
                         <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>&nbsp;
                     </td>
                     <td valign="top">
-                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0);?>
+                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0, true);?>
                     </td>
                 </tr>
                 <tr>
@@ -821,7 +841,15 @@ class html_rsg2_images {
         </tr>
         <tr>
         <?php
-		
+
+        // Create selection of galleries only once
+        // ToDo: in above selection (galleryUtils::galleriesSelectList) is 'xcat' chosen for $listName. Here
+        // it is 'category[]'. Why
+        //galleriesSelectList( $galleryid = null, $listName = 'gallery_id', $style = true,
+        //      $javascript = NULL, $showUnauthorised = 1, $excludeTopGallery = false)
+        //galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0, true);
+        $GalleryListSelection = galleryUtils::galleriesSelectList( null, 'category[]', false, Null, 0, true);
+
         // Initialize k (the column reference) to zero.
         $k = 0;
         $i = 0;
@@ -878,17 +906,18 @@ class html_rsg2_images {
                         <td><?php echo JText::_('COM_RSGALLERY2_GALLERY');?></td>
                         <td><?php
                             if ($selcat == 1 && $xcat !== '0')
-                                {
+                            {
                                 ?>
                                 <input type="text" name="cat_text" value="<?php echo htmlspecialchars(stripslashes(galleryUtils::getCatnameFromId($xcat)));?>" readonly />
                                 <input type="hidden" name="category[]" value="<?php echo $xcat;?>" />
                                 <?php
-                                }
+                            }
                             else
-                                {
-								echo galleryUtils::galleriesSelectList( null, 'category[]', false );
-                                }
-                                ?>
+                            {
+    							// echo galleryUtils::galleriesSelectList( null, 'category[]', false );
+                                echo $GalleryListSelection;
+                            }
+                             ?>
                         </td>
                     </tr>
                     <tr>
@@ -899,21 +928,21 @@ class html_rsg2_images {
             </td>
             <?php
             if ($k == 5)
-                {
+            {
                 echo "</tr><tr>";
                 $k = 0;
-                }
             }
-            ?>
-			</table>
+        }
+        ?>
+        </table>
 
-			<input type="hidden" name="teller" value="<?php echo $i;?>" />
-			<input type="hidden" name="extractdir" value="<?php echo $extractDir;?>" />
-			<input type="hidden" name="option" value="com_rsgallery2" />
-        	<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
-			<input type="hidden" name="task" value="save_batchupload" />
+        <input type="hidden" name="teller" value="<?php echo $i;?>" />
+        <input type="hidden" name="extractdir" value="<?php echo $extractDir;?>" />
+        <input type="hidden" name="option" value="com_rsgallery2" />
+        <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
+        <input type="hidden" name="task" value="save_batchupload" />
 
-			</form>
+        </form>
         <?php
 	}
 }

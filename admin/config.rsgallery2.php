@@ -299,7 +299,9 @@ class galleryUtils {
 	 * @param int $showUnauthorised
      * @return string HTML representation for selectlist
      */
-    static function galleriesSelectList( $galleryid=null, $listName='gallery_id', $style = true, $javascript = NULL , $showUnauthorised = 1)
+
+    static function galleriesSelectList( $galleryid = null, $listName = 'gallery_id', $style = true, 
+		$javascript = NULL, $showUnauthorised = 1, $excludeTopGallery = false)
 	{
 		$database = JFactory::getDBO();
 		if ($style == true)
@@ -337,8 +339,11 @@ class galleryUtils {
 		// assemble menu items to the array
 		$mitems     = array();
 		$mitems[] 	= JHtml::_("Select.option", '-1', JText::_('COM_RSGALLERY2_SELECT_GALLERY') );
-		$mitems[] 	= JHtml::_("Select.option", '0', '- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -' );
-
+		// Show top gallery item
+		if ($excludeTopGallery == false)
+		{
+			$mitems[] 	= JHtml::_("Select.option", '0', '- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -' );
+		}
 		foreach ( $list as $item ) {
 			$canCreateInGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.'.$item->id);
 			$item->treename = str_replace  ( '&#160;&#160;'  ,  '...' ,  $item->treename  );//MK [hack] [the original treename holds &#160; as a non breacking space for subgalleries, but JHtmlSelect::option cannot handle that, nor &nbsp;, so replaced string]

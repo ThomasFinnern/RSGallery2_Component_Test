@@ -16,7 +16,7 @@ Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
 
 1. Changelog
 ------------
-This is a non-exhaustive but informative changelog for
+This is a non-exhaustive but informative change log for
 RSGallery2, including alpha, beta and stable releases.
 Our thanks to all those people who've contributed bug reports and
 code fixes.
@@ -33,36 +33,25 @@ Legend:
 
 ! ToDo: Don't install/remove database table #__rsgallery2_acl
 ! ToDo: Backend: Installation of template does not function (yet).
-! ToDo: find all 'config_' links that don't have rsgOption=config and add it.
-  ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
-       is granted for deleting sub galleries/images. Right now you may delete everything
-	   if you have delete permission for the component, even if an item/(sub)gallery 
-	   doesn't have delete permission.
-  ToDo: Convert JParameter to (a)
-       JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
-	   (b) Own Jparameter file (see below)
-       
-! ToDo: 
-	  ^ Language files in rsgallery2.xml moved according "Language file naming conventions
-		and precedence: www.http://docs.joomla.org/Specification_of_language_files"
-		Example folder path: language/en-GB/en-GB.com_rsgallery2.ini
-		Lang files for backend are just copied from the common ones 
-! ToDo: 
-	  ^ Language files missing
-		language/en-GB/en-GB.com_rsgallery2.sys.ini
-! ToDo: 2014.10.18 
-		Log files only when rsgallery2 debug switch is on (ok) 
-			-> Hint to user that there is one log per day (Missing)
+! ToDo: Find all 'config_' links that don't have rsgOption=config and add it.
+! ToDo: Delete galleries: create filter in gallery view and check that delete-permission 
+		is granted for deleting sub galleries/images. Right now you may delete everything 
+		if you have delete permission for the component, even if an item/(sub)gallery 
+		doesn't have delete permission.
+! ToDo: Convert JParameter to 
+		(a)
+		JForm http://docs.joomla.org/Adapting_a_Joomla_1.5_extension_to_Joomla_1.6#Converting_Your_JParameters_to_JForms
+		(b) Own Jparameter file (see below)
 ! ToDo: 2014.10.18 
 		Preparation: Delete chosen "Gallery thumbnail" file by hand. It will bring an error to 
 		back end and front side. Add function in "Consolidate Database which checks and correct this
 ! ToDo: 2014.10.20  
 		Batch upload -> internal path 
-			a) field too small
-			b) field where the resulting path is shown
-			c) Improve info: a) general b) hint for standard setup ...
-			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ?)
-			e) Hint for standard input in config 
+			a) field too small (OK now)
+			b) field where the resulting path is shown (-> open)
+			c) Improve info: a) general (ok) b) hint for standard setup (May not be needed)
+			d) Test: Does it work for linux and windows installations (XAMPP ? path fails ? -> open)
+			e) Hint for standard input in config (Ok: Not needed)
 ! ToDo: 2014.10.20 
 		replace foreign icons like  
 			* includes/js/ThemeOffice/warning.png\
@@ -79,15 +68,8 @@ Legend:
 		Does the file and structure inside the Templates > templateDetails.xml have to be 
 		updated to 2.5 & 3.x structure to work better (debug_listeverything, meta,
 		semantic, slideshow_parth, slideshow_phatfusion, slideshowone) ?
-! ToDo: 2014.10.27
-		replace all rsgInstance::getVar with JRequest::get ... and replace these with JInput ... 
 ! ToDo: 2014.11.14 ********
 		replace error handling from Joomla
-! ToDo: 2014.11.14 **
-		FIX: Missing parameter chmod , 755 -> directory, ... ???
-		--> if (JClientFtp::chmod( $baseDir . $userfile_name )) {
-! ToDo: 2015.01.02 *****
-		Check for plugin PlgDisplayGallery and PlgDisplaySingle for deprecated functions
 ! ToDo: 2015.01.03 **
 		Cancel button in Upload
 ! ToDo: 2015.01.09 **
@@ -100,45 +82,85 @@ Legend:
 		Check deprecated functions with phpstorm (admin + site)
 ! ToDo: 2015.01.18 ****
 		Check all slideshows for working
+		slideshow_phatfusion is not working
 ! ToDo: 2015.01.18 ***
 		Redesign upload forms 		
 		- one form for all , head register and start button on foot 
 		see joomla standard loading extensions 
 ! ToDo: 2015.01.18 ***
-		Make images and galleries form more sortabele (date 
+		Make images and galleries form more sortable (date ...)
 ! ToDo: 2015.01.18 ***
 		mirjam had a change for a user. Privileges for foreign users galleries
 		Search change in forum and take it
-! ToDo: 2015.01.18 ***
-		Add PHP doc to every function   (goal phpstorm no yellow :-(  )
-! ToDo: 2015.01.18 ***
-		Find all "addCustomTag" replace with ???
-! ToDo: 2015.01.30 ***
-		functions with X behind  split_sqlX ? remove or fix deprecated
 ! ToDo: 2015.01.30 ***
 		file install.class.php. a lot of functions are marked red
 ! ToDo: 2015.01.30 ***		
 		function _buildDataObject() -> pagination 
-		get function is deprecated, revisit function and improved
+		get function is deprecated, revisit function and improve
 ! ToDo: 2015.01.30 ***		
-		$database->getErrorMsg() is deprecated. Has a lot of occurences
-! ToDo: 2015.01.30 ******
-		JRequest in instance.class.php multiple times
-! ToDo: 18.02.2015 *******
-		mygalleries: Update of image information or gallery 
-		information change will not call function inside 
-! ToDo: 18.02.2015 ***
-		If the table rsgallery_config is empty caused by 
-        repair of sql table RSG2 is not starting any more
-! ToDo: 18.02.2015 ***
+		$database->getErrorMsg() is deprecated. Has a lot of occurrences
+! ToDo: 2015.03.18 *******
+		mygalleries: Update of image or gallery information 
+		change will not call script function 
+		"joomla.submitbutton" inside 
+! ToDo: 2015.03.18 ***
 		Replace every slideshow mootools version in rsg2 with 
 		similar version with jquery
+! ToDo: 2015.03.18 ***
+		Check if parameter from site/templates files params.ini 
+		are being read and working
+! ToDo: 2015.03.20 ******
+		Function editImage uses view parameters (JParameter) from file 
+		admin/options\images.item.xml. This can actual not be rendered
+! ToDo: 2015.03.20 ***
+		instance.class.php rsgInstance:: remove set... and get... 
+		with original jinput functions.
+		Maybe create own file adapter for the easy ones like getInt gfetFloat
+		getBool
+! ToDo: 2015.03.20 ***
+		Slideshow one: Improve start/end/next... buttons. They are ugly
+! ToDo: 2015.03.20 *
+		Slideshow one: Autostart slide 
+! ToDo: 2015.03.20 ****
+		Control panel: Change yes/no radio buttons to view like in J3x
+! ToDo: 2015.03.28 **
+		Remove or clean up class filehandler:: in fileUtils
+		Use Jfolder for 
+		deldir :  use JFolder::delete() instead
+		...
+! ToDo: 2015.03.28 *****
+		Edit gallery form : Permission on separate Tab
 		
-		
-		
+! ToDo: 2015.04.01 *****
+		Deprecated HTML Tag: Font
+! ToDo: 2015.04.03 **
+		 how to set Joomla native captcha codes in RSG2 commenting on images.		 
+! ToDo: 2015.04.03 ****
+		Update Server: Found on Forum 
+			I can recommend GitHub for hosting free Joomla extensions.
+			Issues/ Pull requests/ Wiki/ Releases/ Pages, all one can possibly need.
+
+			It's quite comfortable to use as a update server too, you just make a 
+			tag with new version, create a release and add download link to xml 
+			file (Check extension on my profile https://github.com/piotr-cz or 
+			look for extensions hosted on GitHub, there are few around).
+
+			Only one disadvantage I found is that you will get very little 
+			analytical data (just basic traffic info) and no data of 
+			downloads/ updates but you can always host update server yourself.			
+		 
 ---------------- Recent ----------------
 
-* --------------- 4.0.5 -- SVN 1144 -- 2015-03-14 -------------
+* --------------- 4.0.7 -- SVN 1149 -- 2015-03-19 -------------
+18.03.2015 finnern
+* Hint to user for debug on that there is one log per day
+* Top gallery can't be selected on upload files / zip
+# Upload ZiP did get error JFile::baseName does not exist
+* Added debug activated text ("One log file per day if debug is on ...")
+* Added info for file upload ("Path must start with joomla base path...")
+
+
+* --------------- 4.0.6 -- SVN 1147 -- 2015-03-14 -------------
 14.03.2015 finnern
 * Changed array definition which was not valid for PHP 5.3.27
 

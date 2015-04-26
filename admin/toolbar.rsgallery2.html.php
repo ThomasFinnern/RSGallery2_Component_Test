@@ -199,11 +199,6 @@ class menu_rsg2_galleries{
 }
 
 class menuRSGallery {
-	/**
-	 *
-	 */
-    static function adminTasksMenuX() {
-    }
 
 	/**
 	 *

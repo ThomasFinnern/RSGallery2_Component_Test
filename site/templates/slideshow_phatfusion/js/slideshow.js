@@ -55,6 +55,7 @@ var SlideShow = new Class({
 				}.bind(this));
 			}
 			
+			console.log("Slide:initialize.01");
 			
 			this.imagesHolder = new Element('div').setStyles({
 				position: 'absolute',
@@ -66,11 +67,12 @@ var SlideShow = new Class({
 				display: 'none'
 			}).inject(this.container, 'bottom');  
 			
+			console.log("Slide:initialize.02");
 			if(typeof(images) == 'string' && !this.options.thumbnails){
 				var imageList = [];
 				$$('.'+images).each(function(el){
 					imageList.push(el.src);
-					el.inject(this.imagesHolder, 'bottom');
+				el.injectInside(this.imagesHolder);
 				},this);
 				this.images = imageList;
 				
@@ -91,7 +93,7 @@ var SlideShow = new Class({
 				this.thumbnailImages = imageList;
 				
 				if(this.options.backgroundSlider){
-					this.bgSlider = new BackgroundSlider(this.thumbnailImages,{mouseOver: false, duration: this.options.duration, className: this.options.thumbnailCls, padding:{top:0,right:-2,bottom:-2,left:0}});
+					this.bgSlider = new backgroundSlider(this.thumbnailImages,{mouseOver: false, duration: this.options.duration, className: this.options.thumbnailCls, padding:{top:0,right:-2,bottom:-2,left:0}});
 					this.bgSlider.set(this.thumbnailImages[0]);
 				}
 			
@@ -99,6 +101,7 @@ var SlideShow = new Class({
 				this.images = images;
 			}
 			
+			console.log("Slide:initialize.03");
 			this.loading = new Element('div').addClass(this.options.loadingCls).setStyles({
 				position: 'absolute',
 				top: 0,
@@ -109,6 +112,7 @@ var SlideShow = new Class({
 				height: this.container.getStyle('height')
 			}).inject(this.container, 'bottom');
 			
+			console.log("Slide:initialize.04");
 			this.oldImage = new Element('div').setStyles({
 				position: 'absolute',
 				overflow: 'hidden',
@@ -119,6 +123,7 @@ var SlideShow = new Class({
 				height: this.container.getStyle('height')
 			}).inject(this.container, 'bottom');
 			
+			console.log("Slide:initialize.05");
 			this.newImage = this.oldImage.clone();
 			this.newImage.inject(this.container, 'bottom');
 			
@@ -140,8 +145,10 @@ var SlideShow = new Class({
 	load: function(){
 		try {
 			console.log("Slide:load");
+			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 			//this.clearTimeout(this.timer);
-			$clear(this.timer);
+			//$clear(this.timer);
+			clearTimeout(this.timer);
 			this.loading.setStyle('display','block');
 			this.image++;
 			var img = this.images[this.image];
@@ -174,7 +181,7 @@ var SlideShow = new Class({
 		try {
 			console.log("Slide:show");
 			if(this.add){
-				this.imageObj.Inside(this.imagesHolder, 'bottom');
+				this.imageObj.inject(this.imagesHolder, 'bottom');
 			}
 			
 			this.newImage.setStyles({
@@ -256,7 +263,8 @@ var SlideShow = new Class({
 			console.log("Slide:stop");
 			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 			//this.clearTimeout(this.timer);
-			$clear(this.timer);
+			//$clear(this.timer);
+			clearTimeout(this.timer);
 			this.stopped = true;
 			console.log("Slide:stop exit");
 		}
@@ -278,8 +286,10 @@ var SlideShow = new Class({
 			}
 			if(doNext){
 				this.cloneImage();
+				// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 				// this.clearTimeout(this.timer);
-				$clear(this.timer);
+				//$clear(this.timer);
+				clearTimeout(this.timer);
 				if(this.image < this.images.length-1){
 					if(wait){
 						this.wait();
@@ -356,7 +366,9 @@ var SlideShow = new Class({
 		try {
 			console.log("Slide:effect");
 			this.animating = true;
-			this.effectObj = this.newImage.effects({
+// ToDo: effects should be set in bnackgroundslide but it iss empty -> have an idea !
+			//this.effectObj = this.newImage.effects({
+			this.effectObj = this.newImage.effects.set({
 				duration: this.options.duration,
 				transition: this.options.transition
 			});

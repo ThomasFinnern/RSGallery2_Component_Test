@@ -705,7 +705,7 @@ function deleteItems($cid) {
 			$success = true;
 		} else {
 			$title = galleryUtils::getTitleFromId($value);
-			JError::raiseWarning(404, JText::_("COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM"));
+			JError::raiseWarning(404, JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM'));
 			JError::raiseWarning(404, $title);
 		}
 		

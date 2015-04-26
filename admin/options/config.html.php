@@ -303,25 +303,42 @@ class html_rsg2_config{
 								<td width="78%"><?php echo $config->version?></td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_INTRODUCTION_TEXT')?></td>
+								<td>
+                                    <?php echo JText::_('COM_RSGALLERY2_INTRODUCTION_TEXT')?>
+                                </td>
 								<td>
 									<?php echo $editor->display( 'intro_text',  $config->intro_text , '100%', '200', '10', '20', false ) ; ?>
 								</td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_DEBUG') ?></td>
 								<td>
-								<fieldset id="jform_block" class="radio">
-								<?php echo JHtml::_("select.booleanlist",'debug', '', $config->debug); ?>
-								</fieldset>
-								</td>
+                                    <?php echo JText::_('COM_RSGALLERY2_DEBUG') ?>
+                                </td>
+								<td>
+                                    <fieldset id="jform_block" class="radio">
+                                        <?php echo JHtml::_("select.booleanlist",'debug', '', $config->debug); ?>
+                                    </fieldset>
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
+                                        <?php echo JText::_('COM_RSGALLERY2_DEBUG_ACTIVATED_INFO');?>
+                                    </div>
+                                </td>
 							</tr>
 							<tr>
-								<td><?php echo JText::_('COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE'); ?></td>
 								<td>
-								<fieldset id="jform_block" class="radio">
-								<?php echo JHtml::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
-								</fieldset>
+                                    <?php echo JText::_('COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE'); ?>
+                                </td>
+								<td>
+                                    <fieldset id="jform_block" class="radio">
+                                        <?php echo JHtml::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
+                                    </fieldset>
 								</td>
 							</tr>
 						</table>
@@ -380,7 +397,10 @@ class html_rsg2_config{
 								</td>
 								<td>
 									<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?><br />
-									<input class="text_area" type="text" name="ftp_path" size="50" value="<?php echo $config->ftp_path?>"/>
+									<input class="text_area" type="text" name="ftp_path" size="50" style="width: 98%;" value="<?php echo $config->ftp_path?>"/><br/><br/>
+                                    <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
+                                        <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
+                                    </div>
 								</td>
 							</tr>
 							<tr>
@@ -469,7 +489,7 @@ class html_rsg2_config{
 							</tr>
 							<!-- not implemented yet
 							<tr>
-								<td><?php echo JText::_("COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST") ?></td>
+								<td><?php echo JText::_('COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST') ?></td>
 								<td>
 									<fieldset id="jform_block" class="radio">
 									<?php //echo JHtml::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>

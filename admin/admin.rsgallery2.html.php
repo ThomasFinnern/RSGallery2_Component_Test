@@ -136,7 +136,7 @@ class HTML_RSGALLERY{
 						);
 						echo JHtml::_('tabs.start', 'recent', $options);
 						//echo JHtml::_('tabs.panel', JText::_('Categories'), 'panel_1_id');
-						echo JHtml::_('tabs.panel', JText::_(JCATEGORIES), 'panel_1_id');					
+						echo JHtml::_('tabs.panel', JText::_('JCATEGORIES'), 'panel_1_id');					
                         ?>
                         <table class="adminlist" width="500">
                             <tr>

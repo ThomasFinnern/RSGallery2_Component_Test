@@ -154,7 +154,7 @@ class rsgGalleryManager{
     /**
      * returns an array of galleries: the children of the given gallery that will be shown
 	 * @param int $parent id of parent gallery
-	 * @return array|bool
+	 * @return array rsgGallery|bool
 	 * @throws Exception
 	 */
     static function getList( $parent ){

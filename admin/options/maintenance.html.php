@@ -145,47 +145,6 @@ class html_rsg2_maintenance {
 	}
 
 	/**
-	 * @param $option
-	 */
-	static function consolidateDbInformX($option){
-	    // inform user of purpose of this function, then provide a proceed button
-		?>
-	    <script language="Javascript">
-	        // old:function submitbutton(pressbutton){
-	        Joomla.submitbutton = function(pressbutton) {
-	            if (pressbutton != 'cancel'){
-	                submitform( pressbutton );
-	                return;
-	            } else {
-	                window.history.go(-1);
-	                return;
-	            }
-	        }
-	    </script>
-	    <form action="index.php" method="post" name="adminForm">
-	    <table class="adminform" cellpadding="4" cellspacing="0" border="0" width="98%" align="center">
-	        <tr>
-	            <td>&nbsp;</td>
-	        </tr>
-	        <tr>
-		<td><?php echo JText::_('COM_RSGALLERY2_CONSOLIDATE_DB');?></td>
-	        </tr>
-	        <tr>
-	            <td>
-	                <div align="center">
-	                <input type="button" name="consolidate_db_go" value="<?php echo JText::_('COM_RSGALLERY2_PROCEED') ?>" class="button" onClick="submitbutton('consolidate_db_go');" />
-	                <input type="button" name="cancel" value="<?php echo JText::_('COM_RSGALLERY2_CANCEL') ?>" class="button" onClick="submitbutton('cancel');" />
-	                </div>
-	            </td>
-	        </tr>
-	    </table>
-	    <input type="hidden" name="option" value="<?php echo $option;?>" />
-	    <input type="hidden" name="task" value="" />
-	    </form>
-	<?php
-	}
-
-	/**
 	 * @param $db_name
 	 * @param $file_display
 	 * @param $file_original
@@ -200,14 +159,7 @@ class html_rsg2_maintenance {
 	    <script language="Javascript">
 	    function db_create() {
 	    	alert('Database creation does not work yet!');
-	    }
-	    
-	    function db_createX() {
-	    	var form = document.adminForm;
-				form.t_id.value = t_id;
-				form.g_id.value = g_id;
-				form.submit();
-	    }
+	    }	    
 	    </script>
 	    <form method="post" action="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" name="adminForm">
 	    <input type="hidden" name="t_id" value="" />

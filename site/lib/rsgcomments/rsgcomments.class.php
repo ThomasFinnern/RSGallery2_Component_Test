@@ -379,7 +379,7 @@ function showComments( $item_id ) {
 	<script type="text/javascript">
 	//<![CDATA[
 	function delComment(id, item_id, catid) {
-		var delCom = confirm('<?php echo JText::_("COM_RSGALLERY2_DELETE_COMMENT")?>' + id );
+		var delCom = confirm('<?php echo JText::_('COM_RSGALLERY2_DELETE_COMMENT')?>' + id );
 		
 		if (delCom) {
 			window.location = '<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=rsgComments&task=delete", false); ?>&id='+id+'&item_id='+item_id+'&catid='+catid;

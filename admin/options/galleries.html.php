@@ -76,7 +76,7 @@ class html_rsg2_galleries{
             <!-- ?php if (empty($this->items)) : ? -->
             <?php if (count( $rows ) == 0) : ?>
                 <div class="alert alert-no-items">
-                    <?php echo JText::_('No existing gallery'); ?>
+                    <?php echo JText::_('COM_RSGALLERY2_NO_GALLERY_ASSIGNED'); ?>
                 </div>
             <?php else : ?>
                 <table class="adminlist table table-striped" id="GalleryList">

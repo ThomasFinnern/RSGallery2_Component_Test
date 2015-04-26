@@ -154,7 +154,9 @@ var backgroundSlider = new Class({
 	reset: function(){
 		try {
 			console.log("Back:reset");
-			$clear(this.timer);
+			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
+			//$clear(this.timer);
+			clearTimeout(this.timer);
 			if(!this.mouseOver){
 				if(this.options.wait){
 					this.timer = this.move.delay(this.options.wait, this, this.startElement);
@@ -173,7 +175,8 @@ var backgroundSlider = new Class({
 			console.log("Back:move");
 			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 			// this.clearTimeout(this.timer);
-			$clear(this.timer);
+			//$clear(this.timer);
+			clearTimeout(this.timer);
 			var pos = el.getCoordinates();
 		    this.effects.cancel();
 		    this.currentElement = el;

@@ -19,22 +19,39 @@ defined( '_JEXEC' ) or die();
 class rsgGalleriesItem extends JTable {
     /** @var int Primary key */
     var $id = null;
+	/** @var int */
     var $parent = 0;
+	/** @var string */
     var $name = null;
+	/** @var string */
 	var $alias = null;
+	/** @var string */
     var $description = null;
+	/** @var boolean */
     var $published = null;
+	/** @var boolean */
     var $checked_out        = null;
+	/** @var time */
     var $checked_out_time   = null;
+	/** @var boolean */
     var $ordering = null;
+	/** @var int */
     var $hits = null;
+	/** @var datetime */
     var $date = null;
+	/** @var string  */
     var $params = null;
+	/** @var int */
     var $user = null;
+	/** @var int */
     var $uid = null;
+	/** @var boolean */
     var $allowed = null;
+	/** @var int */
     var $thumb_id = null;
+	/** @var int */
 	var $asset_id = null;
+	/** @var int */
 	var $access = null;
 
     /**

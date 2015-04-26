@@ -34,6 +34,6 @@ $doc = JFactory::getDocument();
 $doc->addScriptDeclaration($jsSwf);
 $doc->addScript(JURI_SITE . '/components/com_rsgallery2/flash/script/swfobject.js');
 
-?><div id="rsg2-flashMovie"><p><?php echo JText::_("COM_RSGALLERY2_THE_MOVIE_SHOULD_APPEAR_HERE"); ?></p></div><?php
+?><div id="rsg2-flashMovie"><p><?php echo JText::_('COM_RSGALLERY2_THE_MOVIE_SHOULD_APPEAR_HERE'); ?></p></div><?php
 
 ?>
