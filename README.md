@@ -1,4 +1,4 @@
-# com_rsgallery2
+# RSGallery2_Component_Test
 Fork for testing unfinished development for RSG2
 
 See RSGallery2 organisation
