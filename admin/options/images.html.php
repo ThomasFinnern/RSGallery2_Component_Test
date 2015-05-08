@@ -49,7 +49,7 @@ class html_rsg2_images {
             <div class="clearfix"> </div>
 
             <?php
-            // Search tools bar
+            // ToDo: Search tools bar
             // echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
             ?>
 
@@ -201,12 +201,14 @@ class html_rsg2_images {
 	*
 	* A new record is defined when <var>$row</var> is passed with the <var>id</var>
 	* property set to 0.
-	* @param mosWeblink $row The weblink object
-	* @param array $listsAn array of select lists
-	* @param object $params Parameters
-	* @param string $option The option
+	* @param rsgImagesItem $row The image object
+	* @param array $lists An array of select lists properties (header names)
+	* @param JForm $params JParameters
+	* @param string $option The option (com_rsgallery2)
 	*/
-	static function editImage( &$row, &$lists, &$params, $option ) {
+    // 	html_rsg2_images::editImage( $row, $lists, $params, $option );
+
+    static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
 		jimport("joomla.filter.output");
 		JHtml::_('behavior.formvalidation');
@@ -395,22 +397,45 @@ class html_rsg2_images {
 							<tr>
 								<td>
 									<!-- Note: ToDo: the $params->render is not available in J3
-										(administrator/components/com_rsgallery2/options/images.html.php lin 344) 
-										
-									///Try this for J3:
-/*$params2 = new JForm('params');
-$params2->loadFile($file);///var_dump($row);
-$params2->bind( $row->params );
+                                    ///JForm has no render method as used in images.html.php line  343
+                                    -->
+                                    <?php //echo $params->render();?>
+                                    <?php
+                                        foreach ($params->getFieldsets() as $name => $fieldset) {
+                                            $OutTxt = "";
 
-$fields = $params2->getFieldset('params');
-foreach( $fields AS $field => $obj ){
-  echo $params2->getLabel( $field, null );
-  echo $params2->getInput( $field, null, null );	
-}*/
-///JForm has no render method as used in images.html.php line  343	
-										
-										-->
-									<?php //echo $params->render();?>&nbsp;
+                                            foreach ($params->getFieldset($name) as $field) {
+                                                $LabelId = $field->label;
+                                                $Input = $field->input;
+                                                $Description = $field->description;
+                                                // <label id="paramslink_text-lbl" for="paramslink_text" class="hasTip" title="Link Text::Text für den Link">Link Text</label>
+                                                $OutTxt += '<label id="'.$LabelId.'-lbl" for="params'.$LabelId.'"  class="hasTip" title="'.$LabelId;
+												$OutTxt += '::'.$Description.'">'.$Input.'</label>';
+                                                // <input type="text" name="params[link_text]" id="paramslink_text" value="" class="text_area"
+
+
+
+
+                                            }
+
+                                            echo $OutTxt;
+                                        }
+
+
+
+                                            <label id="paramslink-lbl" for="paramslink" class="hasTip"
+                                                title="Link::Wenn das Bild in einem Tamplate geklickt wird (!), gehe zu diesem Link.">Link</label>
+<input type="text" name="params[link]" id="paramslink" value="" class="text_area"  />
+
+                                                <input type="text" name="params[link]" id="paramslink" value="" class="text_area"  />
+                                                <div class="control-group">
+                                                    <div class="control-label"><?php echo $field->label; ?></div>
+                                                    <div class="controls"><?php echo $field->input; ?></div>
+                                                </div>
+                                            <?php endforeach;
+                                        endforeach;
+                                    ?>
+                                    &nbsp;
 								</td>
 							</tr>
 						</table>
@@ -597,7 +622,7 @@ foreach( $fields AS $field => $obj ){
 				</tr>
 				<tr>
 					<td>
-					<?php /*echo $params->render();*/?>
+					<?php /*JParameter: ToDo:  echo $params->render();*/?>
 					</td>
 				</tr>
 				</table>
