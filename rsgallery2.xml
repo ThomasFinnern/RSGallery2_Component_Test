@@ -115,8 +115,17 @@
 
 
 	<updateservers>
-		<!-- Note: No spaces or line breaks allowed between the server tags -->
-		<!-- 
+ 
+	<!-- UPDATESERVER DEFINITION -->
+	<updateservers>
+		<!-- Note: No spaces or linebreaks allowed between the server tags -->
+		<server type="extension" priority="1" name="HelloWorld Update Site">http://yourdomain.com/update/helloworld-update.xml</server>
+		<server type="extension" priority="2" name="Freshmail Subscription Update Server">https://raw.github.com/piotr-cz/mod_freshmail2/master/update/mod_freshmail2.xml</server>
+	</updateservers>		
+		
+		
+
+	<!-- 
 	<server type="extension" priority="1" name="RSGallery2 Update Site">http://.../update/rsgallery2.xml</server>
 	on http://joomlacode.org/gf/project/embedchessboard/scmsvn/?action=browse&path=%2Ftrunk%2Fjoomla-1.6%2Fembedchessboard.xml&view=markup
 	it says

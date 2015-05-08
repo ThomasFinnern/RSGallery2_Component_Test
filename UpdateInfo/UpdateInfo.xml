@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="updates.xsl"?>
+<updates>
+	<!-- .. -->
+	<update>
+		<name>RSGallery2 component test</name>
+		<description>RSGallery2 </description>
+		<element>com_rsgallery2</element>
+		<type>component</type>
+		<folder />
+		<client>1</client>
+		<version>4.0.7</version>
+		<infourl title="%%%">https://github.com/ThomasFinnern/RSGallery2_Component_Test/releases/tag/v1.1.3</infourl>
+
+		<downloads>
+			<downloadurl type="full" format="zip" >https://github.com/ThomasFinnern/RSGallery2_Component_Test/archive/v1.1.3.zip</downloadurl>
+		</downloads>
+
+		<tags>
+			<tag>stable</tag>
+		</tags>
+
+		<section>Updates</section>
+
+		<maintainer>RSGallery2 team</maintainer>
+		<maintainerurl>http://www.rsgallery2.nl</maintainerurl>
+
+		<targetplatform name="joomla" version="3.*" />
+		<php_minimum>5.3.10</php_minimum>
+	</update>
+</updates>
