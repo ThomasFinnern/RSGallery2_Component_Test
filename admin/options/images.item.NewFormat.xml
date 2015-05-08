@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="AdditionalUserParameter"
+			label="AdditionalUserParameter"
+			description="AdditionalUserParameter"
+		>
+		<field name="link" 
+			type="text" 
+			label="COM_RSGALLERY2_PARAM_IMAGES_LINK" 
+			description="COM_RSGALLERY2_PARAM_IMAGES_LINK_DESC" 
+			default="" />	
+		<field name="link_text" 
+			type="text" 
+			label="COM_RSGALLERY2_LINK_TEXT" 
+			description="COM_RSGALLERY2_LINK_TEXT_DESC" 
+			default="" />
+	</fieldset>
+</form>
