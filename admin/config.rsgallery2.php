@@ -371,8 +371,10 @@ class galleryUtils {
      * @todo being depreciated in favor of $rsgGallery->thumb() and $rsgDisplay functions
      */
     static function getThumb($catid, $height = 0, $width = 0,$class = "") {
+        $thumb_id = null;
+
 		$database = JFactory::getDBO();
-	    
+
 	    //Setting attributes for image tag
 	    $imgatt="";
 	    if ($height > 0) 		$imgatt .= " height=\"$height\" ";
@@ -386,14 +388,25 @@ class galleryUtils {
 	        $thumb_html = "<img $imgatt src=\"".JURI_SITE."/components/com_rsgallery2/images/no_pics.gif\" alt=\"No pictures in gallery\" />";
 	    } else {
 	    	//Select thumb setting for specific gallery("Random" or "Specific thumb")
-	        $sql = 'SELECT `thumb_id` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid;
-	        $database->setQuery($sql);
+	        //$sql = 'SELECT `thumb_id` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid;
+            $query = $database->getQuery(true);
+            $query->select('thumb_id')
+                ->from('#__rsgallery2_galleries')
+                ->where('id='. (int) $catid);
+            $database->setQuery($query);
 	        $thumb_id = $database->loadResult();
+
 	        $list = galleryUtils::getChildList( (int) $catid );
 	        if ( $thumb_id == 0 ) {
 	            //Random thumbnail
-	            $sql = "SELECT `name` FROM `#__rsgallery2_files` WHERE `gallery_id` IN ($list) AND `published` = 1 ORDER BY rand() LIMIT 1";
-	            $database->setQuery($sql);
+	            // $sql = "SELECT `name` FROM `#__rsgallery2_files` WHERE `gallery_id` IN ($list) AND `published` = 1 ORDER BY rand() LIMIT 1";
+                $query = $database->getQuery(true);
+                $query->select('name')
+                    ->from('#__rsgallery2_files')
+                    ->where('gallery_id IN ($list) AND published = 1')
+                    ->order('rand()')
+                    ->limit('1');
+                $database->setQuery($query);
 	            $thumb_name = $database->loadResult();
 	        } else {
 	            //Specific thumbnail
@@ -980,9 +993,15 @@ class galleryUtils {
 	 */
 	static function isComponentInstalled( $component_name ) {
 		$database = JFactory::getDBO();
-		$sql = 'SELECT COUNT(1) FROM `#__extensions` WHERE `element` = '. $database->quote($component_name);
-		$database->setQuery( $sql );
-		$result = $database->loadResult();
+		// $sql = 'SELECT COUNT(1) FROM `#__extensions` WHERE `element` = '. $database->quote($component_name);
+        $query = $database->getQuery(true);
+        $query->select('name')
+            ->from('#__extensions')
+            ->where('element='. $database->quote($component_name))
+            ->limit('1');
+        $database->setQuery($query);
+
+        $result = $database->loadResult();
 		if ($result > 0) {
 			$notice = 1;
 		} else {

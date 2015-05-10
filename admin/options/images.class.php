@@ -51,7 +51,7 @@ class rsgImagesItem extends JTable {
 	var $approved			= null;
 	/** @var int */
 	var $userid				= null;
-	/** @var string */
+	/** @var string in form text;value; ...*/
 	var $params				= null;
 	/** @var int */
 	var $asset_id = null;

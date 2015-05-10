@@ -380,6 +380,12 @@ class HTML_RSGALLERY{
                 // if debug is on, display advanced options
                 if( ($rsgConfig->get( 'debug' )) AND ( $canDo->get('core.admin') ) ){ ?>
                 <div id='rsg2-cpanelDebug'>
+                    <div id='DangerZone'>
+                        <h3>
+                            <?php echo JText::_('COM_RSGALLERY2_DANGER_ZONE');?>
+                        </h3>
+                    </div>
+                    <br/>
 					<div id='rsg2-DebugHeader'>
 						<strong>
 							<?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
@@ -396,9 +402,10 @@ class HTML_RSGALLERY{
 					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
 					
 					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
+                    /*
 					$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
 					HTML_RSGALLERY::quickiconDebugButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
-                    
+                    */
                     $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
                     HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
                     ?>

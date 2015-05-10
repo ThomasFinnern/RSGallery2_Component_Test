@@ -39,7 +39,7 @@ class rsgGalleriesItem extends JTable {
     var $hits = null;
 	/** @var datetime */
     var $date = null;
-	/** @var string  */
+	/** @var string in form text;value; ... */
     var $params = null;
 	/** @var int */
     var $user = null;

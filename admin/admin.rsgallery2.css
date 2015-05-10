@@ -41,11 +41,24 @@ div.iconimage img {
 #rsg2-cpanelDebug{
 	margin-top: 20px; /**/
     clear: left;
+    border: 1px dashed #d00;
+    /* background-color: #df3e3e; /**/
+    border-radius: 3px;
 }
 
 #rsg2-cpanelDebug div.icon a{
     border: 1px dashed #d00;
 }
+
+#rsg2-cpanelDebug #DangerZone{
+    /* background-color: red; /**/
+    background-color: #df3e3e; /**/
+    color: white; /**/
+    /* padding: 30px; /**/
+    padding: 5px; /**/
+}
+
+
 
 #cpanel{
     margin-right: 45%;

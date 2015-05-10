@@ -468,10 +468,15 @@ class rsgInstall {
 		JLog::add('rsgInstall: componentInstalled', JLog::DEBUG);
 		
 		$component = $database->quote($component);
-		$sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
-		$database->setQuery($sql);
-		$result = $database->loadResult($sql);
-		
+		// $sql = "SELECT COUNT(1) FROM #__extensions as a WHERE a.element = '$component'";
+        $query = $database->getQuery(true);
+        $query->select('*')
+            ->from('#__extensions')
+            ->where('element='. $component)
+            ->limit('1');
+        $database->setQuery($query);
+		$result = $database->loadResult();
+
 		if ($result > 0) {
 			return true;
 		} else {
@@ -934,7 +939,7 @@ class GenericMigrator{
 	        $id             = $row->$old_catid + $max_id;
 			$id				= (int) $id;
 	        $catname        = $database->quote($row->$old_catname);
-			$parent_id		= (int) $parent_id;
+			// $parent_id		= (int) $parent_id;
 	        $description    = $database->quote($row->$old_descr_name);
 	        $alias			= $database->quote(JFilterOutput::stringURLSafe($catname));
 	        if ($row->$old_parent_id == 0) {
@@ -1375,6 +1380,7 @@ function copyImages($basedir, $prefix = "pony_"){
 
     	//Set basedir to original images
 	    include_once(JPATH_SITE. DS . "administrator" . DS . "components" . DS . "com_ponygallery" . DS ."config.ponygallery.php");
+        // ToDo: 1505010 $ag_pathoriginalimages  is undefined
 	    $basedir = JPATH_SITE . $ag_pathoriginalimages . DS;
 	    
 	    //Set prefix
