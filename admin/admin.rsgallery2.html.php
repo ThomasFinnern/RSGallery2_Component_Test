@@ -68,23 +68,23 @@ class HTML_RSGALLERY{
      * @param string $image Image name for button image
      * @param string $text Text to show in button
       */
-    static function quickiconDebugButton( $link, $image, $text ) {
+    static function quickiconDebugButton($Id, $link, $image, $text ) {
 		?>
         <div style="float:left;">
-        <div class="debugicon">
-            <a href="<?php echo $link; ?>">
-                <div class="iconimage">
-					<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
-                </div>
-                <?php echo $text; ?>
-            </a>
-        </div>
+            <div class="debugicon">
+                <a href="<?php echo $link; ?>" class="<?php echo $Id; ?>">
+                    <div class="iconimage">
+                        <?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
+                    </div>
+                    <?php echo $text; ?>
+                </a>
+            </div>
         </div>
         <?php
     }
     
     /**
-     * Shows the RSGallery Control Panel in backend.
+     * Shows the RSGallery control panel in backend.
      * @todo complete translation tags
      * @todo use div in stead of tables (LOW PRIORITY)
      * @todo Move CSS to stylesheet
@@ -96,11 +96,27 @@ class HTML_RSGALLERY{
         // Get the current JUser object
 		$user = JFactory::getUser();
 		$canDo	= Rsgallery2Helper::getActions();
+        $doc = JFactory::getDocument();
 
 		JToolBarHelper::title( JText::_('COM_RSGALLERY2_RSG2_CONTROL_PANEL'), 'generic.png' );
 
-        //Show Warningbox if some preconditions are not met
+        //Show Warning box if some preconditions are not met
         galleryUtils::writeWarningBox();
+
+        // Purge / delete of database variables should be confirmed
+        $script = "
+            jQuery(document).ready(function($){
+                $('.purgeEverything').on('click', function () {
+                    return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_PURGE_TABLES_DEL_IMAGES') . "');
+                });
+
+                $('.reallyUninstall').on('click', function () {
+                    return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_DELETE_TABLES_IMAGES')  . "');
+                });
+            });
+        ";
+        $doc->addScriptDeclaration($script);
+
         ?>
 
 			<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
@@ -120,7 +136,7 @@ class HTML_RSGALLERY{
                 <table width="100%">
                     <tr>
                         <td>
-<?php
+                    <?php
 						jimport( 'joomla.html.html.tabs' );
 						$options = array(
 							'onActive' => 'function(title, description){
@@ -174,7 +190,7 @@ class HTML_RSGALLERY{
                         </table>
                         <?php
 						echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_CREDITS'), 'Credits');
-						?>
+					?>
 
                         
 <div id='rsg2-credits'>
@@ -392,22 +408,24 @@ class HTML_RSGALLERY{
 						</strong>
 					</div>
                     <?php
-					$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
+                    $link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+                    $link = 'http:://www.index.php?option=com_rsgallery2&task=purgeEverything';
+					HTML_RSGALLERY::quickiconDebugButton( 'purgeEverything', $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
 
-					$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
+                    $link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+                    $link = 'http:://www.index.php?option=com_rsgallery2&task=reallyUninstall';
+					HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
 	
 					$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-					HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
+					HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
 					
 					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
                     /*
 					$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
-					HTML_RSGALLERY::quickiconDebugButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
+					HTML_RSGALLERY::quickiconDebugButton( 'showMigration', $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
                     */
                     $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
-                    HTML_RSGALLERY::quickiconDebugButton( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
+                    HTML_RSGALLERY::quickiconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
                 </div>
@@ -455,18 +473,14 @@ class HTML_RSGALLERY{
 
 
     /**
-     * if there are no categories and a user has requested an action that
+     * If there are no categories and a user has requested an action that
      * requires a category, this is the error message to display
      */
     static function requestCatCreation(){
 		?>
 		<script>
-	        // old:function submitbutton(pressbutton){
 	        Joomla.submitbutton = function(pressbutton) {
             if (pressbutton != 'cancel'){
-                // Deprecated
-                // submitform() - use Joomla.submitform() instead
-                // submitbutton() - use Joomla.submitbutton() instead
                 Joomla.submitform( pressbutton );
                 // return;
             } else {
@@ -551,7 +565,6 @@ class HTML_RSGALLERY{
     static function showUploadStep1(){
         ?>
         <script type="text/javascript">
-	        // old:function submitbutton(pressbutton){
 	        Joomla.submitbutton = function(pressbutton) {
             var form = document.form;
             if ( pressbutton == 'controlPanel' ) {
@@ -665,7 +678,6 @@ class HTML_RSGALLERY{
 
         ?>
         <script language="javascript" type="text/javascript">
-	        // old:function submitbutton(pressbutton){
 	        Joomla.submitbutton = function(pressbutton) {
 			var form = document.form3;
                 form.submit();
