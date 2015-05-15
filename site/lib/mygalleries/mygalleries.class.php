@@ -18,9 +18,9 @@ class myGalleries {
    	
     /**
      * This presents the main My Galleries page
-     * @param array Result array with galleries with parent 0 (no longer only for logged in users)
-     * @param array Result array with image details (no longer only for logged in users)
-     * @param array Result array with pagenav information
+     * @param array $rows Result array with galleries with parent 0 (no longer only for logged in users)
+     * @param array $images Result array with image details (no longer only for logged in users)
+     * @param array $pageNav Result array with pagenav information
      */
     static function viewMyGalleriesPage($rows, $images, $pageNav) {
         global $rsgConfig;
@@ -130,7 +130,8 @@ class myGalleries {
 	    }
 		
 		?>
-        <form name="createGallery" id="createGallery" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat",true); ?>">
+        <form name="createGallery" id="adminForm" method="post"
+              action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat",true); ?>">
 			<table class="adminlist">
 				<tr>
 					<td colspan="2"><h3><?php echo JText::_('COM_RSGALLERY2_CREATE_GALLERY'); ?></h3>
@@ -244,8 +245,9 @@ class myGalleries {
         //Script for this form is found in myGalleries::mygalleriesJavascript();
         ?>
 
-        <form name="imgUpload" id="imgUpload" method="post" action="
-        <?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>" enctype="multipart/form-data">
+        <form name="imgUpload" id="adminForm" method="post"
+              action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveUploadedItem"); ?>"
+              enctype="multipart/form-data">
 		<div class="rsg2">
         <table class="adminlist">
             <tr>
@@ -309,154 +311,6 @@ class myGalleries {
         <?php
 	}
 
-    /**
-     * Shows thumbnails for gallery and links to subgalleries if they exist.
-     * @param integer Category ID
-     * @param integer Columns per page
-     * @param integer Number of thumbs per page
-     * @param integer pagenav stuff
-     * @param integer pagenav stuff
-	 * deprecated
-     */
-/*    function RSShowPictures ($catid, $limit, $limitstart){
-        global $rsgConfig;
-		$my = JFactory::getUser();
-		$database = JFactory::getDBO();
-
-        $columns                    = $rsgConfig->get("display_thumbs_colsPerPage");
-        $PageSize                   = $rsgConfig->get("display_thumbs_maxPerPage");
-        //$my_id                      = $my->id;
-    
-        $database->setQuery("SELECT COUNT(1) FROM #__rsgallery2_files WHERE gallery_id='$catid'");
-        $numPics = $database->loadResult();
-        
-        if(!isset($limitstart))
-            $limitstart = 0;
-        //instantiate page navigation
-        $pagenav = new JPagination($numPics, $limitstart, $PageSize);
-    
-        $picsThisPage = min($PageSize, $numPics - $limitstart);
-    
-        if (!$picsThisPage == 0)
-                $columns = min($picsThisPage, $columns);
-                
-        //Add a hit to the database
-        if ($catid && !$limitstart)
-            {
-            galleryUtils::addCatHit($catid);
-            }
-        //Old rights management. If user is owner or user is Super Administrator, you can edit this gallery
-        if(( $my->id <> 0 ) and (( galleryUtils::getUID( $catid ) == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
-            $allowEdit = true;
-        else
-            $allowEdit = false;
-
-        $thumbNumber = 0;
-        ?>
-        <div class="rsg2-pageNav">
-                <?php
-//                if( $numPics > $PageSize ){
-//                    echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&catid=".$catid);
-//                }
-                ?>
-        </div>
-        <br />
-        <?php
-        if ($picsThisPage) {
-        $database->setQuery("SELECT * FROM #__rsgallery2_files".
-                                " WHERE gallery_id='$catid'".
-                                " ORDER BY ordering ASC".
-                                " LIMIT $limitstart, $PageSize");
-        $rows = $database->loadObjectList();
-        
-        switch( $rsgConfig->get( 'display_thumbs_style' )):
-            case 'float':
-                $floatDirection = $rsgConfig->get( 'display_thumbs_floatDirection' );
-                ?>
-                <ul id="rsg2-thumbsList">
-                <?php foreach( $rows as $row ): ?>
-                <li <?php echo "style='float: $floatDirection'"; ?> >
-                    <a href="<?php  echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart++ ); ?>">
-                        <!--<div class="img-shadow">-->
-                        <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
-                        <!--</div>-->
-                        <span class="rsg2-clr"></span>
-                        <?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
-                            <br /><span class='rsg2_thumb_name'><?php echo htmlspecialchars(stripslashes($row->title), ENT_QUOTES); ?></span>
-                        <?php endif; ?>
-                    </a>
-                    <?php if( $allowEdit ): ?>
-                    <div id='rsg2-adminButtons'>
-                        <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=".$row->id); ?>"><img src="<?php echo JURI_SITE; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
-                        <a href="#" onClick="if(window.confirm('<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_IMAGE');?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo JURI_SITE; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
-                    </div>
-                    <?php endif; ?>
-                </li>
-                <?php endforeach; ?>
-                </ul>
-                <div class='rsg2-clr'>&nbsp;</div>
-                <?php
-                break;
-            case 'table':
-                $cols = $rsgConfig->get( 'display_thumbs_colsPerPage' );
-                $i = 0;
-                ?>
-                <table id='rsg2-thumbsList'>
-                <?php foreach( $rows as $row ): ?>
-                    <?php if( $i % $cols== 0) echo "<tr>\n"; ?>
-                        <td>
-                            <!--<div class="img-shadow">-->
-                                <a href="<?php echo JRoute::_( "index.php?option=com_rsgallery2&page=inline&id=".$row->id."&catid=".$row->gallery_id."&limitstart=".$limitstart++ ); ?>">
-                                <img border="1" alt="<?php echo htmlspecialchars(stripslashes($row->descr), ENT_QUOTES); ?>" src="<?php echo imgUtils::getImgThumb($row->name); ?>" />
-                                </a>
-                            <!--</div>-->
-                            <div class="rsg2-clr"></div>
-                            <?php if($rsgConfig->get("display_thumbs_showImgName")): ?>
-                            <br />
-                            <span class='rsg2_thumb_name'>
-                                <?php echo htmlspecialchars(stripslashes($row->title), ENT_QUOTES); ?>
-                            </span>
-                            <?php endif; ?>
-                            <?php if( $allowEdit ): ?>
-                            <div id='rsg2-adminButtons'>
-                                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=".$row->id); ?>"><img src="<?php echo JURI_SITE; ?>/administrator/images/edit_f2.png" alt=""  height="15" /></a>
-                                <a href="#" onClick="if(window.confirm('<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_IMAGE');?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=".$row->id); ?>'"><img src="<?php echo JURI_SITE; ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
-                            </div>
-                            <?php endif; ?>
-                        </td>
-                    <?php if( ++$i % $cols == 0) echo "</tr>\n"; ?>
-                <?php endforeach; ?>
-                <?php if( $i % $cols != 0) echo "</tr>\n"; ?>
-                </table>
-                <?php
-                break;
-            case 'magic':
-                echo JText::_('COM_RSGALLERY2_MAGIC_NOT_IMPLEMENTED_YET');
-                ?>
-                <table id='rsg2-thumbsList'>
-                <tr>
-                    <td><?php echo JText::_('COM_RSGALLERY2_MAGIC_NOT_IMPLEMENTED_YET')?></td>
-                </tr>
-                </table>
-                <?php
-                break;
-            endswitch;
-            ?>
-            <div class="rsg2-pageNav">
-                    <?php
-                    if( $numPics > $PageSize ){
-                        echo $pagenav->writePagesLinks("index.php?option=com_rsgallery2&catid=".$catid);
-                        echo "<br /><br />".$pagenav->writePagesCounter();
-                    }
-                    ?>
-            </div>
-            <?php
-            }
-        else {
-            if (!$catid == 0)echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY');
-        }
-    }end function RSShowPictures*/
-    
     /**
      * This presents the list of galleries shown in My galleries
      * @param array $rows All galleries (no longer only for logged in users)
@@ -630,7 +484,8 @@ class myGalleries {
 		$userId = $user->id;
 		jimport( 'joomla.html.html.grid' );
         ?>
-		<form action="<?php echo JRoute::_('index.php?option='.$option.'&rsgOption='.$rsgOption.'&Itemid='.$Itemid); ?>" method="post" name="adminForm" id="adminForm">
+		<form name="showMyImages" id="adminForm" method="post"
+              action="<?php echo JRoute::_('index.php?option='.$option.'&rsgOption='.$rsgOption.'&Itemid='.$Itemid); ?>" >
         <table class="adminlist" >
 			<tr>
 				<td colspan="2"><h3><?php echo JText::_('COM_RSGALLERY2_MY_IMAGES'); ?></h3></td>
@@ -869,7 +724,8 @@ class myGalleries {
         echo "<h3>".JText::_('COM_RSGALLERY2_EDIT_IMAGE')."</h3>";
         ?>
 
-        <form name="editItem" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveItem"); ?>">
+        <form name="editItem" id="adminForm" method="post"
+              action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveItem"); ?>">
 			<table class="adminlist" >
 				<tr>
 					<td colspan="3">
@@ -994,7 +850,8 @@ static function editCat($rows = null) {
     }
     ?>
 	<h3><?php echo JText::_('COM_RSGALLERY2_EDIT_GALLERY'); ?></h3>
-	<form name="editGallery" id="editGallery" method="post" action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat"); ?>">
+	<form name="editGallery" id="adminForm" method="post"
+          action="<?php echo JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&task=saveCat"); ?>">
         <table class="adminlist" >
 			<tr>
 				<th colspan="2">

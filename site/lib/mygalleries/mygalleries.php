@@ -200,7 +200,10 @@ function editItem() {
 	}
 
 	if ($id) {
-		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
+
+        JHtml::_('behavior.framework',true);
+
+        $query = 'SELECT * FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id;
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 		myGalleries::editItem($rows);
@@ -393,8 +396,10 @@ function editCat($id) {
 			JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			$mainframe->redirect(JRoute::_( $redirect ));
 		}
-		
-		//Edit category
+
+        JHtml::_('behavior.framework',true);
+
+        //Edit category
 		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `id` ='. (int) $id;
 		$database->setQuery($query);
 		$rows = $database->LoadObjectList();
@@ -406,7 +411,9 @@ function editCat($id) {
 		if ($count >= $rsgConfig->get('uu_maxCat') ) {
 			$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&page=my_galleries"), JText::_('COM_RSGALLERY2_MAX_USERCAT_ALERT') );
 		} else {
-			//New category
+            JHtml::_('behavior.framework',true);
+
+            //New category
 			myGalleries::editCat();
 		}
 	}
