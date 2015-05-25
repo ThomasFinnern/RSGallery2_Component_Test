@@ -12,6 +12,20 @@ JHtml::_('behavior.framework', true);
 
 global $mainframe;
 
+$document =JFactory::getDocument();
+$document->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+$css1 = JURI::base().'components/com_rsgallery2/templates/slideshowone/css/slideshowone.css'; 
+$document->addStyleSheet($css1); 
+
+$Script ="
+    jQuery(document).ready(function($){
+		// alert('test');
+		prevSS();
+		startSS();
+    });
+";
+$document->addScriptDeclaration($Script);
+
 $firstImage = $this->gallery->getItem();
 $firstImage = $firstImage->display();
 ?>
@@ -19,34 +33,34 @@ $firstImage = $firstImage->display();
 <div class="rsg2-slideshowone">
 
 <form name="_slideShow">
+
 <input type="Hidden" name="currSlide" value="0">
 <input type="Hidden" name="delay">
 
-<?php if( ! $this->cleanStart ): ?>
-
-<a href="javascript:;" onclick="startSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/start.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_START') ?>" width="24" height="24" border="0">
-</a>
-<a href="javascript:;" onclick="stopSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/stop.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_STOP') ?>" width="24" height="24" border="0">
-</a>
-<a href="javascript:;" onclick="prevSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/previous.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_PREVIOUS') ?>" width="24" height="24" border="0">
-</a>
-<a href="javascript:;" onclick="nextSS()">
-	<img src="<?php echo JURI_SITE;?>/components/com_rsgallery2/images/next.jpg" alt="<?php echo JText::_('COM_RSGALLERY2_NEXT') ?>" width="24" height="24" border="0">
-</a>
-
-<?php endif; ?>
-
-<div style="visibility:hidden;">
-	<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)">
-	</select>
+<div class="PlayerContainer">
+	<?php if( ! $this->cleanStart ): ?>
+		<div class="clearfix"> </div>
+		<div class="PlayerIconArray"> 
+			<a class="PlayerIcon" href="javascript:;" onclick="startSS()">
+				<i class="fa fa-play"></i>
+			</a>
+			<a class="PlayerIcon" href="javascript:;" onclick="stopSS()">
+				<i class="fa fa-stop"></i>
+			</a>
+			<a class="PlayerIcon" href="javascript:;" onclick="prevSS()">
+				<i class="fa fa-backward"></i>
+			</a>
+			<a class="PlayerIcon" href="javascript:;" onclick="nextSS()">
+				<i class="fa fa-forward"></i>
+			</a>
+		</div>
+	<?php endif; ?>
+	<img name="stage" class="PlayerImage" src="<?php echo $firstImage->url(); ?>" style="filter: revealtrans(); font-size:12;">
 </div>
 
-
-<img name="stage" border="0" src="<?php echo $firstImage->url(); ?>" style="filter: revealtrans(); font-size:12;">
-
+<div style="visibility:hidden;">
+	<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)"></select>
+</div>
 
 </form>
 
