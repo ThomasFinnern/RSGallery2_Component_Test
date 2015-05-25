@@ -64,6 +64,7 @@ class HTML_RSGALLERY{
     
     /**
       * Used by showCP to generate buttons
+     * @param $Id
      * @param string $link URL for button link
      * @param string $image Image name for button image
      * @param string $text Text to show in button
@@ -409,10 +410,10 @@ class HTML_RSGALLERY{
 					</div>
                     <?php
                     $link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-					HTML_RSGALLERY::quickiconDebugButton( 'purgeEverything', $link, 'menu.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
+					HTML_RSGALLERY::quickiconDebugButton( 'purgeEverything', $link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
 
                     $link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-					HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'menu.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
+					HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
 	
 					$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
 					HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
@@ -462,7 +463,7 @@ class HTML_RSGALLERY{
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold"><?php echo JText::_('COM_RSGALLERY2_CONTINUE')?></a>&nbsp;]
+			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold;"><?php echo JText::_('COM_RSGALLERY2_CONTINUE')?></a>&nbsp;]
 			</td>
 		</tr>
 		</table>

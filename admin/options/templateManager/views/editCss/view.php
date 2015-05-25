@@ -20,6 +20,9 @@ defined( '_JEXEC' ) or die();
 
 include_once(dirname(__FILE__).DS.'..'.DS.'default'.DS.'view.php');
 
+/**
+ * Class InstallerViewEditCss
+ */
 class InstallerViewEditCss extends InstallerViewDefault
 {
 	/**

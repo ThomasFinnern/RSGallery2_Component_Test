@@ -71,7 +71,8 @@ class rsgItem extends JObject{
 
 	/**
 	 * increases the hit counter for this object
-	 */
+     * @return bool
+     */
 	function hit(){
 		$query = 'UPDATE `#__rsgallery2_files` SET `hits` = hits + 1 WHERE `id` = '.(int) $this->id;
 
@@ -86,6 +87,7 @@ class rsgItem extends JObject{
 		}
 		
 		$this->hits++;
+        return true;
 	}
 	
 	/**
@@ -148,6 +150,7 @@ class rsgItem extends JObject{
 
 	/**
 	* remove the item from the gallery
+     * @param $target_gallery
 	* @return bool true if succesfull
 	*/
 	function remove($target_gallery){
@@ -235,7 +238,10 @@ class rsgResource extends JObject{
 	 * the unique name to retrieve this resource
 	 */
 	var $name = null;
-	
+
+    /**
+     * @param mixed|null $name
+     */
 	function __construct( $name ){
 		$this->name = $name;
 	}
@@ -268,13 +274,16 @@ class rsgResource extends JObject{
 	 **/
 	function store($path){
 	
-		if( !file_exists($path) ) return;
+		if( !file_exists($path) )
+            return false;
 		
 		if ( !file_exists( $this->filePath ) ) {
 			
-			if( !unlink($this->filePath ) ) return false;
+			if( !unlink($this->filePath ) )
+                return false;
 			
-			if (! copy ($path, $this->filePath) ) return false;	
+			if (! copy ($path, $this->filePath) )
+                return false;
 			
 		}
 		return true;

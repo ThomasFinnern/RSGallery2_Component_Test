@@ -337,7 +337,7 @@ class rsgInstall {
      */
     function deleteGalleryDir($target, $exceptions, $output=false) {
     
-		JLog::add('rsgInstall: deleteGalleryDir: ' + $target, JLog::DEBUG);
+		JLog::add('rsgInstall: deleteGalleryDir: ' . $target, JLog::DEBUG);
 		
 		if (file_exists($target) && is_dir($target))
 		{
@@ -525,6 +525,9 @@ class rsgInstall {
      /**
       * Shows the "Installation complete" box with a link to the control panel
       */
+    /**
+     * @param string $msg
+     */
      static function installComplete($msg = null){
 		if($msg == null) $msg = JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED');
 		?>
@@ -576,6 +579,11 @@ class rsgInstall {
         
     /**
      * Performs exactly the same as the PHP5 function array_combine()
+     */
+    /**
+     * @param $keys
+     * @param $vals
+     * @return array
      */
     static function array_combine_emulated($keys, $vals) {
         $keys = array_values( (array) $keys );
@@ -913,15 +921,14 @@ class GenericMigrator{
         }
         return($ret);
     }
-    
-	/**
-     * Function migrates gallery information of other gallery systems to RSGallery2
-     *
-     * @param string Old gallery tablename
-     * @param string Old ID field name
-     * @param string Old Category field name
-     * @param string Old Parent ID field name
-     * @param string Old Description field name
+
+    /**
+     * @param $old_table gallery tablename
+     * @param string $old_catid ID field name
+     * @param string $old_catname Category field name
+     * @param string $old_parent_id Parent ID field name
+     * @param string $old_descr_name Description field name
+     * @param $max_id
      */
 	static function migrateGalleries($old_table, $old_catid = "id", $old_catname = "catname", $old_parent_id = "parent_id", $old_descr_name = "description", $max_id) {
 		$database = JFactory::getDBO();
@@ -1041,12 +1048,23 @@ class GenericMigrator{
  * @package RSGallery2
  */
 class migrate_testMigrator extends GenericMigrator{
+    /**
+     * @return string
+     */
     static function getTechName(){
         return 'testMigrator';
     }
+
+    /**
+     * @return string
+     */
     static function getName(){
         return 'test migrator for debug mode';
     }
+
+    /**
+     * @return bool
+     */
     static function detect(){
         return true;
     }
@@ -1063,12 +1081,23 @@ class migrate_testMigrator extends GenericMigrator{
  * @package RSGallery2
  */
 class migrate_testMigratorFail extends GenericMigrator{
+    /**
+     * @return string
+     */
     static function getTechName(){
         return 'testMigratorFail';
     }
+
+    /**
+     * @return string
+     */
     static function getName(){
         return 'test migrator for debug mode - always fails';
     }
+
+    /**
+     * @return bool
+     */
     static function detect(){
         return true;
     }
@@ -1493,7 +1522,12 @@ class migrate_com_zoom_251_RC4 extends GenericMigrator{
 	    }
 	    rsgInstall::installComplete("Migration of ".$this->getName()." completed");
 	}
-	
+
+    /**
+     * @param $basedir
+     * @param string $prefix
+     * @return bool
+     */
 	static function copyImages($basedir, $prefix = "zoom_") {
 		global $rsgConfig;
 		$database = JFactory::getDBO();
@@ -1855,9 +1889,6 @@ class migrate_com_rsgallery extends GenericMigrator {
 			case $this->beforeVersion( '3.1.1' ):
 				$this->handleSqlFile( 'upgrade_3.1.0_to_3.1.1.sql' );
 				
-			case $this->beforeVersion( '3.1.1' ):
-				$this->handleSqlFile( 'upgrade_3.1.0_to_3.1.1.sql' );
-				
 			case $this->beforeVersion( '3.2.0' ):
 				$this->upgradeTo_3_2_0();
 			
@@ -1972,7 +2003,8 @@ class migrate_com_rsgallery extends GenericMigrator {
 			$result = $db->execute();
 			if (!$result) {
 				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_GALLERY',$value[id], $value[name]);
-				JError::raiseNotice( 100, $msg);
+				//JError::raiseNotice( 100, $msg);
+				JFactory::getApplication()->enqueueMessage($msg, 'error');
 				$error = true;
 			}
 		}
@@ -1995,7 +2027,8 @@ class migrate_com_rsgallery extends GenericMigrator {
 			$result = $db->execute();
 			if (!$result) {
 				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_ITEM',$value[id], $value[title]);
-				JError::raiseNotice( 100, $msg);
+				//JError::raiseNotice( 100, $msg);
+				JFactory::getApplication()->enqueueMessage($msg, 'error');
 				$error = true;
 			}
 		}
@@ -2052,6 +2085,9 @@ class migrate_com_rsgallery_hierarchical_structure extends GenericMigrator {
  * @author Ronald Smit <ronald.smit@rsdev.nl>
  */
 if (!class_exists('rsgComments')) {
+    /**
+     * Class rsgComments
+     */
 class rsgComments {
 	var $_buttons;
 	var $_emoticons;
@@ -2096,7 +2132,10 @@ class rsgComments {
 	
 	/**
 	 * Retrieves raw text and converts bbcode to HTML
-	 */
+     * @param string $html
+     * @param int $hide
+     * @return mixed
+     */
 	static function parseUBB($html, $hide = 0) {	//needed
 		$html = str_replace(']www.', ']http://www.', $html);
 		$html = str_replace('=www.', '=http://www.', $html);
@@ -2139,14 +2178,18 @@ class rsgComments {
 
 	/**
 	 * Parses an image element to HTML
-	 */
+     * @param string $html
+     * @return mixed
+     */
 	static function parseImgElement($html) {	//needed
 			return preg_replace('/\[img\](.*?)\[\/img\]/i', '<img src=\'\\1\' alt=\'Posted image\' />', $html);
 	}
 
 	/**
 	 * Parse a quote element to HTML
-	 */
+     * @param string $html
+     * @return mixed
+     */
 	static function parseQuoteElement($html) {	//needed
         $q1 = substr_count($html, "[/quote]");
         $q2 = substr_count($html, "[quote=");
@@ -2165,6 +2208,10 @@ class rsgComments {
         return $html;
     }
 
+    /**
+     * @param $html
+     * @return mixed
+     */
 	function parseCodeElement($html) {	//needed
 		if (preg_match_all('/\[code\](.+?)\[\/code\]/is', $html, $replacementI)) {
 			foreach($replacementI[0] as $val) $html = str_replace($val, $this->code_unprotect($val), $html);
@@ -2178,6 +2225,8 @@ class rsgComments {
 
 	/**
 	 * Parse a BB-encoded message to HTML
+     * @param $html
+     * @return mixed
 	 */
 	function parse( $html ) {	//needed
 		$html = $this->parseEmoticons($html);
@@ -2188,7 +2237,11 @@ class rsgComments {
 		$html = stripslashes($html);
 		return str_replace('&#13;', "\r", nl2br($html));
     }
-	
+
+    /**
+     * @param $val
+     * @return mixed
+     */
 	static function code_unprotect($val) {	//needed
 		$val = str_replace("{ : }", ":", $val);
 		$val = str_replace("{ ; }", ";", $val);

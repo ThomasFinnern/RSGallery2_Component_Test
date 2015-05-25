@@ -186,7 +186,10 @@ class JGPagination extends JPagination
 		return $html;
 	}
 
-
+    /**
+     * @param array $list
+     * @return null|string
+     */
 	public function _list_render($list)
 	{
 		// Initialize variables
@@ -208,6 +211,11 @@ class JGPagination extends JPagination
 		return $html;
 	}
 
+    /**
+     * @param JPaginationObject $item
+     * @return string
+     * @throws Exception
+     */
 	public function _item_active(&$item)
 	{
 		$appl = JFactory::getApplication();

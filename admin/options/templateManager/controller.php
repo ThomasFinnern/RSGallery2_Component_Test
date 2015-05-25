@@ -139,14 +139,14 @@ class InstallerController extends JControllerLegacy
 		$template = $input->get( 'template' );
 		
 		if($rsgConfig->template == $template) {
-			JError::raiseWarning( 500, 'Can not delete default template.', "Select an other template and then delete this one." );
+			// JError::raiseWarning( 500, 'Can not delete default template. Select an other template and then delete this one.' );
+			JFactory::getApplication()->enqueueMessage('Can not delete default template. Select an other template and then delete this one.', 'warning');
 		}
 		else{
 			JFolder::delete(JPATH_RSGALLERY2_SITE . DS . "templates" . DS . $template);
 		}
 		
 		$this->manage();		
-		
 	}
 	
 	function template(){

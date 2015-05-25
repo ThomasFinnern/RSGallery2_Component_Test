@@ -206,7 +206,7 @@ class html_rsg2_maintenance {
 			        $c++;
 			        $i = 0;
 			        $fid = galleryUtils::getFileIdFromName($name);
-			        $html = "<tr><td><input type=\"checkbox\" id=\"cb$c\" name=\"xid[]\" value=\"$name\" onclick=\"isChecked(this.checked);\" /></td><td>$name</td>".$yes;
+			        $html = "<td><input type=\"checkbox\" id=\"cb$c\" name=\"xid[]\" value=\"$name\" onclick=\"isChecked(this.checked);\" /></td><td>$name</td>".$yes;
 			        if (in_array($name, $file_display )) {
 			            $i++;
 			            $html .= $yes;
@@ -236,22 +236,26 @@ class html_rsg2_maintenance {
 					}
 					
 			        if ($i < 3) {
-			            echo $html;
-			            ?>
-			            <td>&nbsp;</td>
-			            <td>
-			            	<img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
-			            </td>
-			            <td align="center">
-			                <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo '[&nbsp;'.JText::_('COM_RSGALLERY2_DELETE_FROM_DATABASE').'&nbsp;]'?></a><br />
-			                <?php
-			                if ($original == true OR $display == true) {
-			                    ?>
-			                    <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&id=<?php echo $fid;?>"><?php echo '[&nbsp;'.JText::_('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'&nbsp;]'?></a>
-			                    <?php
-			                    }
-			                    ?>
-			            </td></tr>
+                        ?>
+                        <tr>
+                            <?php
+                            echo $html;
+                            ?>
+                            <td>&nbsp;</td>
+                            <td>
+                                <img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
+                            </td>
+                            <td align="center">
+                                <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo '[&nbsp;'.JText::_('COM_RSGALLERY2_DELETE_FROM_DATABASE').'&nbsp;]'?></a><br />
+                                <?php
+                                if ($original == true OR $display == true) {
+                                    ?>
+                                    <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createImages&id=<?php echo $fid;?>"><?php echo '[&nbsp;'.JText::_('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'&nbsp;]'?></a>
+                                    <?php
+                                    }
+                                    ?>
+                            </td>
+			            </tr>
 			            <?php
 			        } else {
 			            continue;

@@ -195,6 +195,7 @@ class galleryUtils {
 	 * Add galleries to the gallery select list according to the permissions of the logged in user
 	 * @param integer $level Level in gallery tree
 	 * @param integer $galid ID of current node in gallery tree
+     * @param integer $gallery_id ID of selected gallery
 	 * @param int [] $galleriesAllowed ID of selected gallery
 	 * @return string HTML to add
 	 */
@@ -297,9 +298,9 @@ class galleryUtils {
 	 * @param boolean $style Dropdown(false) or Liststyle(true), defaults to true
      * @param string $javascript javascript entries ( e.g: 'onChange="form.submit();"' )
 	 * @param int $showUnauthorised
+     * @param bool $excludeTopGallery
      * @return string HTML representation for selectlist
      */
-
     static function galleriesSelectList( $galleryid = null, $listName = 'gallery_id', $style = true, 
 		$javascript = NULL, $showUnauthorised = 1, $excludeTopGallery = false)
 	{
@@ -391,8 +392,8 @@ class galleryUtils {
 	        //$sql = 'SELECT `thumb_id` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid;
             $query = $database->getQuery(true);
             $query->select('thumb_id')
-                ->from('#__rsgallery2_galleries')
-                ->where('id='. (int) $catid);
+                ->from($database->quoteName('#__rsgallery2_galleries'))
+                ->where($database->quoteName('id') .' = '. (int) $catid);
             $database->setQuery($query);
 	        $thumb_id = $database->loadResult();
 
@@ -402,8 +403,9 @@ class galleryUtils {
 	            // $sql = "SELECT `name` FROM `#__rsgallery2_files` WHERE `gallery_id` IN ($list) AND `published` = 1 ORDER BY rand() LIMIT 1";
                 $query = $database->getQuery(true);
                 $query->select('name')
-                    ->from('#__rsgallery2_files')
-                    ->where('gallery_id IN ($list) AND published = 1')
+                    ->from($database->quoteName('#__rsgallery2_files'))
+                    ->where($database->quoteName('gallery_id') .' IN (' . $list . ') AND '
+                        . $database->quoteName('published') . ' = '. (int)1)
                     ->order('rand()')
                     ->limit('1');
                 $database->setQuery($query);
@@ -831,7 +833,7 @@ class galleryUtils {
 	/**
 	 * Write downloadlink for image
 	 * @param int $id image ID
-	 * @param string $showtext Button or HTML link (button/link)
+	 * @param bool $showtext Button or HTML link (button/link)
 	 * @param string $type
 	 * writes HTML for downloadlink
 	 */

@@ -10,6 +10,9 @@
 // ensure this file is being included by a parent file
 defined( '_JEXEC' ) or die();
 
+/**
+ * Class menu_rsg2_submenu
+ */
 class menu_rsg2_submenu{
 	/**
 	 * @param string $rsgOption
@@ -50,6 +53,9 @@ class menu_rsg2_submenu{
 	}
 }
 
+/**
+ * Class menu_rsg2_maintenance
+ */
 class menu_rsg2_maintenance{
 	// Only those with core.manage can get here via $rsgOption = maintenance
 
@@ -68,6 +74,9 @@ class menu_rsg2_maintenance{
 	}
 }
 
+/**
+ * Class menu_rsg2_images
+ */
 class menu_rsg2_images{
 	/**
 	 *
@@ -145,6 +154,9 @@ class menu_rsg2_images{
     }
 }
 
+/**
+ * Class menu_rsg2_galleries
+ */
 class menu_rsg2_galleries{
 	/**
 	 *
@@ -198,6 +210,9 @@ class menu_rsg2_galleries{
     }
 }
 
+/**
+ * Class menuRSGallery
+ */
 class menuRSGallery {
 
 	/**
@@ -337,8 +352,11 @@ class menuRSGallery {
         JToolBarHelper::help('screen.rsgallery2', true);
         //menuRSGallery::adminTasksMenu();
     }
-} 
+}
 
+/**
+ * Class menu_rsg2_jumploader
+ */
 class menu_rsg2_jumploader {
 
 	/**

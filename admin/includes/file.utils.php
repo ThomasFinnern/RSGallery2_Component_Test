@@ -57,7 +57,7 @@ class imageUploadError{
      * @return string
      */
     function toString(){
-        return JText::_('COM_RSGALLERY2_ERROR_IMAGE_UPLOAD') . $this->filename . ":<p> " . $this->error . "<br>";
+        return JText::_('COM_RSGALLERY2_ERROR_IMAGE_UPLOAD') . $this->filename . ":<p> " . $this->error . "<br></p>";
     }
 }
 

@@ -135,26 +135,38 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Make sure that file uploads are enabled in php
 		if (!(bool) ini_get('file_uploads')) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLFILE'));
+			// JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLFILE'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_WARNINSTALLFILE')
+				, 'warning');			
 			return false;
 		}
 
 		// Make sure that zlib is loaded so that the package can be unpacked
 		if (!extension_loaded('zlib')) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLZLIB'));
+			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLZLIB'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_WARNINSTALLFILE')
+				, 'warning');			
 			return false;
 		}
 
 		// If there is no uploaded file, we have a problem...
 		if (!is_array($userfile) ) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_NO_FILE_SELECTED'));
+			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_NO_FILE_SELECTED'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_NO_FILE_SELECTED')
+				, 'warning');			
 			return false;
 		}
 
 		// Check if there was a problem uploading the file.
 		if ( $userfile['error'] || $userfile['size'] < 1 )
 		{
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLUPLOADERROR'));
+			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLUPLOADERROR'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_WARNINSTALLUPLOADERROR')
+				, 'warning');			
 			return false;
 		}
 
@@ -193,7 +205,10 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Did you give us a valid directory?
 		if (!is_dir($p_dir)) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_PACKAGE_DIRECTORY'));
+			// JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_PACKAGE_DIRECTORY'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_PACKAGE_DIRECTORY')
+				, 'warning');			
 			return false;
 		}
 
@@ -202,7 +217,10 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Did you give us a valid package?
 		if (!$type) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PATH_DOES_NOT_HAVE_A_VALID_PACKAGE'));
+			// JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PATH_DOES_NOT_HAVE_A_VALID_PACKAGE'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_PATH_DOES_NOT_HAVE_A_VALID_PACKAGE')
+				, 'warning');			
 			return false;
 		}
 
@@ -234,7 +252,10 @@ class InstallerModelInstall extends JModelLegacy
 		
 		// Did you give us a URL?
 		if (!$url) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL'));
+			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL')
+				, 'warning');			
 			return false;
 		}
 
@@ -243,7 +264,10 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Was the package downloaded?
 		if (!$p_file) {
-			JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_URL'));
+			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_URL'));
+			JFactory::getApplication()->enqueueMessage(
+				JText::_('SOME_ERROR_CODE').' '.JText::_('COM_RSGALLERY2_INVALID_URL')
+				, 'warning');			
 			return false;
 		}
 

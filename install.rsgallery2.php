@@ -41,7 +41,9 @@ JLog::addLogger(
 JLog::add('-------------------------------------------------------', JLog::DEBUG);
 JLog::add('Starting to log install.rsgallery2.php for installation X', JLog::DEBUG);
 
-		
+/**
+ * Class com_rsgallery2InstallerScript
+ */
 class com_rsgallery2InstallerScript
 {
 
@@ -63,6 +65,11 @@ class com_rsgallery2InstallerScript
 
 // ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
 
+    /**
+     * @param $type
+     * @param $parent
+     * @return bool|void
+     */
 	function preflight($type, $parent)
 	{
 		JLog::add('preflight: '.$type, JLog::DEBUG);
@@ -175,6 +182,8 @@ class com_rsgallery2InstallerScript
 		}
 
 		JLog::add('exit preflight', JLog::DEBUG);
+
+        return true;
 	}
 
 	/*-------------------------------------------------------------------------
@@ -186,6 +195,9 @@ class com_rsgallery2InstallerScript
 	possible. Since fewer install actions have occurred at preflight, there 
 	is less risk that that their reversal may be done incorrectly. 
 	-------------------------------------------------------------------------*/
+    /**
+     * @param $parent
+     */
 	function install($parent)
 	{
 		JLog::add('install', JLog::DEBUG);
@@ -216,6 +228,9 @@ class com_rsgallery2InstallerScript
 	fewer update actions have occurred at preflight, there is less risk that 
 	that their reversal may be done incorrectly. 
 	-------------------------------------------------------------------------*/
+    /**
+     * @param $parent
+     */
 	function update($parent)
 	{
 		JLog::add('function update', JLog::DEBUG);
@@ -273,6 +288,10 @@ class com_rsgallery2InstallerScript
 	the $type operand. Postflight cannot cause an abort of the Joomla 
 	install, update or discover_install action. 
 	-------------------------------------------------------------------------*/
+    /**
+     * @param $type
+     * @param $parent
+     */
 	function postflight($type, $parent)
 	{
 		JLog::add('postflight', JLog::DEBUG);
@@ -301,6 +320,9 @@ class com_rsgallery2InstallerScript
 	abort of the Joomla uninstall action, so returning false would be a 
 	waste of time
 	-------------------------------------------------------------------------*/
+    /**
+     * @param $parent
+     */
 	function uninstall($parent)
 	{
 		JLog::add('uninstall', JLog::DEBUG);
@@ -311,6 +333,10 @@ class com_rsgallery2InstallerScript
 	/*
 	 * get a variable from the manifest file (actually, from the manifest cache).
 	 */
+    /**
+     * @param $name
+     * @return mixed
+     */
 	function getParam( $name ) {
 			$db = JFactory::getDbo();
 			$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_rsgallery2"');
@@ -321,6 +347,9 @@ class com_rsgallery2InstallerScript
 	/*
 	 * sets parameter values in the component's row of the extension table
 	 */
+    /**
+     * @param $param_array
+     */
 	function setParams($param_array) {
 			if ( count($param_array) > 0 ) {
 					// read the existing component value(s)

@@ -26,6 +26,9 @@ jimport('joomla.application.component.view');
  */
 class InstallerViewDefault extends JViewLegacy
 {
+    /**
+     * @param null $config
+     */
 	function __construct($config = null)
 	{
 		parent::__construct($config);

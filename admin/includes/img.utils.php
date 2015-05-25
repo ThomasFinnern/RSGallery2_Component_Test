@@ -107,7 +107,8 @@ class imgUtils extends fileUtils{
                 return Netpbm::resizeImage($source, $target, $targetWidth);
                 break;
             default:
-                JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+                //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ), 'error');
 				return false;
         }
     }
@@ -282,7 +283,8 @@ class imgUtils extends fileUtils{
 		//Item deletion permission check
 		if (!rsgAuthorisation::authorisationDeleteItem($id)) {
 //mk	if (!JFactory::getUser()->authorise('core.delete','com_rsgallery2.item.'.$id)) {
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') .": ". $name);
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') .": ". $name);
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') . $rsgConfig->get( 'graphicsLib' ), 'notice');
 			return false;
 		}
 		
@@ -292,19 +294,22 @@ class imgUtils extends fileUtils{
 
         if( file_exists( $thumb )){
             if( !JFile::delete( $thumb )){
-				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') .": ". $thumb);
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') .": ". $thumb);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') .": ". $thumb, 'error');
 				return false;
 			}
 		}
         if( file_exists( $display )){
 			if( !JFile::delete( $display )){
-                JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') .": ". $display);
+                //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') .": ". $display);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') .": ". $display, 'error');
 				return false;
 			}
 		}
         if( file_exists( $original )){
 			if( !JFile::delete( $original )){
-                JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') .": ". $original);
+                //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') .": ". $original);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') .": ". $original, 'error');
 				return false;
 			}
 		}
@@ -313,7 +318,8 @@ class imgUtils extends fileUtils{
 		$row = new rsgImagesItem( $database );
 		if ($id){	//When upload goes wrong, there is no item in the database when this function is called to remove the thumb/display/original images + database entry
 			if (!$row->delete($id)){
-				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE')) ;
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE')) ;
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE'), 'error');
 				return false;
 			}
 		}
@@ -422,6 +428,8 @@ class imgUtils extends fileUtils{
         ?>
         </table>
         <?php
+
+        return true;
     }
     
     /**
@@ -483,7 +491,8 @@ class genericImageLib{
       * @return bool true if successfull, false if error
       */
     static function resizeImage($source, $target, $targetWidth){
-		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'));
+		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'));
+		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'), 'error');
 		return false;
     }
 
@@ -538,6 +547,8 @@ class Netpbm extends genericImageLib{
             else
             	return false;
         }
+
+        return true;
     }
 }
 /**
@@ -563,7 +574,8 @@ class ImageMagick extends genericImageLib{
         $cmd = $impath."convert -resize $targetWidth $source $target";
         exec($cmd, $results, $return);
         if( $return > 0 ){
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK').": ".$target);
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK').": ".$target);
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK').": ".$target, 'error');
 			return false;
 			}
         else 
@@ -591,6 +603,8 @@ class ImageMagick extends genericImageLib{
                 return false;
             }
         }
+
+        return true;
     }
 }
 /**
@@ -618,7 +632,8 @@ class GD2 extends genericImageLib{
         $imgInfo = getimagesize( $source );
 
         if( !$imgInfo ){
-			JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'));
+			//JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'));
+			JFactory::getApplication()->enqueueMessage($source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'), 'error');
 			return false;
         }
         list( $sourceWidth, $sourceHeight, $type, $attr ) = $imgInfo;
@@ -628,7 +643,8 @@ class GD2 extends genericImageLib{
         
         // check if we can read this type of file
         if( !function_exists( "imagecreatefrom$type" )){
-            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type);
+            //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type);
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type, 'error');
 			return false;
         }
 		// Determine target sizes: the $targetWidth that is put in this function is actually
@@ -646,7 +662,8 @@ class GD2 extends genericImageLib{
         $loadImg = "imagecreatefrom" . $type;
         $sourceImg = $loadImg( $source );
         if( !$sourceImg ){
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE').': '.$source);
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE').': '.$source);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE').': '.$source, 'error');
 			return false;        
         }
         // create target resource
@@ -660,12 +677,14 @@ class GD2 extends genericImageLib{
             $targetWidth, $targetHeight,
             $sourceWidth, $sourceHeight
         )){
-		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source);
+		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source);
+		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source, 'error');
 		return false;  
 		}	
         // write the image
         if( !imagejpeg( $targetImg, $target, $rsgConfig->get('jpegQuality'))){
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').': '.$target);
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').': '.$target);
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').': '.$target, 'error');
 			return false; 
 		}
         //Free up memory
@@ -732,7 +751,8 @@ class GD2 extends genericImageLib{
         //Resize the image
         $thumb = imagecreatetruecolor($width , $height);
         if ( !imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig)){
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').": ".$source);
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').": ".$source);
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').": ".$source, 'error');
             return false;
         }
         //Create the cropped thumbnail
@@ -740,14 +760,16 @@ class GD2 extends genericImageLib{
         $h1 = ($height/2) - ($t_height/2);
         $thumb2 = imagecreatetruecolor($t_width , $t_height);
         if ( !imagecopyresampled($thumb2, $thumb, 0,0, $w1, $h1, $t_width , $t_height ,$t_width, $t_height) ){
-            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE').": ".$source);
+            //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE').": ".$source);
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE').": ".$source, 'error');
             return false;
 		}
         
         // write the image
         if( !imagejpeg( $thumb2, $target, $rsgConfig->get('jpegQuality'))) {
-            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target);
-            return false;
+            //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target);
+ 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target, 'error');
+           return false;
         } else {
         	//Free up memory
         	imagedestroy($thumb);
@@ -978,7 +1000,7 @@ class waterMarker extends GD2 {
 	 * Function creates file name of watermarked image using MD5 on name
 	 * Three functions exists for the access of the filename to do the MD5 just once
 	 * @param string $imagename Name of the image in question
-	 * @param string $imagetypeImage type is either 'display' or 'original' and will precide the output filename
+	 * @param string $imagetype Image type is either 'display' or 'original' and will precide the output filename
 	 * @return string MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
      * @throws Exception
      */

@@ -34,6 +34,13 @@ Legend:
 		 
 ---------------- Recent ----------------
 
+* --------------- 4.0.8 -- 2015-05-15 -------------
+15.05.2015 finnern
+
+    Fixed: My galleries in frontend: Users can't change the information of galleries or images. Button "Save" is activated
+    User confirmation for buttons "purge tables" and "Remove RSGallery2 tables" in control panel when debug state is active
+
+* --------------- 4.0.?7? -- 2015-04-12 -------------
 12.04.2015 finnern
 Sources moved to github
 

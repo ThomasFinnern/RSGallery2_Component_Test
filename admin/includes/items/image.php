@@ -26,6 +26,12 @@ class rsgItem_image extends rsgItem{
 	 */
 	var $original = null;
 
+    /**
+     * @param mixed|null $type
+     * @param $mimetype
+     * @param $gallery
+     * @param $row
+     */
 	function __construct( $type, $mimetype, &$gallery, $row){
 		parent::__construct( $type, $mimetype, $gallery, $row );
 		

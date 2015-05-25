@@ -362,6 +362,8 @@ class rsgGallery extends JObject{
 		}
 		
 		$this->hits++;
+
+        return true;
 	}
 
 	/**

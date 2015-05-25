@@ -444,7 +444,7 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_VIDEO_CONVERTER_PATH') ?></td>
 								<td>
 									<input class="text_area" type="text" name="videoConverter_path" size="50" value="<?php echo $config->videoConverter_path;?>"/>
-									<?php echo JText::_('COM_RSGALLERY2_PAREN_EXAMPLE') ?></td>
+									<?php echo JText::_('COM_RSGALLERY2_PAREN_EXAMPLE') ?>
 								</td>
 							</tr>
 							<tr>

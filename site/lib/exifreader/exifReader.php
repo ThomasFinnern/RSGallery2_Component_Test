@@ -428,10 +428,12 @@ class phpExifReader {
     /**
      * Processes the whole file.
      *
+     * @return bool|void
      */
     function processFile() {
         /** dont reparse the whole file. */
-        if(!$this->newFile) return true;
+        if(!$this->newFile)
+            return true;
         
         if(!file_exists($this->file)) {
             echo "<br>".JText::_('COM_RSGALLERY2_ERROR_FILE_DOES_NOT_EXIST').($this->file);
@@ -623,6 +625,8 @@ class phpExifReader {
         }
         fclose($fp);
         $this->newFile = 0;
+
+        return true;
     }
 
     /**

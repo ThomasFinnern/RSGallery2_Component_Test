@@ -12,7 +12,7 @@
 	</tr>
 	<tr>
 		<td>
-			<textarea style="width:100%;height:500px" cols="110" rows="25" name="csscontent" class="inputbox"><?php echo $this->item->content; ?></textarea>
+			<textarea style="width:100%;height:500px;" cols="110" rows="25" name="csscontent" class="inputbox"><?php echo $this->item->content; ?></textarea>
 		</td>
 	</tr>
 	</table>

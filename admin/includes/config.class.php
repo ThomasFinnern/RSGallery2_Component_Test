@@ -147,7 +147,7 @@ class rsgConfig {
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
         //$this->version = '3.2.0';
-        $this->version = '4.0.7';
+        $this->version = '4.0.8';
 
         if( $loadFromDB )
             $this->_loadConfig();
@@ -183,6 +183,15 @@ class rsgConfig {
 			return $this->rsgBindArrayToObject( $array, $this, $ignore );
 		}
 	}
+
+    /**
+     * @param $array
+     * @param $obj
+     * @param string $ignore
+     * @param null $prefix
+     * @param bool $checkSlashes
+     * @return bool
+     */
 	static function rsgBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
 	{
 		if (!is_array( $array ) || !is_object( $obj )) {
@@ -315,7 +324,7 @@ class rsgConfig {
     }
     
     /**
-     * @param string $varnamename of variable
+     * @param string $varname name of variable
      * @return mixed the default value of requested variable
      */
     static function getDefault( $varname ){

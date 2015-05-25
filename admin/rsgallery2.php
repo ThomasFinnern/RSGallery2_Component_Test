@@ -51,7 +51,9 @@ require_once JPATH_COMPONENT.'/helpers/rsgallery2.php';
 $canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 $canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 if (!$canManage) {
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+    JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+	return;	// 150518 Does not return JError::raiseWarning object $error 
 }
 
 $document = JFactory::getDocument();
@@ -262,7 +264,9 @@ function purgeEverything(){
 	//Access check
 	$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 	if (!$canAdmin) {
-		return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		return;	// 150518 Does not return JError::raiseWarning object $error 		
 	} else {
 		$fullPath_thumb = JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/';
 		$fullPath_display = JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/';
@@ -309,7 +313,9 @@ function reallyUninstall(){
     //Access check
 	$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 	if (!$canAdmin) {
-		return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		return;	// 150518 Does not return JError::raiseWarning object $error 
 	} else {
 		passthru( "rm -r ".JPATH_SITE."/images/rsgallery");
 		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_USED_RM_-R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY') );

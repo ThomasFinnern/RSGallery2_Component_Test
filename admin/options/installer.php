@@ -13,7 +13,8 @@ defined('_JEXEC') or die();
 // Only those with core.manage can get here via $rsgOption = installer
 // Check if core.admin is allowed
 if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
-	JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+    JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 	return;
 } else {
 	define( 'rsgOptions_installer_path', $rsgOptions_path . 'templateManager' );

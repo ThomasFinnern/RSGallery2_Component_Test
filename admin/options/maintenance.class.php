@@ -65,6 +65,9 @@ class rsg2_maintenance {
     }
 }
 
+/**
+ * Class rsg2_consolidate
+ */
 class rsg2_consolidate extends rsg2_maintenance {
 
 	/**

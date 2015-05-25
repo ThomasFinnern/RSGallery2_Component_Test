@@ -57,7 +57,7 @@ class rsgImagesItem extends JTable {
 	var $asset_id = null;
 
 	/**
-	* @param database A database connector object
+	* @param $db database A database connector object
 	*/
 	function __construct( &$db ) {
 		parent::__construct( '#__rsgallery2_files', 'id', $db );

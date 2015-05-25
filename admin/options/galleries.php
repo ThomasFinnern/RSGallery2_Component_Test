@@ -158,6 +158,8 @@ function show(){
     $list = array_slice( $list, $pageNav->limitstart, $pageNav->limit );
 
     html_rsg2_galleries::show( $list, $lists, $search, $pageNav );
+
+    return true;
 }
 
 
@@ -435,7 +437,7 @@ function removeWarn( $cid, $option ) {
 /**
  * Deletes one or more records
  * @param int $cid array An array of unique category id numbers
- * @param string $optionThe current url option
+ * @param string $option The current url option
  * @throws Exception
  */
 function removeReal( $cid, $option ) {
@@ -449,11 +451,12 @@ function removeReal( $cid, $option ) {
 
 /**
  * Publishes or Unpublishes one or more records
- * @param int array $cid An array of unique category id numbers
+ * @param array int $cid An array of unique category id numbers
  * @param int $publish 0 if unpublishing, 1 if publishing
  * @param string $option The current url option
  * @throws Exception
  */
+
 function publish( $cid=null, $publish=1,  $option ) {
 	global $rsgOption;
 	$mainframe =& JFactory::getApplication();

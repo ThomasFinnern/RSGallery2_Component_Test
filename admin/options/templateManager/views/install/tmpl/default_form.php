@@ -1,6 +1,6 @@
 <script language="javascript" type="text/javascript">
 <!--
-	function submitbutton3(pressbutton) {
+	function Joomla.submitbutton3(pressbutton) {
 		var form = document.adminForm;
 
 		// do field validation
@@ -12,7 +12,7 @@
 		}
 	}
 
-	function submitbutton4(pressbutton) {
+	function Joomla.submitbutton4(pressbutton) {
 		var form = document.adminForm;
 
 		// do field validation
@@ -46,7 +46,7 @@
 		</td>
 		<td>
 			<input class="input_box" id="install_package" name="install_package" type="file" size="57" />
-			<input class="button" type="button" value="<?php echo JText::_( 'COM_RSGALLERY2_UPLOAD_FILE' ); ?> &amp; <?php echo JText::_( 'COM_RSGALLERY2_INSTALL' ); ?>" onclick="submitbutton()" />
+			<input class="button" type="button" value="<?php echo JText::_( 'COM_RSGALLERY2_UPLOAD_FILE' ); ?> &amp; <?php echo JText::_( 'COM_RSGALLERY2_INSTALL' ); ?>" onclick="Joomla.submitbutton()" />
 		</td>
 	</tr>
 	</table>
@@ -61,7 +61,7 @@
 		</td>
 		<td>
 			<input type="text" id="install_directory" name="install_directory" class="input_box" size="70" value="<?php echo $this->state->get('install.directory'); ?>" />
-			<input type="button" class="button" value="<?php echo JText::_( 'COM_RSGALLERY2_INSTALL' ); ?>" onclick="submitbutton3()" />
+			<input type="button" class="button" value="<?php echo JText::_( 'COM_RSGALLERY2_INSTALL' ); ?>" onclick="Joomla.submitbutton3()" />
 		</td>
 	</tr>
 	</table>
@@ -76,7 +76,7 @@
 		</td>
 		<td>
 			<input type="text" id="install_url" name="install_url" class="input_box" size="70" value="http://" />
-			<input type="button" class="button" value="<?php echo JText::_( 'COM_RSGALLERY2_INSTALL' ); ?>" onclick="submitbutton4()" />
+			<input type="button" class="button" value="<?php echo JText::_( 'COM_RSGALLERY2_INSTALL' ); ?>" onclick="Joomla.submitbutton4()" />
 		</td>
 	</tr>
 	</table>

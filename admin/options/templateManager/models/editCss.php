@@ -53,11 +53,15 @@ class InstallerModelEditCss extends InstallerModel
 
 		//$content = JFile::read($ini); J3
         // ToDo: Fix undefined variable $ini
-		$content = JFile::file_get_contents($ini);
+        //$content = JFile::file_get_contents($ini);
+        $content = file_get_contents($ini);
 
 		if ($content == false)
 		{
-			JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
+			// JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
+			JFactory::getApplication()->enqueueMessage(
+				JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename)
+				, 'warning');
 		}
 		
 		$item = new stdClass();
@@ -89,7 +93,9 @@ class InstallerModelEditCss extends InstallerModel
 		
 		// Try to make the css file writeable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
-			JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file writable');
+			// ToDo: Translate
+			//JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file writable');
+			JFactory::getApplication()->enqueueMessage('Could not make the css file writable', 'error');
 		}
 		
 		jimport('joomla.filesystem.file');
@@ -97,7 +103,9 @@ class InstallerModelEditCss extends InstallerModel
 		
 		// Try to make the css file unwriteable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
-			JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file unwritable');
+			// ToDo: Translate
+			//JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file unwritable');
+			JFactory::getApplication()->enqueueMessage('Could not make the css file unwritable', 'error');
 		}
 		
 		if($return)

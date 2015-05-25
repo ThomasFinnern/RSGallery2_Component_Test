@@ -15,8 +15,9 @@ require_once( $rsgOptions_path . 'config.html.php' );
 // Only those with core.manage can get here via $rsgOption = config
 // Check if core.admin is allowed
 if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
-	JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
-	return;
+	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+    JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+	return;	// 150518 Does not return JError::raiseWarning object $error 
 } else {
 	switch( $task ){
 		case 'cancel';

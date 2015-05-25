@@ -437,7 +437,7 @@ class Securimage
      * exit;
      * </code>
      */
-    public static function show($background_image = '')
+    public function show($background_image = '')
     {
         if($background_image != '' && is_readable($background_image)) {
             $this->bgimg = $background_image;
@@ -459,7 +459,7 @@ class Securimage
      * }
      * </code>
      */
-    public static function check($code)
+    public function check($code)
     {
         $this->code_entered = $code;
         $this->validate();
@@ -475,7 +475,7 @@ class Securimage
      * exit;
      * </code>
      */
-    public static function outputAudioFile()
+    public function outputAudioFile()
     {
         $ext = 'wav'; // force wav - mp3 is insecure
         
@@ -496,7 +496,7 @@ class Securimage
     /**
      * The main image drawing routing, responsible for constructing the entire image and serving it
      */
-    protected static function doImage()
+    protected function doImage()
     {
         if( ($this->use_transparent_text == true || $this->bgimg != '') && function_exists('imagecreatetruecolor')) {
             $imagecreate = 'imagecreatetruecolor';

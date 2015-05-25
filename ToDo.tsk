@@ -6,7 +6,6 @@
 //   '*': Standard (8)
 //   '+': Nice to have (16)
 //   '!': Error (32)
-- ToDo: **++::Edit see book
 - ToDo: **++::JRequest::setVar replace with ...
 - ToDo: **+++:: search for ToDo: deprecated 
 - ToDo: **+::JParameter ? $this->params = new JParameter($content, $xml, 'template'); wrong parameter number ? 

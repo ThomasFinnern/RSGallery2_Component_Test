@@ -9,7 +9,10 @@ JLog::add('==> base.controller.php ');
 
 // import Joomla controller library
 jimport('joomla.application.component.controller');
- 
+
+/**
+ * Class Rsgallery2Controller
+ */
 class Rsgallery2Controller extends JControllerLegacy
 {
     // protected $default_view = 'rsg2s';

@@ -20,18 +20,18 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '4.0.7';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '4.0.8';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
     var $DEV_STATUS = 'dev';
     /** @var int Sub Release Level */
     var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
     /** @var int build Number */
     // var $BUILD      = 'SVN 1098';
-    var $BUILD      = 'SVN 1117';
+    var $BUILD      = 'GitHub';
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '10 Jan 2015';
+    var $RELDATE    = '24 May 2015';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */
@@ -73,13 +73,18 @@ class rsgalleryVersion {
     
     /**
      * checks if checked version is lower, equal or higher that the current version
+     * @param $version
      * @return int -1 (lower), 0 (equal) or 1 (higher)
      */
     function checkVersion($version) {
         $check = version_compare($version, $this->RELEASE .'.'. $this->DEV_LEVEL);
         return $check;
     }
-	//return svn number
+
+    /**
+     * return svn number
+     * @return int
+     */
 	function getSVNonly() {
 		return $this->BUILD;
 	}

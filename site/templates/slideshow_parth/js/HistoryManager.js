@@ -32,7 +32,6 @@ var HistoryManager = {
 		observeDelay: 100,
 		stateSeparator: ';',
 		iframeSrc: 'blank.html',
-		onStart: function(){}, // Class.empty,
 		onRegister: function(){}, // Class.empty,
 		onUnregister: function(){}, // Class.empty,
 		onStart: function(){}, // Class.empty,
@@ -68,13 +67,15 @@ var HistoryManager = {
 	 * @param	{Object} options
 	 */
 	initialize: function(options) {
-		if (this.modules) return this;
+		if (this.modules)
+            return this;
 		this.setOptions(options);
 		this.modules = $H({});
 		this.count = history.length;
 		this.states = [];
 		this.states[this.count] = this.getHash();
 		this.state = null;
+
 		return this;
 	},
 

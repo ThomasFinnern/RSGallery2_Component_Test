@@ -164,7 +164,7 @@ class html_rsg2_galleries{
                                     ?>
 
                                     <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$row->id); ?>" >
-                                        <img src="<?php echo 'templates/bluestork/images/j_arrow.png';?>"  style="margin: 0px 20px" alt="<?php echo JText::_('COM_RSGALLERY2_ITEMS'); ?>" />
+                                        <img src="<?php echo 'templates/bluestork/images/j_arrow.png';?>" style="margin: 0px 20px;" alt="<?php echo JText::_('COM_RSGALLERY2_ITEMS'); ?>" />
                                     </a>
 
                                 </td>
@@ -183,7 +183,7 @@ class html_rsg2_galleries{
                                     </span>
                                 </td>
                                 <td colspan="2" align="center">
-                                    <input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+                                    <input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center;" />
                                 </td>
                                 <td align="center">
                                     <?php $gallery = rsgGalleryManager::get( $row->id ); echo $gallery->itemCount()?>
@@ -334,6 +334,8 @@ class html_rsg2_galleries{
 				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_GALLERY_NAME');?>" );
 				return;
 			}
+
+            return;
 		}
 	
 		function selectAll() {

@@ -156,7 +156,7 @@ class html_rsg2_images {
 									</span>
 								</td>
 								<td colspan="2" align="center">
-								<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+								<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center;" />
 								</td>
 								<td>
 									<?php 	if ($can['EditGallery']) { ?>
@@ -208,7 +208,7 @@ class html_rsg2_images {
 	*/
     // 	html_rsg2_images::editImage( $row, $lists, $params, $option );
 
-    static function editImage( &$row, &$lists, &$params, $option ) {
+	static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
 		jimport("joomla.filter.output");
 		JHtml::_('behavior.formvalidation');
@@ -308,7 +308,7 @@ class html_rsg2_images {
 								</tr>
 							<?php } ?>
 							<tr>
-								<td valign="top" align="right" witdth="20%">
+								<td valign="top" align="right" width="20%">
 									<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
 								</td width="80%">
 								<td>
@@ -397,45 +397,22 @@ class html_rsg2_images {
 							<tr>
 								<td>
 									<!-- Note: ToDo: the $params->render is not available in J3
-                                    ///JForm has no render method as used in images.html.php line  343
-                                    -->
-                                    <?php //echo $params->render();?>
-                                    <?php
-                                        foreach ($params->getFieldsets() as $name => $fieldset) {
-                                            $OutTxt = "";
+										(administrator/components/com_rsgallery2/options/images.html.php line 344) 
+										
+									///Try this for J3:
+/*$params2 = new JForm('params');
+$params2->loadFile($file);///var_dump($row);
+$params2->bind( $row->params );
 
-                                            foreach ($params->getFieldset($name) as $field) {
-                                                $LabelId = $field->label;
-                                                $Input = $field->input;
-                                                $Description = $field->description;
-                                                // <label id="paramslink_text-lbl" for="paramslink_text" class="hasTip" title="Link Text::Text für den Link">Link Text</label>
-                                                $OutTxt += '<label id="'.$LabelId.'-lbl" for="params'.$LabelId.'"  class="hasTip" title="'.$LabelId;
-												$OutTxt += '::'.$Description.'">'.$Input.'</label>';
-                                                // <input type="text" name="params[link_text]" id="paramslink_text" value="" class="text_area"
-
-
-
-
-                                            }
-
-                                            echo $OutTxt;
-                                        }
-
-
-
-                                            <label id="paramslink-lbl" for="paramslink" class="hasTip"
-                                                title="Link::Wenn das Bild in einem Tamplate geklickt wird (!), gehe zu diesem Link.">Link</label>
-<input type="text" name="params[link]" id="paramslink" value="" class="text_area"  />
-
-                                                <input type="text" name="params[link]" id="paramslink" value="" class="text_area"  />
-                                                <div class="control-group">
-                                                    <div class="control-label"><?php echo $field->label; ?></div>
-                                                    <div class="controls"><?php echo $field->input; ?></div>
-                                                </div>
-                                            <?php endforeach;
-                                        endforeach;
-                                    ?>
-                                    &nbsp;
+$fields = $params2->getFieldset('params');
+foreach( $fields AS $field => $obj ){
+  echo $params2->getLabel( $field, null );
+  echo $params2->getInput( $field, null, null );	
+}*/
+///JForm has no render method as used in images.html.php line  343	
+										
+										-->
+									<?php //echo $params->render();?>&nbsp;
 								</td>
 							</tr>
 						</table>
@@ -714,87 +691,90 @@ class html_rsg2_images {
 
             <div class="clearfix"> </div>
         <table width="100%">
-        <tr>
-            <!-- td width="50">&nbsp;</td-->
-            <td>
-				<th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th>
-                <table class="adminform">
-                <tr>
-                    <!-- th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th -->
-					<td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td width="200">
-                        <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
-                        <?php
-                            echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
-                        ?>
-                    </td>
-                    <td width="200">
-                        <input type="radio" value="zip" name="batchmethod" CHECKED/>
-                        <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?>
-                    </td>
-                    <td width="60%">
-                        <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />
-                        <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="200">&nbsp;
-					</td>
-                    <td width="200">
-                        <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH')); ?>
-                    </td>
-                    <td>
-						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE.DS; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="200">&nbsp;
-					</td>
-                    <td width="200">&nbsp;
-					<td width="60%">
-                        <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
-                            padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
-                        <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
-                            <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">&nbsp;<br /></td>
-					<td>&nbsp;</td>
-                </tr>
-                <tr>
-                <td valign="top"><strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY');?></strong></td>
-                    <td valign="top">
-                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>&nbsp;
-                    </td>
-                    <td valign="top">
-                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0, true);?>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td colspan="2"><input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2'); ?></td>
-                </tr>
-                <tr>
-                    <td colspan="3">&nbsp;<br /></td>
-                </tr>
-                <tr class="row1">
+            <tr>
+                <!-- td width="50">&nbsp;</td-->
+                <td>
                     <th colspan="3">
-                        <div align="center" style="visibility: hidden;">
-                        <input type="button" name="something" value="<?php echo JText::_('COM_RSGALLERY2_NEXT_ARROW');?>" onClick="submitbutton('batchupload');" />
-                        </div>
+                        <font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font>
+                    </th>
+                    <table class="adminform">
+                    <tr>
+                        <!-- th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th -->
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td width="200">
+                            <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
+                            <?php
+                                echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
+                            ?>
+                        </td>
+                        <td width="200">
+                            <input type="radio" value="zip" name="batchmethod" CHECKED/>
+                            <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?>
+                        </td>
+                        <td width="60%">
+                            <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="200">&nbsp;</td>
+                        <td width="200">
+                            <input type="radio" value="ftp" name="batchmethod" />
+                            <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH')); ?>
+                        </td>
+                        <td>
+                            <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE.DS; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="200">&nbsp;</td>
+                        <td width="60%">
+                            <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
+                                padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
+                            <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
+                                <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;<br /></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY');?></strong>
+                        </td>
+                        <td valign="top">
+                            <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>&nbsp;
+                        </td>
+                        <td valign="top">
+                            <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0, true);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="2">
+                            <input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2'); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;<br /></td>
+                    </tr>
+                    <tr class="row1">
+                        <th colspan="3">
+                            <div align="center" style="visibility: hidden;">
+                                <input type="button" name="something" value="<?php echo JText::_('COM_RSGALLERY2_NEXT_ARROW');?>" onClick="Joomla.submitbutton('batchupload');" />
+                            </div>
                         </th>
-                </tr>
-                </table>
-            </td>
-            <td width="300">&nbsp;</td>
-        </tr>
+                    </tr>
+                    </table>
+                </td>
+                <td width="300">&nbsp;</td>
+            </tr>
         </table>
         <input type="hidden" name="uploaded" value="1" />
         <input type="hidden" name="option" value="com_rsgallery2" />
